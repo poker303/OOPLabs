@@ -7,6 +7,7 @@ namespace Isu.Services
     {
         private const int MaxCountOfStudents = 22;
         private int _studentsPerGroup;
+
         public Group(string groupName)
         {
             if (groupName.Length != 5)
