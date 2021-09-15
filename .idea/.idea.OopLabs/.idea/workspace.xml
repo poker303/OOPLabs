@@ -11,9 +11,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90abec19-b1d0-448c-8661-f3bc54c11073" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Isu/Services/Group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Isu/Services/Group.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Isu.Tests/Isu.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Isu.Tests/Isu.Tests.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shops/ProductsInTheShop.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shops/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shops/Shop.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shops/Shops.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Shops/Shops.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,7 +206,7 @@
       <workItem from="1631715838365" duration="830000" />
       <workItem from="1631717924268" duration="5320000" />
       <workItem from="1631728101467" duration="2791000" />
-      <workItem from="1631731295339" duration="1546000" />
+      <workItem from="1631731295339" duration="2612000" />
     </task>
     <servers />
   </component>
