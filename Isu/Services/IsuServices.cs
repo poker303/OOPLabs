@@ -10,12 +10,13 @@ namespace Isu.Services
         {
             // var course = new CourseNumber(int.Parse(string.Concat(name[2])));
             var newGroup = new Group(name);
+            _allGroups.Add(newGroup);
             return newGroup;
         }
 
         public Student AddStudent(Group group, string name)
         {
-            var newStudent = new Student(group.GroupName, name);
+            var newStudent = new Student(group, name);
             group.AddPerson(newStudent);
             return newStudent;
         }
@@ -65,9 +66,9 @@ namespace Isu.Services
 
         public void ChangeStudentGroup(Student student, Group newGroup)
         {
-            foreach (Group n in _allGroups.Where(n => student.GroupName == n.GroupName))
+            foreach (Group n in _allGroups.Where(n => student.GroupName == n))
             {
-                newGroup.ShiftingPerson(student, n);
+                newGroup.MovePerson(student, n);
                 return;
             }
         }

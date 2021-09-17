@@ -26,11 +26,11 @@ namespace Isu.Services
             }
 
             this.GroupName = groupName;
-            this.CourseNumber = new CourseNumber(groupName[2]);
+            this.CourseNumber = new CourseNumber(groupName[2] - '0');
             this.Students = new List<Student>();
         }
 
-        public List<Student> Students { get; set; }
+        public List<Student> Students { get; }
         public CourseNumber CourseNumber { get; }
         public string GroupName { get; set; }
 
@@ -47,11 +47,11 @@ namespace Isu.Services
             }
         }
 
-        public void DisposalPerson(Student person) { Students.Remove(person); }
+        public void ExcludePerson(Student person) { Students.Remove(person); }
 
-        public void ShiftingPerson(Student person, Group oldGroup)
+        public void MovePerson(Student person, Group oldGroup)
         {
-            oldGroup.DisposalPerson(person);
+            oldGroup.ExcludePerson(person);
             AddPerson(person);
         }
     }

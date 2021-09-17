@@ -1,12 +1,21 @@
-﻿namespace Isu.Services
+﻿using Isu.Tools;
+
+namespace Isu.Services
 {
     public class CourseNumber
     {
         public CourseNumber(int courseNum)
         {
-            this.CourseNum = courseNum;
+            if ((courseNum >= 1) && (courseNum <= 4))
+            {
+                this.CourseNum = courseNum;
+            }
+            else
+            {
+                throw new InvalidCourseNumberException();
+            }
         }
 
-        private int CourseNum { get;  }
+        private int CourseNum { get; }
     }
 }
