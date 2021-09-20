@@ -66,7 +66,7 @@ namespace Isu.Services
 
         public void ChangeStudentGroup(Student student, Group newGroup)
         {
-            foreach (Group n in _allGroups.Where(n => student.NameOfStudentGroup == n))
+            foreach (Group n in _allGroups.Where(n => student.Group == n))
             {
                 newGroup.MovePerson(student, n);
                 return;
