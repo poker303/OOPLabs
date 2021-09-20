@@ -4,15 +4,15 @@
     {
         private static int _totalId;
 
-        public Student(Group nameOfStudentGroup, string nameOfStudent)
+        public Student(Group nameOfStudentGroup, string name)
         {
-            this.NameOfStudent = nameOfStudent;
+            this.Name = name;
             this.NameOfStudentGroup = nameOfStudentGroup;
             this.Id = ++_totalId;
         }
 
-        public string NameOfStudent { get; set;  }
+        public string Name { get; private set;  }
         public Group NameOfStudentGroup { get; }
-        public int Id { get; set;  }
+        public int Id { get; private set;  }
     }
 }

@@ -41,7 +41,7 @@ namespace Isu.Services
 
         public Student FindStudent(string name)
         {
-            return _allGroups.SelectMany(n => n.Students).FirstOrDefault(a => a.NameOfStudent == name);
+            return _allGroups.SelectMany(n => n.Students).FirstOrDefault(a => a.Name == name);
         }
 
         public List<Student> FindStudents(string groupName)
