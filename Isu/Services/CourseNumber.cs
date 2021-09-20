@@ -6,14 +6,12 @@ namespace Isu.Services
     {
         public CourseNumber(int courseNum)
         {
-            if ((courseNum >= 1) && (courseNum <= 4))
-            {
-                this.CourseNum = courseNum;
-            }
-            else
+            if ((courseNum < 1) || (courseNum > 4))
             {
                 throw new InvalidCourseNumberException();
             }
+
+            this.CourseNum = courseNum;
         }
 
         private int CourseNum { get; }

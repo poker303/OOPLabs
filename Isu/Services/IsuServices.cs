@@ -41,7 +41,7 @@ namespace Isu.Services
 
         public Student FindStudent(string name)
         {
-            return _allGroups.SelectMany(n => n.Students).FirstOrDefault(a => a.Name == name);
+            return _allGroups.SelectMany(n => n.Students).FirstOrDefault(a => a.NameOfStudent == name);
         }
 
         public List<Student> FindStudents(string groupName)
@@ -66,7 +66,7 @@ namespace Isu.Services
 
         public void ChangeStudentGroup(Student student, Group newGroup)
         {
-            foreach (Group n in _allGroups.Where(n => student.GroupName == n))
+            foreach (Group n in _allGroups.Where(n => student.NameOfStudentGroup == n))
             {
                 newGroup.MovePerson(student, n);
                 return;
