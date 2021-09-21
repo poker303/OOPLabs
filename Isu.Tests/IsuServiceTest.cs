@@ -1,3 +1,4 @@
+using System.Linq;
 using Isu.Services;
 using Isu.Tools;
 using NUnit.Framework;
@@ -20,7 +21,7 @@ namespace Isu.Tests
         {
             Group timeGroup = _isuService.AddGroup("M3204");
             Student timeStudent = _isuService.AddStudent(timeGroup, "Ivanov Alexey Alexandrovich");
-            Assert.Contains(timeStudent, timeGroup.Students);
+            Assert.Contains(timeStudent, timeGroup.StudentsOfGroup.ToList() );
         }
 
         [Test]
@@ -56,7 +57,7 @@ namespace Isu.Tests
             Group newGroup = _isuService.AddGroup("M3255");
             Student testStudent = _isuService.AddStudent(oldGroup, "Testovei Personage");
             _isuService.ChangeStudentGroup(testStudent, newGroup);
-            Assert.Contains(testStudent, newGroup.Students);
+            Assert.Contains(testStudent, newGroup.StudentsOfGroup.ToList());
         }
     }
 }

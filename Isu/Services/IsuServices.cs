@@ -6,6 +6,7 @@ namespace Isu.Services
     public class IsuServices : IIsuService
     {
         private List<Group> _allGroups = new List<Group>();
+
         public Group AddGroup(string name)
         {
             // var course = new CourseNumber(int.Parse(string.Concat(name[2])));
@@ -36,22 +37,23 @@ namespace Isu.Services
             //         }
             //     }
             // }
-            return _allGroups.SelectMany(n => n.Students).FirstOrDefault(a => a.Id == id);
+            return _allGroups.SelectMany(n => n.StudentsOfGroup.ToList()).FirstOrDefault(a => a.Id == id);
         }
 
         public Student FindStudent(string name)
         {
-            return _allGroups.SelectMany(n => n.Students).FirstOrDefault(a => a.Name == name);
+            return _allGroups.SelectMany(n => n.StudentsOfGroup.ToList()).FirstOrDefault(a => a.Name == name);
         }
 
         public List<Student> FindStudents(string groupName)
         {
-            return (from n in _allGroups where n.GroupName == groupName select n.Students).FirstOrDefault();
+            return (from n in _allGroups where n.GroupName == groupName select n.StudentsOfGroup.ToList()).FirstOrDefault();
         }
 
         public List<Student> FindStudents(CourseNumber courseNumber)
         {
-            return _allGroups.Where(n => n.CourseNumber == courseNumber).SelectMany(n => n.Students).ToList();
+            return _allGroups.Where(n => n.CourseNumber == courseNumber).SelectMany(
+                n => n.StudentsOfGroup.ToList()).ToList();
         }
 
         public Group FindGroup(string groupName)

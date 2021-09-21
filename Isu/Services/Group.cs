@@ -33,11 +33,16 @@ namespace Isu.Services
             this.GroupName = groupName;
             this.CourseNumber = new CourseNumber(groupName[2] - '0');
             this.Students = new List<Student>();
+            this.StudentsOfGroup = Students.AsReadOnly();
+
+            // readonly Students List<Student>();
         }
 
-        public List<Student> Students { get; }
+        public IList<Student> StudentsOfGroup { get; }
         public CourseNumber CourseNumber { get; }
         public string GroupName { get; set; }
+
+        private List<Student> Students { get; }
 
         public void AddPerson(Student person)
         {
