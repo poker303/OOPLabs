@@ -11,8 +11,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90abec19-b1d0-448c-8661-f3bc54c11073" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Isu/Services/IsuServices.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Isu/Services/IsuServices.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Isu/Isu.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Isu/Isu.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Isu/Services/Group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Isu/Services/Group.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Isu/Services/Student.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Isu/Services/Student.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Isu/Tools/InvalidGroupNameException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Isu/Tools/InvalidGroupNameException.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,7 +211,8 @@
       <workItem from="1631736950630" duration="55000" />
       <workItem from="1631898795622" duration="9265000" />
       <workItem from="1632116864102" duration="712000" />
-      <workItem from="1632152684225" duration="1091000" />
+      <workItem from="1632152684225" duration="1860000" />
+      <workItem from="1632240866599" duration="4106000" />
     </task>
     <task id="LOCAL-00001" summary="ThirdTry">
       <created>1631735061916</created>

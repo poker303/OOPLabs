@@ -6,23 +6,28 @@ namespace Isu.Services
     public class Group
     {
         private const int MaxCountOfStudents = 22;
-        private int _studentsPerGroup;
 
         public Group(string groupName)
         {
             if (groupName.Length != 5)
             {
-                throw new InvalidGroupLengthException();
+                throw new InvalidGroupNameException("The group has the wrong length");
+
+                // throw new InvalidGroupLengthException();
             }
 
             if (groupName[2] - '0' < 1 || groupName[2] - '0' > 4)
             {
-                throw new IncorrectOrderOfDigitsException();
+                throw new InvalidGroupNameException("The group has an invalid course");
+
+                // throw new IncorrectOrderOfDigitsException();
             }
 
             if (!char.IsUpper(groupName[0]) || !int.TryParse(groupName.Substring(1), out int _))
             {
-                throw new InvalidGroupNameException();
+                throw new InvalidGroupNameException("The group can't have such name");
+
+                // throw new InvalidGroupNameException();
             }
 
             this.GroupName = groupName;
@@ -36,15 +41,12 @@ namespace Isu.Services
 
         public void AddPerson(Student person)
         {
-            if (_studentsPerGroup >= MaxCountOfStudents)
+            if (Students.Count >= MaxCountOfStudents)
             {
                 throw new LimitStudentsIsuException();
             }
-            else
-            {
-                ++_studentsPerGroup;
-                Students.Add(person);
-            }
+
+            Students.Add(person);
         }
 
         public void ExcludePerson(Student person) { Students.Remove(person); }

@@ -24,6 +24,8 @@
 
   <ItemGroup>
     <Compile Remove="Services\Pair.cs" />
+    <Compile Remove="Tools\IncorrectOrderOfDigitsException.cs" />
+    <Compile Remove="Tools\InvalidGroupLengthException.cs" />
   </ItemGroup>
 
 </Project>

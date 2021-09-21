@@ -57,6 +57,9 @@ namespace Isu.Services
         public Group FindGroup(string groupName)
         {
             return _allGroups.FirstOrDefault(a => a.GroupName == groupName);
+
+            // return _allGroups.Where(a => a.GroupName == groupName).First();
+            // return _allGroups.First(a => a.GroupName == groupName);
         }
 
         public List<Group> FindGroups(CourseNumber courseNumber)

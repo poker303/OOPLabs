@@ -13,6 +13,6 @@
 
         public string Name { get; private set;  }
         public Group Group { get; }
-        public int Id { get; private set;  }
+        public int Id { get; }
     }
 }
