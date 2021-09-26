@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <WarningLevel>5</WarningLevel>
+    <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
@@ -20,6 +20,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Services\Pair.cs" />
+    <Compile Remove="Tools\IncorrectOrderOfDigitsException.cs" />
+    <Compile Remove="Tools\InvalidGroupLengthException.cs" />
   </ItemGroup>
 
 </Project>
