@@ -17,11 +17,7 @@
   <component name="ChangeListManager">
     <list default="true" id="90abec19-b1d0-448c-8661-f3bc54c11073" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shops.Tests/ShopTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops.Tests/ShopTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shops/Services/Person.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops/Services/Person.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shops/Services/Product.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops/Services/Product.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shops/Services/Shop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops/Services/Shop.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shops/Services/ShopManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops/Services/ShopManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shops/Shops.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Shops/Shops.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -330,7 +326,7 @@
       <workItem from="1633240597039" duration="15591000" />
       <workItem from="1633260862061" duration="49000" />
       <workItem from="1633266189749" duration="2909000" />
-      <workItem from="1633276468786" duration="4664000" />
+      <workItem from="1633276468786" duration="5367000" />
     </task>
     <task id="LOCAL-00001" summary="ThirdTry">
       <created>1631735061916</created>
