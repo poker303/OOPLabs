@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Net.Security;
+using System.Linq;
 using Shops.Tools;
 
 namespace Shops.Services
@@ -11,41 +11,33 @@ namespace Shops.Services
         {
             Shops = new List<Shop>();
 
-            // Products = new List<Product>();
             NamesOfProducts = new List<string>();
 
             ShopsPrices = new Dictionary<Shop, int>();
         }
 
         public List<Shop> Shops { get; set; }
-
-        // public List<Product> Products { get; set; }
         public List<string> NamesOfProducts { get; set; }
 
         public Dictionary<Shop, int> ShopsPrices { get; set; }
 
         public void RegisterProduct(string name)
         {
-            // foreach (Product a in Products)
-            // {
-            //     if (a.NameOfProduct == name)
-            //     {
-            //     }
-            //     else
-            //     {
-            //         Product added_product = new Product(name, 0, 0);
-            //         Products.Add(added_product);
-            //     }
-            // }
             if (!NamesOfProducts.Contains(name))
             {
                 NamesOfProducts.Add(name);
             }
         }
 
+        // public void AdditionalRegisterProduct(List<string> newProducts, Shop chosedShop)
+        // {
+        //     foreach (string t in newProducts.Where(t => !chosedShop.AlreadyRegisteredProducts.Contains(t)))
+        //     {
+        //         chosedShop.AlreadyRegisteredProducts.Add(t);
+        //     }
+        // }
         public Shop CreateShop(string shopName, string adress)
         {
-            // Shop.Name = shopName;
             var newshop = new Shop(shopName, adress);
             newshop.Id = _totalId;
             _totalId++;
@@ -66,19 +58,16 @@ namespace Shops.Services
             {
                 foreach (string b in requiredProducts.Keys)
                 {
-                    foreach (Product c in shop.AllProducts)
+                    foreach (Product c in shop.AllProducts.Where(c => b == c.NameOfProduct))
                     {
-                        if (b == c.NameOfProduct)
+                        flag++;
+                        if (requiredProducts[b] <= c.NumbersOfProduct)
                         {
-                            flag++;
-                            if (requiredProducts[b] <= c.NumbersOfProduct)
-                            {
-                                counter += requiredProducts[b] * c.Coast;
-                            }
-                            else
-                            {
-                                throw new ProductNumberException("We don't have enough numbers of product");
-                            }
+                            counter += requiredProducts[b] * c.Coast;
+                        }
+                        else
+                        {
+                            throw new ProductNumberException("We don't have enough numbers of product");
                         }
                     }
 
@@ -94,13 +83,10 @@ namespace Shops.Services
                 counter = 0;
             }
 
-            foreach (Shop shop in Shops)
+            foreach (Shop shop in Shops.Where(shop => ShopsPrices[shop] <= minimalPrice))
             {
-                if (ShopsPrices[shop] <= minimalPrice)
-                {
-                    minimalPrice = ShopsPrices[shop];
-                    result = shop;
-                }
+                minimalPrice = ShopsPrices[shop];
+                result = shop;
             }
 
             return result;

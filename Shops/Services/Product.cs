@@ -11,6 +11,6 @@
 
         public int Coast { get; set; }
         public int NumbersOfProduct { get; set; }
-        public string NameOfProduct { get; set; }
+        public string NameOfProduct { get; }
     }
 }

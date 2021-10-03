@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Shops.Tools;
 
 namespace Shops.Services
 {
     public class Shop
     {
-        // private static int _totalId;
         // private Dictionary<string, int> _buildProducts = new Dictionary<string, int>();
         public Shop(string name, string location)
         {
@@ -14,31 +13,21 @@ namespace Shops.Services
             Location = location;
             Id = default(int);
             MoneyInTheShop = 0;
-
-            // AmountOfOnePurchase = 0;
             AllProducts = new List<Product>();
             AlreadyRegisteredProducts = new List<string>();
         }
 
         public static string Name { get; set; }
-        public string Location { get; set; }
-
+        public string Location { get; }
         public int Id { get; set; }
-
-        public int MoneyInTheShop { get; set; }
-
-        // public int AmountOfOnePurchase { get; set; }
-        public List<Product> AllProducts { get; set; }
+        public int MoneyInTheShop { get; private set; }
+        public List<Product> AllProducts { get; }
         public List<string> AlreadyRegisteredProducts { get; set; }
 
-        // public List<string> BuiedProducts { get; set; }
-        // public List<int> NumbersOfBuiedProducts { get; set; }
-        // private Dictionary<string, int> _buiedProducts = new Dictionary<string, int>();
         public void AddProducts(Product product)
         {
             foreach (Product a in AllProducts)
             {
-                // OldProductCoast = a.Coast;
                 if (product.NameOfProduct == a.NameOfProduct && a.NumbersOfProduct != 0)
                 {
                     a.NumbersOfProduct += product.NumbersOfProduct;
@@ -99,34 +88,27 @@ namespace Shops.Services
         {
             foreach (string a in buildProducts.Keys)
             {
-                foreach (Product b in AllProducts)
+                foreach (Product b in AllProducts.Where(b => a == b.NameOfProduct))
                 {
-                    if (a == b.NameOfProduct)
+                    if (buildProducts[a] <= b.NumbersOfProduct)
                     {
-                        if (buildProducts[a] <= b.NumbersOfProduct)
+                        if (customer1.PersonMoney >= buildProducts[a] * b.Coast)
                         {
-                            if (customer1.PersonMoney >= buildProducts[a] * b.Coast)
-                            {
-                                b.NumbersOfProduct -= buildProducts[a];
-                                MoneyInTheShop += buildProducts[a] * b.Coast;
-                                customer1.PersonMoney -= buildProducts[a] * b.Coast;
-                                customer1.ShoppingСart.Add(a, buildProducts[a]);
+                            b.NumbersOfProduct -= buildProducts[a];
+                            MoneyInTheShop += buildProducts[a] * b.Coast;
+                            customer1.PersonMoney -= buildProducts[a] * b.Coast;
+                            customer1.ShoppingСart.Add(a, buildProducts[a]);
 
-                                // AmountOfOnePurchase += buildProducts[a] * b.Coast;
-                            }
-                            else
-                            {
-                                throw new MoneyException("You don't have enough money to buy this product");
-
-                                // throw MoneyException("You don't have enough money to buy this product");
-                            }
+                            // AmountOfOnePurchase += buildProducts[a] * b.Coast;
                         }
                         else
                         {
-                            throw new ProductNumberException("We don't have enough numbers of product");
-
-                            // throw ProductNumberException("We don't have enough numbers of product");
+                            throw new MoneyException("You don't have enough money to buy this product");
                         }
+                    }
+                    else
+                    {
+                        throw new ProductNumberException("We don't have enough numbers of product");
                     }
                 }
             }
@@ -134,12 +116,9 @@ namespace Shops.Services
 
         public void ChangePrice(string changedProduct, int newCoast)
         {
-            foreach (Product a in AllProducts)
+            foreach (Product a in AllProducts.Where(a => a.NameOfProduct == changedProduct))
             {
-                if (a.NameOfProduct == changedProduct)
-                {
-                    a.Coast = newCoast;
-                }
+                a.Coast = newCoast;
             }
         }
     }

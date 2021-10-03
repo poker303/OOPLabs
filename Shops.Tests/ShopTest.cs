@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Shops.Services;
-using Shops.Tools;
 using NUnit.Framework;
 
 namespace Shops.Tests
@@ -13,7 +12,6 @@ namespace Shops.Tests
         [SetUp]
         public void Setup()
         {
-            //fixed: implement
             _shopManager = new ShopManager();
         }
 
@@ -27,17 +25,17 @@ namespace Shops.Tests
                 new Product ("Juice", 50, 50),
                 new Product ("Cola", 10, 80)
             };
-            for (int i = 0; i < timeNamesOfProducts.Count; i++)
+            foreach (Product t in timeNamesOfProducts)
             {
-                _shopManager.RegisterProduct(timeNamesOfProducts[i].NameOfProduct);
+                _shopManager.RegisterProduct(t.NameOfProduct);
             }
             Shop timeShop = _shopManager.CreateShop("Magnit", "Pskovskay_Street");
             timeShop.AddProducts(timeNamesOfProducts);
             Assert.Contains(timeShop, _shopManager.Shops);
             Assert.Contains(timeNamesOfProducts[0].NameOfProduct, _shopManager.NamesOfProducts);
-            for (int i = 0; i < timeNamesOfProducts.Count; i++)
+            foreach (Product t in timeNamesOfProducts)
             {
-                Assert.Contains(timeNamesOfProducts[i], timeShop.AllProducts);
+                Assert.Contains(t, timeShop.AllProducts);
             }
         }
 
@@ -48,9 +46,9 @@ namespace Shops.Tests
             {
                 new Product ("Water", 100, 39)
             };
-            for (int i = 0; i < timeNamesOfProducts.Count; i++)
+            foreach (Product t in timeNamesOfProducts)
             {
-                _shopManager.RegisterProduct(timeNamesOfProducts[i].NameOfProduct);
+                _shopManager.RegisterProduct(t.NameOfProduct);
             }
             Shop timeShop = _shopManager.CreateShop("Magnit", "Pskovskay_Street");
             // int oldCoast = timeNamesOfProducts[0].Coast;
@@ -72,9 +70,9 @@ namespace Shops.Tests
                 new Product ("Ham", 20, 120),
                 new Product ("Shish", 1000, 20)
             };
-            for (int i = 0; i < timeNamesOfProducts1.Count; i++)
+            foreach (Product t in timeNamesOfProducts1)
             {
-                _shopManager.RegisterProduct(timeNamesOfProducts1[i].NameOfProduct);
+                _shopManager.RegisterProduct(t.NameOfProduct);
             }
             Shop timeShop1 = _shopManager.CreateShop("Magnit", "Pskovskay_Street");
             timeShop1.AddProducts(timeNamesOfProducts1);
@@ -86,9 +84,9 @@ namespace Shops.Tests
                 new Product ("Ham", 20, 100),
                 new Product ("Shish", 1000, 35)
             };
-            for (int i = 0; i < timeNamesOfProducts2.Count; i++)
+            foreach (Product t in timeNamesOfProducts2)
             {
-                _shopManager.RegisterProduct(timeNamesOfProducts2[i].NameOfProduct);
+                _shopManager.RegisterProduct(t.NameOfProduct);
             }
             Shop timeShop2 = _shopManager.CreateShop("Piaterochka", "Lenina_Street");
             timeShop2.AddProducts(timeNamesOfProducts2);
@@ -102,9 +100,9 @@ namespace Shops.Tests
                 new Product ("Salt", 90, 15),
                 new Product ("Cookies", 200, 65),
             };
-            for (int i = 0; i < timeNamesOfProducts3.Count; i++)
+            foreach (Product t in timeNamesOfProducts3)
             {
-                _shopManager.RegisterProduct(timeNamesOfProducts3[i].NameOfProduct);
+                _shopManager.RegisterProduct(t.NameOfProduct);
             }
             Shop timeShop3 = _shopManager.CreateShop("Diksi", "Fovorskogo_Street");
             timeShop3.AddProducts(timeNamesOfProducts3);
@@ -131,9 +129,9 @@ namespace Shops.Tests
                 new Product ("Ham", 20, 120),
                 new Product ("Shish", 1000, 20)
             };
-            for (int i = 0; i < timeNamesOfProducts.Count; i++)
+            foreach (Product t in timeNamesOfProducts)
             {
-                _shopManager.RegisterProduct(timeNamesOfProducts[i].NameOfProduct);
+                _shopManager.RegisterProduct(t.NameOfProduct);
             }
             Shop timeShop = _shopManager.CreateShop("Magnit", "Pskovskay_Street");
             timeShop.AddProducts(timeNamesOfProducts);
@@ -153,12 +151,9 @@ namespace Shops.Tests
                 timeShop.MoneyInTheShop - startShopMoney);
             foreach (string a in timeBuildProducts.Keys)
             {
-                foreach (Product b in timeShop.AllProducts)
+                foreach (Product b in timeShop.AllProducts.Where(b => a == b.NameOfProduct))
                 {
-                    if (a == b.NameOfProduct)
-                    {
-                        Assert.AreEqual(timeBuildProducts[a], testCustomer.ShoppingСart[a]);
-                    }
+                    Assert.AreEqual(timeBuildProducts[a], testCustomer.ShoppingСart[a]);
                 }
             }
         }

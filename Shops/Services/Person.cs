@@ -4,7 +4,6 @@ namespace Shops.Services
 {
     public class Person
     {
-        // private Dictionary<string, int> _shoppingСart = new Dictionary<string, int>();
         public Person(string name, int money)
         {
             PersonName = name;
@@ -12,8 +11,8 @@ namespace Shops.Services
             ShoppingСart = new Dictionary<string, int>();
         }
 
-        public string PersonName { get; set; }
+        public string PersonName { get; }
         public int PersonMoney { get; set; }
-        public Dictionary<string, int> ShoppingСart { get; set; }
+        public Dictionary<string, int> ShoppingСart { get; }
     }
 }
