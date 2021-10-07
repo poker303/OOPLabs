@@ -7,58 +7,69 @@ namespace Shops.Services
     public class ShopManager
     {
         private int _totalId = 1;
+
         public ShopManager()
         {
             Shops = new List<Shop>();
 
-            NamesOfProducts = new List<string>();
+            RegisteredProducts = new List<ProductInTheSystem>();
 
             ShopsPrices = new Dictionary<Shop, int>();
         }
 
-        public List<Shop> Shops { get; set; }
-        public List<string> NamesOfProducts { get; set; }
+        public List<Shop> Shops { get; }
+        public List<ProductInTheSystem> RegisteredProducts { get; }
 
-        public Dictionary<Shop, int> ShopsPrices { get; set; }
+        public Dictionary<Shop, int> ShopsPrices { get; }
 
-        public void RegisterProduct(string name)
+        public void RegisterProduct(List<ProductInTheSystem> productsForRegistration)
         {
-            if (!NamesOfProducts.Contains(name))
+            foreach (ProductInTheSystem a in productsForRegistration.Where(
+                a => !RegisteredProducts.Contains(a)))
             {
-                NamesOfProducts.Add(name);
+                RegisteredProducts.Add(a);
             }
         }
 
-        // public void AdditionalRegisterProduct(List<string> newProducts, Shop chosedShop)
-        // {
-        //     foreach (string t in newProducts.Where(t => !chosedShop.AlreadyRegisteredProducts.Contains(t)))
-        //     {
-        //         chosedShop.AlreadyRegisteredProducts.Add(t);
-        //     }
-        // }
         public Shop CreateShop(string shopName, string adress)
         {
             var newshop = new Shop(shopName, adress);
             newshop.Id = _totalId;
             _totalId++;
 
-            newshop.AlreadyRegisteredProducts = NamesOfProducts;
+            newshop.AlreadyRegisteredProducts = RegisteredProducts;
             Shops.Add(newshop);
             return newshop;
         }
 
-        public Shop MinimalPrice(Dictionary<string, int> requiredProducts)
+        public void AdditionalRegisterProduct(/*Delivery */ List<ProductInTheSystem> newProducts, Shop chosedShop)
+        {
+            foreach (ProductInTheSystem t in newProducts.Where(
+                t => !chosedShop.AlreadyRegisteredProducts.Contains(t)))
+            {
+                chosedShop.AlreadyRegisteredProducts.Add(t);
+            }
+        }
+
+        // public void Delivery(List<Products2> newProducts, Shop chosedShop)
+        // {
+        //     foreach (Products2 t in newProducts.Where(t => !chosedShop.AlreadyRegisteredProducts.Contains(t)))
+        //     {
+        //         chosedShop.AlreadyRegisteredProducts.Add(t);
+        //     }
+        // }
+        public Shop MinimalPrice(Dictionary<ProductInTheSystem, int> requiredProducts)
         {
             Shop result = null;
 
             int flag = 0;
             int counter = 0;
-            double minimalPrice = 1000000000000000;
+            int minimalPrice = int.MaxValue;
             foreach (Shop shop in Shops)
             {
-                foreach (string b in requiredProducts.Keys)
+                foreach (ProductInTheSystem b in requiredProducts.Keys)
                 {
-                    foreach (Product c in shop.AllProducts.Where(c => b == c.NameOfProduct))
+                    foreach (ProductInTheShop c in shop.AllProducts.Where(c => b == c.Product))
                     {
                         flag++;
                         if (requiredProducts[b] <= c.NumbersOfProduct)

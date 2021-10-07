@@ -1,16 +1,16 @@
 ﻿namespace Shops.Services
 {
-    public class Product
+    public class ProductInTheShop
     {
-        public Product(string name, int numbers, int coast)
+        public ProductInTheShop(ProductInTheSystem product, int numbers, int coast)
         {
-            NameOfProduct = name;
+            Product = product;
             NumbersOfProduct = numbers;
             Coast = coast;
         }
 
         public int Coast { get; set; }
         public int NumbersOfProduct { get; set; }
-        public string NameOfProduct { get; }
+        public ProductInTheSystem Product { get; }
     }
 }

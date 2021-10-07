@@ -6,38 +6,37 @@ namespace Shops.Services
 {
     public class Shop
     {
-        // private Dictionary<string, int> _buildProducts = new Dictionary<string, int>();
         public Shop(string name, string location)
         {
             Name = name;
             Location = location;
             Id = default(int);
             MoneyInTheShop = 0;
-            AllProducts = new List<Product>();
-            AlreadyRegisteredProducts = new List<string>();
+            AllProducts = new List<ProductInTheShop>();
+            AlreadyRegisteredProducts = new List<ProductInTheSystem>();
         }
 
         public static string Name { get; set; }
         public string Location { get; }
         public int Id { get; set; }
         public int MoneyInTheShop { get; private set; }
-        public List<Product> AllProducts { get; }
-        public List<string> AlreadyRegisteredProducts { get; set; }
+        public List<ProductInTheShop> AllProducts { get; }
+        public List<ProductInTheSystem> AlreadyRegisteredProducts { get; set; }
 
-        public void AddProducts(Product product)
-        {
-            foreach (Product a in AllProducts)
-            {
-                if (product.NameOfProduct == a.NameOfProduct && a.NumbersOfProduct != 0)
-                {
-                    a.NumbersOfProduct += product.NumbersOfProduct;
-                }
-                else
-                {
-                    AllProducts.Add(product);
-                }
-            }
-        }
+        // public void AddProducts(ProductInTheShop product)
+        // {
+        //     foreach (ProductInTheShop a in AllProducts)
+        //     {
+        //         if (product.Product == a.Product && a.NumbersOfProduct != 0)
+        //         {
+        //             a.NumbersOfProduct += product.NumbersOfProduct;
+        //         }
+        //         else
+        //         {
+        //             AllProducts.Add(product);
+        //         }
+        //     }
+        // }
 
         // public void AddProducts(List<Product> products)
         // {
@@ -66,30 +65,39 @@ namespace Shops.Services
         //         }
         //     }
         // }
-        public void AddProducts(List<Product> products)
+        public void AddProducts(List<ProductInTheShop> products)
         {
-            foreach (Product a in products)
+            foreach (ProductInTheShop a in products)
             {
-                if (AlreadyRegisteredProducts.Contains(a.NameOfProduct))
+                if (AlreadyRegisteredProducts.Contains(a.Product))
                 {
                     if (!AllProducts.Contains(a))
                     {
                         AllProducts.Add(a);
                     }
+                    else
+                    {
+                        foreach (ProductInTheShop b in AllProducts.Where(b => b.Product == a.Product))
+                        {
+                            // foreach (Product b in AllProducts.Where(b => b.NameOfProduct.Id == a.NameOfProduct.Id))
+                            b.NumbersOfProduct += a.NumbersOfProduct;
+                        }
+                    }
                 }
                 else
                 {
-                    throw new RegistrationException("Product has't been registered");
+                    throw new RegistrationException("Product wasn't registered");
                 }
             }
         }
 
-        public void Buy(Person customer1, Dictionary<string, int> buildProducts)
+        public void Buy(Person customer1, Dictionary<ProductInTheSystem, int> buildProducts)
         {
-            foreach (string a in buildProducts.Keys)
+            foreach (ProductInTheSystem a in buildProducts.Keys)
             {
-                foreach (Product b in AllProducts.Where(b => a == b.NameOfProduct))
+                foreach (ProductInTheShop b in AllProducts.Where(b => a == b.Product))
                 {
+                    // foreach (Product b in AllProducts.Where(b => a.Id == b.NameOfProduct.Id))
                     if (buildProducts[a] <= b.NumbersOfProduct)
                     {
                         if (customer1.PersonMoney >= buildProducts[a] * b.Coast)
@@ -114,9 +122,9 @@ namespace Shops.Services
             }
         }
 
-        public void ChangePrice(string changedProduct, int newCoast)
+        public void ChangePrice(ProductInTheSystem changedProduct, int newCoast)
         {
-            foreach (Product a in AllProducts.Where(a => a.NameOfProduct == changedProduct))
+            foreach (ProductInTheShop a in AllProducts.Where(a => a.Product == changedProduct))
             {
                 a.Coast = newCoast;
             }

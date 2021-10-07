@@ -18,22 +18,34 @@ namespace Shops.Tests
         [Test]
         public void AddShop_AddProducts_BuyChecking()
         {
-            var timeNamesOfProducts = new List<Product>()
+            var timeNamesOfProducts = new List<ProductInTheSystem>()
             {
-                new Product ("Water", 100, 39), 
-                new Product ("Bread", 200, 20),
-                new Product ("Juice", 50, 50),
-                new Product ("Cola", 10, 80)
+                new ProductInTheSystem ("Water"), 
+                new ProductInTheSystem ("Bread"),
+                new ProductInTheSystem ("Juice"),
+                new ProductInTheSystem ("Cola")
             };
-            foreach (Product t in timeNamesOfProducts)
-            {
-                _shopManager.RegisterProduct(t.NameOfProduct);
-            }
+            // foreach (Product t in timeNamesOfProducts)
+            // {
+                // _shopManager.RegisterProduct(t.NameOfProduct);
+            // }
+            _shopManager.RegisterProduct(timeNamesOfProducts);
             Shop timeShop = _shopManager.CreateShop("Magnit", "Pskovskay_Street");
-            timeShop.AddProducts(timeNamesOfProducts);
+            var timeShopNamesOfProducts = new List<ProductInTheShop>()
+            {
+                new ProductInTheShop (timeNamesOfProducts[0], 100, 39), 
+                new ProductInTheShop (timeNamesOfProducts[1], 200, 20),
+                new ProductInTheShop (timeNamesOfProducts[2], 50, 50),
+                new ProductInTheShop (timeNamesOfProducts[3], 10, 80)
+            };
+            timeShop.AddProducts(timeShopNamesOfProducts);
             Assert.Contains(timeShop, _shopManager.Shops);
-            Assert.Contains(timeNamesOfProducts[0].NameOfProduct, _shopManager.NamesOfProducts);
-            foreach (Product t in timeNamesOfProducts)
+            foreach (ProductInTheSystem ter in timeNamesOfProducts)
+            {
+                Assert.Contains(ter, _shopManager.RegisteredProducts);
+            }
+
+            foreach (ProductInTheShop t in timeShopNamesOfProducts)
             {
                 Assert.Contains(t, timeShop.AllProducts);
             }
@@ -42,106 +54,116 @@ namespace Shops.Tests
         [Test]
         public void Changing_Coasts()
         {
-            var timeNamesOfProducts = new List<Product>()
+            var timeNamesOfProducts = new List<ProductInTheSystem>()
             {
-                new Product ("Water", 100, 39)
+                new ProductInTheSystem ("Water")
             };
-            foreach (Product t in timeNamesOfProducts)
+            
+            // foreach (Products2 t in timeNamesOfProducts)
+            // {
+            //     _shopManager.RegisterProduct(t.NameOfProduct);
+            // }
+            _shopManager.RegisterProduct(timeNamesOfProducts);
+            var timeShopNamesOfProducts = new List<ProductInTheShop>()
             {
-                _shopManager.RegisterProduct(t.NameOfProduct);
-            }
+                new ProductInTheShop(timeNamesOfProducts[0], 100, 39)
+            };
+
             Shop timeShop = _shopManager.CreateShop("Magnit", "Pskovskay_Street");
             // int oldCoast = timeNamesOfProducts[0].Coast;
-            timeShop.AddProducts(timeNamesOfProducts);
-            timeShop.ChangePrice("Water", 56);
-            Assert.AreEqual(56, timeNamesOfProducts[0].Coast);
+            timeShop.AddProducts(timeShopNamesOfProducts);
+            timeShop.ChangePrice(timeShopNamesOfProducts[0].Product, 56);
+            Assert.AreEqual(56, timeShopNamesOfProducts[0].Coast);
         }
 
         [Test]
-        public void Chekong_Min_price()
+        public void Checking_Min_price()
         {
-            var timeNamesOfProducts1 = new List<Product>()
+            var timeNamesOfProducts = new List<ProductInTheSystem>()
             {
-                new Product ("Water", 100, 39),
-                new Product ("Bread", 200, 20),
-                new Product ("Juice", 50, 50),
-                new Product ("Cola", 10, 80),
-                new Product ("Milk", 150, 90),
-                new Product ("Ham", 20, 120),
-                new Product ("Shish", 1000, 20)
+                new ProductInTheSystem ("Water"),
+                new ProductInTheSystem ("Milk"), 
+                new ProductInTheSystem ("Ham"),
             };
-            foreach (Product t in timeNamesOfProducts1)
-            {
-                _shopManager.RegisterProduct(t.NameOfProduct);
-            }
+            _shopManager.RegisterProduct(timeNamesOfProducts);
+            
             Shop timeShop1 = _shopManager.CreateShop("Magnit", "Pskovskay_Street");
-            timeShop1.AddProducts(timeNamesOfProducts1);
-            
-            var timeNamesOfProducts2 = new List<Product>()
+            var timeShopNamesOfProducts1 = new List<ProductInTheShop>()
             {
-                new Product ("Water", 100, 70),
-                new Product ("Milk", 150, 130),
-                new Product ("Ham", 20, 100),
-                new Product ("Shish", 1000, 35)
+                new ProductInTheShop (timeNamesOfProducts[0], 100, 39),
+                new ProductInTheShop (timeNamesOfProducts[1], 150, 90),
+                new ProductInTheShop (timeNamesOfProducts[2], 20, 120),
             };
-            foreach (Product t in timeNamesOfProducts2)
-            {
-                _shopManager.RegisterProduct(t.NameOfProduct);
-            }
+            timeShop1.AddProducts(timeShopNamesOfProducts1);
+            
+            // var timeNamesOfProducts2 = new List<Products2>()
+            // {
+            //     new Products2 ("Water"),
+            //     new Products2 ("Milk"), 
+            //     new Products2 ("Ham"),
+            // };
+            
             Shop timeShop2 = _shopManager.CreateShop("Piaterochka", "Lenina_Street");
-            timeShop2.AddProducts(timeNamesOfProducts2);
-
-            var timeNamesOfProducts3 = new List<Product>()
+            var timeShopNamesOfProducts2 = new List<ProductInTheShop>()
             {
-                new Product ("Water", 100, 120),
-                new Product ("Milk", 150, 170),
-                new Product ("Ham", 20, 85),
-                new Product ("Shish", 1000, 8),
-                new Product ("Salt", 90, 15),
-                new Product ("Cookies", 200, 65),
+                new ProductInTheShop (timeNamesOfProducts[0], 100, 70),
+                new ProductInTheShop (timeNamesOfProducts[1], 150, 130),
+                new ProductInTheShop (timeNamesOfProducts[2], 20, 100),
             };
-            foreach (Product t in timeNamesOfProducts3)
-            {
-                _shopManager.RegisterProduct(t.NameOfProduct);
-            }
+            timeShop2.AddProducts(timeShopNamesOfProducts2);
+        
+            // var timeNamesOfProducts3 = new List<Products2>()
+            // {
+            //     new Products2 ("Water"),
+            //     new Products2 ("Milk"), 
+            //     new Products2 ("Ham"),
+            // };
+
             Shop timeShop3 = _shopManager.CreateShop("Diksi", "Fovorskogo_Street");
-            timeShop3.AddProducts(timeNamesOfProducts3);
-            
-            var timeRequiredProducts = new Dictionary<string, int>
+            var timeShopNamesOfProducts3 = new List<ProductInTheShop>()
             {
-                {"Water", 5},
-                {"Milk", 2},
-                {"Shish", 10},
-                {"Ham", 2}
+                new ProductInTheShop(timeNamesOfProducts[0], 100, 120),
+                new ProductInTheShop(timeNamesOfProducts[1], 150, 170),
+                new ProductInTheShop(timeNamesOfProducts[2], 20, 85),
+            };
+            timeShop3.AddProducts(timeShopNamesOfProducts3);
+            
+            var timeRequiredProducts = new Dictionary<ProductInTheSystem, int>
+            {
+                {timeNamesOfProducts[0], 5},
+                {timeNamesOfProducts[1], 2},
+                {timeNamesOfProducts[2], 2}
             };
             Assert.AreEqual(_shopManager.MinimalPrice(timeRequiredProducts), timeShop1);
         }
         [Test]
         public void Changing_Buy()
         {
-            var timeNamesOfProducts = new List<Product>()
+            var timeNamesOfProducts = new List<ProductInTheSystem>()
             {
-                new Product ("Water", 100, 39),
-                new Product ("Bread", 200, 20),
-                new Product ("Juice", 50, 50),
-                new Product ("Cola", 10, 80),
-                new Product ("Milk", 150, 90),
-                new Product ("Ham", 20, 120),
-                new Product ("Shish", 1000, 20)
+                new ProductInTheSystem ("Water"), 
+                new ProductInTheSystem ("Bread"),
+                new ProductInTheSystem ("Juice"),
+                new ProductInTheSystem ("Cola")
             };
-            foreach (Product t in timeNamesOfProducts)
-            {
-                _shopManager.RegisterProduct(t.NameOfProduct);
-            }
+            _shopManager.RegisterProduct(timeNamesOfProducts);
             Shop timeShop = _shopManager.CreateShop("Magnit", "Pskovskay_Street");
-            timeShop.AddProducts(timeNamesOfProducts);
             
-            var timeBuildProducts = new Dictionary<string, int>
+            var timeShopNamesOfProducts = new List<ProductInTheShop>()
             {
-                {"Water", 5},
-                {"Milk", 2},
-                {"Shish", 10},
-                {"Ham", 2}
+                new ProductInTheShop (timeNamesOfProducts[0], 100, 39), 
+                new ProductInTheShop (timeNamesOfProducts[1], 200, 20),
+                new ProductInTheShop (timeNamesOfProducts[2], 50, 50),
+                new ProductInTheShop (timeNamesOfProducts[3], 10, 80)
+            };
+            timeShop.AddProducts(timeShopNamesOfProducts);
+            
+            var timeBuildProducts = new Dictionary<ProductInTheSystem, int>
+            {
+                {timeNamesOfProducts[0], 5},
+                {timeNamesOfProducts[1], 2},
+                {timeNamesOfProducts[2], 10},
+                {timeNamesOfProducts[3], 2}
             };
             var testCustomer = new Person("Danilo Olegovich", 1000);
             int startPersonMoney = testCustomer.PersonMoney;
@@ -149,12 +171,12 @@ namespace Shops.Tests
             timeShop.Buy(testCustomer, timeBuildProducts);
             Assert.AreEqual(startPersonMoney-testCustomer.PersonMoney, 
                 timeShop.MoneyInTheShop - startShopMoney);
-            foreach (string a in timeBuildProducts.Keys)
+            foreach (ProductInTheSystem a in timeBuildProducts.Keys)
             {
-                foreach (Product b in timeShop.AllProducts.Where(b => a == b.NameOfProduct))
-                {
+                // foreach (Product b in timeShop.AllProducts.Where(b => a == b.NameOfProduct))
+                // {
                     Assert.AreEqual(timeBuildProducts[a], testCustomer.ShoppingСart[a]);
-                }
+                // }
             }
         }
     }

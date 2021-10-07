@@ -8,11 +8,11 @@ namespace Shops.Services
         {
             PersonName = name;
             PersonMoney = money;
-            ShoppingСart = new Dictionary<string, int>();
+            ShoppingСart = new Dictionary<ProductInTheSystem, int>();
         }
 
         public string PersonName { get; }
         public int PersonMoney { get; set; }
-        public Dictionary<string, int> ShoppingСart { get; }
+        public Dictionary<ProductInTheSystem, int> ShoppingСart { get; }
     }
 }
