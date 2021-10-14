@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Shops.Tools;
 
 namespace Shops.Services
 {
@@ -7,12 +8,25 @@ namespace Shops.Services
         public Person(string name, int money)
         {
             PersonName = name;
-            PersonMoney = money;
-            ShoppingСart = new Dictionary<ProductInTheSystem, int>();
+            if (money >= 0)
+            {
+                Money = money;
+            }
+            else
+            {
+                throw new MoneyException("Create a person with a positive amount of money");
+            }
+
+            ShoppingСart = new List<OrderedProducts>();
         }
 
         public string PersonName { get; }
-        public int PersonMoney { get; set; }
-        public Dictionary<ProductInTheSystem, int> ShoppingСart { get; }
+        public int Money { get; private set; }
+        public List<OrderedProducts> ShoppingСart { get; }
+
+        public void ChangingMoney(int numbers, int cost)
+        {
+            Money -= numbers * cost;
+        }
     }
 }

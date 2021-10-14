@@ -2,15 +2,14 @@
 {
     public class ProductInTheSystem
     {
-        private static int _currentId = 1;
+        private static int _currentId = 0;
         public ProductInTheSystem(string name)
         {
-            NameOfProduct = name;
-            Id = _currentId;
-            _currentId++;
+            Name = name;
+            Id = _currentId++;
         }
 
         public int Id { get; }
-        public string NameOfProduct { get; }
+        public string Name { get; }
     }
 }

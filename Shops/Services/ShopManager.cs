@@ -6,21 +6,15 @@ namespace Shops.Services
 {
     public class ShopManager
     {
-        private int _totalId = 1;
-
         public ShopManager()
         {
             Shops = new List<Shop>();
 
             RegisteredProducts = new List<ProductInTheSystem>();
-
-            ShopsPrices = new Dictionary<Shop, int>();
         }
 
         public List<Shop> Shops { get; }
         public List<ProductInTheSystem> RegisteredProducts { get; }
-
-        public Dictionary<Shop, int> ShopsPrices { get; }
 
         public void RegisterProduct(List<ProductInTheSystem> productsForRegistration)
         {
@@ -34,9 +28,6 @@ namespace Shops.Services
         public Shop CreateShop(string shopName, string adress)
         {
             var newshop = new Shop(shopName, adress);
-            newshop.Id = _totalId;
-            _totalId++;
-
             newshop.AlreadyRegisteredProducts = RegisteredProducts;
             Shops.Add(newshop);
             return newshop;
@@ -51,53 +42,67 @@ namespace Shops.Services
             }
         }
 
-        // public void Delivery(List<Products2> newProducts, Shop chosedShop)
-        // {
-        //     foreach (Products2 t in newProducts.Where(t => !chosedShop.AlreadyRegisteredProducts.Contains(t)))
-        //     {
-        //         chosedShop.AlreadyRegisteredProducts.Add(t);
-        //     }
-        // }
-        public Shop MinimalPrice(Dictionary<ProductInTheSystem, int> requiredProducts)
+        public void AddProducts(List<ProductInTheShop> newProducts, Shop chosedShop)
         {
+            foreach (ProductInTheShop t in newProducts)
+            {
+                if (!RegisteredProducts.Contains(t.Product))
+                {
+                    throw new RegistrationException("Product wasn't registred");
+                }
+            }
+
+            chosedShop.AddProducts(newProducts);
+        }
+
+        public Shop MinimalPrice(List<OrderedProducts> requiredProducts)
+        {
+            var shopsPrices = new Dictionary<Shop, int>();
             Shop result = null;
 
-            int flag = 0;
+            int numberOfAvailableProducts = 0;
             int counter = 0;
             int minimalPrice = int.MaxValue;
             foreach (Shop shop in Shops)
             {
-                foreach (ProductInTheSystem b in requiredProducts.Keys)
+                foreach (OrderedProducts b in requiredProducts)
                 {
-                    foreach (ProductInTheShop c in shop.AllProducts.Where(c => b == c.Product))
+                    foreach (ProductInTheShop c in shop.AllProducts.Where(c => b.Product == c.Product))
                     {
-                        flag++;
-                        if (requiredProducts[b] <= c.NumbersOfProduct)
+                        numberOfAvailableProducts++;
+                        if (b.Numbers <= c.Numbers)
                         {
-                            counter += requiredProducts[b] * c.Coast;
+                            counter += b.Numbers * c.Cost;
                         }
                         else
                         {
-                            throw new ProductNumberException("We don't have enough numbers of product");
+                            numberOfAvailableProducts--;
                         }
-                    }
 
-                    if (flag == 0)
-                    {
-                        throw new ProductNumberException("We don't have this product");
+                        break;
                     }
-
-                    flag = 0;
                 }
 
-                ShopsPrices.Add(shop, counter);
+                if (numberOfAvailableProducts == requiredProducts.Count)
+                {
+                    shopsPrices.Add(shop, counter);
+                }
+
                 counter = 0;
+                numberOfAvailableProducts = 0;
             }
 
-            foreach (Shop shop in Shops.Where(shop => ShopsPrices[shop] <= minimalPrice))
+            if (shopsPrices.Count != 0)
             {
-                minimalPrice = ShopsPrices[shop];
-                result = shop;
+                foreach (Shop shop in Shops.Where(shop => shopsPrices[shop] <= minimalPrice))
+                {
+                    minimalPrice = shopsPrices[shop];
+                    result = shop;
+                }
+            }
+            else
+            {
+                    throw new ShopsException("There is no such set of quantity of goods in any store");
             }
 
             return result;

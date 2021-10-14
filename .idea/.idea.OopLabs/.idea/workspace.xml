@@ -17,10 +17,10 @@
   <component name="ChangeListManager">
     <list default="true" id="90abec19-b1d0-448c-8661-f3bc54c11073" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Isu/Services/Group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Isu/Services/Group.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Shops.Tests/ShopTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops.Tests/ShopTest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Shops/Services/Person.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops/Services/Person.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shops/Services/Product.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops/Services/ProductInTheShop.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shops/Services/ProductInTheShop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops/Services/ProductInTheShop.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shops/Services/ProductInTheSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops/Services/ProductInTheSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Shops/Services/Shop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops/Services/Shop.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Shops/Services/ShopManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops/Services/ShopManager.cs" afterDir="false" />
     </list>
@@ -53,6 +53,8 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.3502052" />
+    <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -335,7 +337,13 @@
       <workItem from="1633282232105" duration="2574000" />
       <workItem from="1633285065799" duration="1173000" />
       <workItem from="1633551042718" duration="17000" />
-      <workItem from="1633607575635" duration="13308000" />
+      <workItem from="1633607575635" duration="13698000" />
+      <workItem from="1633867932514" duration="1028000" />
+      <workItem from="1633964823852" duration="1158000" />
+      <workItem from="1633966905000" duration="1227000" />
+      <workItem from="1634137704874" duration="9972000" />
+      <workItem from="1634189877553" duration="3426000" />
+      <workItem from="1634202437447" duration="2895000" />
     </task>
     <task id="LOCAL-00001" summary="ThirdTry">
       <created>1631735061916</created>
