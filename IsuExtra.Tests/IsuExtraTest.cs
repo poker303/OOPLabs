@@ -181,6 +181,9 @@ namespace IsuExtra.Tests
 
             Assert.AreEqual(3,_manager.SearchUnregisteredStudents(group1).Count);
             
+            Assert.AreEqual(course1.StudyStreams, _manager.FindingStreams(course1));
+            
+            Assert.AreEqual(2, _manager.FindingStudents(listStreams1[0]));
         }
     }
 }

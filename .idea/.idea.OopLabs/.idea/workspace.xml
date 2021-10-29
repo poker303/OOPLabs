@@ -12,9 +12,15 @@
   <component name="ChangeListManager">
     <list default="true" id="90abec19-b1d0-448c-8661-f3bc54c11073" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/Isu.Tests/IsuServiceTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Isu.Tests/IsuServiceTest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Isu/Services/Group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Isu/Services/Group.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Isu/Services/IsuServices.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Isu/Services/IsuServices.cs" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/Isu/Services/Student.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Isu/Services/Student.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IsuExtra.Tests/IsuExtra.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra.Tests/IsuExtra.Tests.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IsuExtra/IsuExtra.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/IsuExtra.csproj" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +39,8 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/nunit/nunit/c933a883ea25263ec575a654dae69fa38000edd9/src/NUnitFramework/framework/Assert.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/IsuExtra/Management/Timetable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/Downloads/Telegram Desktop/Student.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Isu.Tests/IsuServiceTest.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -211,7 +219,51 @@
       <workItem from="1631898795622" duration="9265000" />
       <workItem from="1632116864102" duration="712000" />
       <workItem from="1632152684225" duration="1860000" />
+<<<<<<< Updated upstream
       <workItem from="1632240866599" duration="7844000" />
+=======
+      <workItem from="1632240866599" duration="8404000" />
+      <workItem from="1632301542939" duration="7933000" />
+      <workItem from="1632401737833" duration="846000" />
+      <workItem from="1632403454513" duration="1857000" />
+      <workItem from="1632405829367" duration="6000" />
+      <workItem from="1632406078470" duration="23000" />
+      <workItem from="1632567893844" duration="989000" />
+      <workItem from="1632684126920" duration="609000" />
+      <workItem from="1632758797098" duration="595000" />
+      <workItem from="1632843942585" duration="1308000" />
+      <workItem from="1632892922219" duration="555000" />
+      <workItem from="1633019545446" duration="10689000" />
+      <workItem from="1633080108924" duration="160000" />
+      <workItem from="1633101067960" duration="188000" />
+      <workItem from="1633201068237" duration="159000" />
+      <workItem from="1633203881103" duration="4457000" />
+      <workItem from="1633240597039" duration="15591000" />
+      <workItem from="1633260862061" duration="49000" />
+      <workItem from="1633266189749" duration="2909000" />
+      <workItem from="1633276468786" duration="5533000" />
+      <workItem from="1633282232105" duration="2574000" />
+      <workItem from="1633285065799" duration="1173000" />
+      <workItem from="1633551042718" duration="17000" />
+      <workItem from="1633607575635" duration="13698000" />
+      <workItem from="1633867932514" duration="1028000" />
+      <workItem from="1633964823852" duration="1158000" />
+      <workItem from="1633966905000" duration="1227000" />
+      <workItem from="1634137704874" duration="9972000" />
+      <workItem from="1634189877553" duration="3426000" />
+      <workItem from="1634202437447" duration="3657000" />
+      <workItem from="1634835624216" duration="7492000" />
+      <workItem from="1634884926845" duration="19324000" />
+      <workItem from="1634995239164" duration="1829000" />
+      <workItem from="1635058662225" duration="5845000" />
+      <workItem from="1635064584039" duration="1406000" />
+      <workItem from="1635087626681" duration="2948000" />
+      <workItem from="1635146926364" duration="8380000" />
+      <workItem from="1635155519447" duration="7763000" />
+      <workItem from="1635181397824" duration="5010000" />
+      <workItem from="1635187074594" duration="34000" />
+      <workItem from="1635255419462" duration="1323000" />
+>>>>>>> Stashed changes
     </task>
     <task id="LOCAL-00001" summary="ThirdTry">
       <created>1631735061916</created>
@@ -245,5 +297,42 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="ThirdTry" />
     <option name="LAST_COMMIT_MESSAGE" value="ThirdTry" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/IsuExtra/Management/Manager.cs</url>
+          <line>96</line>
+          <properties documentPath="C:\Users\Алексей\Documents\GitHub\poker303\IsuExtra\Management\Manager.cs" initialLine="102" containingFunctionPresentation="method 'StudentSignUp'">
+            <startOffsets>
+              <option value="3357" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3358" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/IsuExtra/Management/Manager.cs</url>
+          <line>82</line>
+          <properties documentPath="C:\Users\Алексей\Documents\GitHub\poker303\IsuExtra\Management\Manager.cs" initialLine="82" containingFunctionPresentation="method 'StudentSignUp'">
+            <startOffsets>
+              <option value="2539" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2588" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="RiderUnitTests">
+        <watch expression="student.StudentTimetable" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
