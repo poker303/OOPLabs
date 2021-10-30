@@ -10,12 +10,7 @@
     <projectFile>Isu.Tests/Isu.Tests.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90abec19-b1d0-448c-8661-f3bc54c11073" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Isu.Tests/IsuServiceTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Isu.Tests/IsuServiceTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Isu/Services/Group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Isu/Services/Group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Isu/Services/IsuServices.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Isu/Services/IsuServices.cs" afterDir="false" />
-    </list>
+    <list default="true" id="de07db7f-a8c2-4d0b-b777-c6194651ef32" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
