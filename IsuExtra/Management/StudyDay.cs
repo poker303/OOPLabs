@@ -8,13 +8,13 @@ namespace IsuExtra.Management
 {
     public class StudyDay
     {
-        public StudyDay(string name, List<Lesson> lessons)
+        public StudyDay(DayOfWeek day, List<Lesson> lessons)
         {
-            Name = name;
+            Name = day;
             Lessons = lessons;
         }
 
-        public string Name { get; set; }
+        public DayOfWeek Name { get; set; }
         public List<Lesson> Lessons { get; set; }
 
         public void AddLesson(Lesson lesson)

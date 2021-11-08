@@ -13,11 +13,9 @@
     <list default="true" id="de07db7f-a8c2-4d0b-b777-c6194651ef32" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IsuExtra.Tests/IsuExtraTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra.Tests/IsuExtraTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IsuExtra/Management/IManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/IManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IsuExtra/Management/Lesson.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/Lesson.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IsuExtra/Management/Manager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/Manager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IsuExtra/Management/MegaFaculty.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/MegaFaculty.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IsuExtra/Management/OGNP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/Ognp.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IsuExtra/Management/StudyDay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/StudyDay.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IsuExtra/Management/StudyStream.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/StudyStream.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -218,7 +216,8 @@
       <workItem from="1635601775975" duration="483000" />
       <workItem from="1635602297779" duration="33000" />
       <workItem from="1636132258322" duration="580000" />
-      <workItem from="1636365691494" duration="7255000" />
+      <workItem from="1636365691494" duration="7905000" />
+      <workItem from="1636397266822" duration="6268000" />
     </task>
     <task id="LOCAL-00001" summary="ThirdTry">
       <created>1631735061916</created>

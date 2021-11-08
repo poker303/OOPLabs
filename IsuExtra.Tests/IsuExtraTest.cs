@@ -43,12 +43,12 @@ namespace IsuExtra.Tests
             
             var streamTimetable1 = new List<StudyDay>()
             {
-                new StudyDay("Monday", date1),
-                new StudyDay("Tuesday", date2),
-                new StudyDay("Wednesday", date3),
-                new StudyDay("Thursday", date4),
-                new StudyDay("Friday", date5),
-                new StudyDay("Saturday", date6),
+                new StudyDay((DayOfWeek) 1, date1),
+                new StudyDay((DayOfWeek) 2, date2),
+                new StudyDay((DayOfWeek) 3, date3),
+                new StudyDay((DayOfWeek) 4, date4),
+                new StudyDay((DayOfWeek) 5, date5),
+                new StudyDay((DayOfWeek) 6, date6),
             };
             
             var dates1 = new List<Lesson>() { };
@@ -65,12 +65,12 @@ namespace IsuExtra.Tests
             
             var streamTimetable2 = new List<StudyDay>()
             {
-                new StudyDay("Monday", dates1),
-                new StudyDay("Tuesday", dates2),
-                new StudyDay("Wednesday", dates3),
-                new StudyDay("Thursday", dates4),
-                new StudyDay("Friday", dates5),
-                new StudyDay("Saturday", dates6),
+                new StudyDay((DayOfWeek) 1, dates1),
+                new StudyDay((DayOfWeek) 2, dates2),
+                new StudyDay((DayOfWeek) 3, dates3),
+                new StudyDay((DayOfWeek) 4, dates4),
+                new StudyDay((DayOfWeek) 5, dates5),
+                new StudyDay((DayOfWeek) 6, dates6)
             };
             
             var listStreams1 = new List<StudyStream>()
@@ -99,12 +99,12 @@ namespace IsuExtra.Tests
             
             var streamTimetable3 = new List<StudyDay>()
             {
-                new StudyDay("Monday", days1),
-                new StudyDay("Tuesday", days2),
-                new StudyDay("Wednesday", days3),
-                new StudyDay("Thursday", days4),
-                new StudyDay("Friday", days5),
-                new StudyDay("Saturday", days6),
+                new StudyDay((DayOfWeek) 1, days1),
+                new StudyDay((DayOfWeek) 2, days2),
+                new StudyDay((DayOfWeek) 3, days3),
+                new StudyDay((DayOfWeek) 4, days4),
+                new StudyDay((DayOfWeek) 5, days5),
+                new StudyDay((DayOfWeek) 6, days6)
             };
             
             var listStreams2 = new List<StudyStream>()
@@ -139,12 +139,12 @@ namespace IsuExtra.Tests
             
             var groupTimetable1 = new List<StudyDay>()
             {
-                new StudyDay("Monday", day1),
-                new StudyDay("Tuesday", day2),
-                new StudyDay("Wednesday", day3),
-                new StudyDay("Thursday", day4),
-                new StudyDay("Friday", day5),
-                new StudyDay("Saturday", day6),
+                new StudyDay((DayOfWeek) 1, day1),
+                new StudyDay((DayOfWeek) 2, day2),
+                new StudyDay((DayOfWeek) 3, day3),
+                new StudyDay((DayOfWeek) 4, day4),
+                new StudyDay((DayOfWeek) 5, day5),
+                new StudyDay((DayOfWeek) 6, day6)
             };
             
             _manager.AddGroup(programming, "P3204", groupTimetable1);
