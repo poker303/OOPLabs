@@ -8,34 +8,24 @@ namespace IsuExtra.Management
 {
     public class Lesson
     {
-        public Lesson(string name, string startTime, int duration, string teacherName, int auditorium)
+        public Lesson(string name, TimeSpan startTime, string teacherName, int auditorium)
         {
-            Duration = duration;
-            if (startTime.Length == 4)
-            {
-                StartTime = ((startTime[0] - '0') * 60) + ((startTime[2] - '0') * 10) + (startTime[3] - '0');
-            }
-            else if (startTime.Length == 5)
-            {
-                StartTime = ((startTime[0] - '0') * 60 * 10) + ((startTime[1] - '0') * 60) +
-                            ((startTime[3] - '0') * 10) + (startTime[4] - '0');
-            }
-            else
-            {
-                throw new TimeException("The lesson start time is set incorrectly");
-            }
+            var beginningOfSchoolDay = new TimeSpan(8, 20, 0);
+            var endOfSchoolDay = new TimeSpan(20, 0, 0);
+            Duration = new TimeSpan(1, 30, 0);
+            StartTime = startTime;
 
-            if (StartTime < 500 || StartTime > 1080)
+            if (StartTime < beginningOfSchoolDay || StartTime > endOfSchoolDay)
             {
                 throw new TimeException("Wrong lesson start time");
             }
 
-            if (StartTime + Duration > 1080)
+            if (StartTime.Add(Duration) > endOfSchoolDay)
             {
                 throw new TimeException("Duration of lesson is too big");
             }
 
-            EndTime = StartTime + Duration;
+            EndTime = StartTime.Add(Duration);
 
             // TimeTable = duration;
             Name = name;
@@ -46,10 +36,10 @@ namespace IsuExtra.Management
         }
 
         public string Name { get; set; }
-        public int StartTime { get; set; }
-        public int EndTime { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public TimeSpan EndTime { get; set; }
 
-        public int Duration { get; set; }
+        public TimeSpan Duration { get; set; }
 
         // public int TimeTable { get; set; }
         // public StudyStream Stream { get; set; }

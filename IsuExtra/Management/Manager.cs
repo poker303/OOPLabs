@@ -11,10 +11,7 @@ namespace IsuExtra.Management
     {
         public void AddStudent(List<UpdatedStudent> students, UpdatedGroup group)
         {
-            foreach (UpdatedStudent student in students.Where(student => !@group.Students.Contains(student)))
-            {
-                @group.Students.Add(student);
-            }
+            group.Students.AddRange(students.Where(student => !group.Students.Contains(student)));
         }
 
         public void AddGroup(MegaFaculty faculty, string groupName, List<StudyDay> timetable)
@@ -32,7 +29,7 @@ namespace IsuExtra.Management
 
         public void AddCourse(MegaFaculty faculty, string courseName)
         {
-            var newCourse = new OGNP(courseName);
+            var newCourse = new Ognp(courseName);
             if (faculty.Name[0] == courseName[1])
             {
                 faculty.Courses.Add(newCourse);
@@ -43,7 +40,7 @@ namespace IsuExtra.Management
             }
         }
 
-        public List<StudyStream> FindingStreams(OGNP course)
+        public List<StudyStream> FindingStreams(Ognp course)
         {
             return course.StudyStreams;
         }
@@ -53,9 +50,9 @@ namespace IsuExtra.Management
             return stream.Students;
         }
 
-        public void StudentSignUp(UpdatedStudent student, OGNP ognp)
+        public void StudentSignUp(UpdatedStudent student, Ognp ognp)
         {
-            List<StudyDay> addedSchedule = new List<StudyDay>();
+            var addedSchedule = new List<StudyDay>();
             int suitableLessons = 0;
             bool flag = false;
             if (student.Counter == 2)
@@ -69,69 +66,55 @@ namespace IsuExtra.Management
             }
             else
             {
-                foreach (StudyStream stream in ognp.StudyStreams)
+                if (ognp.StudyStreams.Any(stream => stream.Students.Contains(student)))
                 {
-                    if (stream.Students.Contains(student))
-                    {
-                        flag = true;
-                        break;
-                    }
+                    flag = true;
                 }
 
                 if (flag == false)
                 {
-                    foreach (StudyStream stream in ognp.StudyStreams)
+                    foreach (StudyStream stream in ognp.StudyStreams.Where(stream => stream.Students.Count < stream.MaxCountOfStudents))
                     {
-                        if (stream.Students.Count < stream.MaxCountOfStudents)
+                        for (int day = 1; day <= 6; day++)
                         {
-                            for (int day = 1; day <= 6; day++)
+                            foreach (Lesson lesson in stream.Timetable[day - 1].Lessons)
                             {
-                                for (int i = 0; i < stream.Timetable[day - 1].Lessons.Count; i++)
+                                if (student.StudentTimetable[day - 1].Lessons.Count == 0)
                                 {
-                                    if (student.StudentTimetable[day - 1].Lessons.Count == 0)
-                                    {
-                                        suitableLessons = stream.Timetable[day - 1].Lessons.Count;
-                                    }
-
-                                    for (int j = 0; j < student.StudentTimetable[day - 1].Lessons.Count; j++)
-                                    {
-                                        if ((student.StudentTimetable[day - 1].Lessons[j].EndTime <
-                                             stream.Timetable[day - 1].Lessons[i].StartTime) &&
-                                            (stream.Timetable[day - 1].Lessons[i].EndTime <
-                                             student.StudentTimetable[day - 1].Lessons[j + 1].StartTime))
-                                        {
-                                            suitableLessons++;
-                                            break;
-                                        }
-                                    }
+                                    suitableLessons = stream.Timetable[day - 1].Lessons.Count;
                                 }
 
-                                if (suitableLessons == stream.Timetable[day - 1].Lessons.Count)
+                                if (student.StudentTimetable[day - 1].Lessons.Where((prevLesson, j) =>
+                                    prevLesson.EndTime < lesson.StartTime &&
+                                    lesson.EndTime < student.StudentTimetable[day - 1].Lessons[j + 1].StartTime).Any())
                                 {
-                                    addedSchedule.Add(stream.Timetable[day - 1]);
+                                    suitableLessons++;
                                 }
-
-                                suitableLessons = 0;
                             }
 
-                            bool isNoEquals = stream.Timetable.Any(x => !addedSchedule.Contains(x));
-                            if (!isNoEquals)
+                            if (suitableLessons == stream.Timetable[day - 1].Lessons.Count)
                             {
-                                stream.Students.Add(student);
-                                student.Counter++;
-                                for (int date = 1; date <= 6; date++)
-                                {
-                                    foreach (Lesson lesson in stream.Timetable[date - 1].Lessons)
-                                    {
-                                        student.StudentTimetable[date - 1].Lessons.Add(lesson);
-                                    }
-                                }
-
-                                addedSchedule.Clear();
-                                break;
+                                addedSchedule.Add(stream.Timetable[day - 1]);
                             }
 
-                            // addedSchedule.Clear();
+                            suitableLessons = 0;
+                        }
+
+                        bool isNoEquals = stream.Timetable.Any(x => !addedSchedule.Contains(x));
+                        if (!isNoEquals)
+                        {
+                            stream.Students.Add(student);
+                            student.Counter++;
+                            for (int date = 1; date <= 6; date++)
+                            {
+                                foreach (Lesson lesson in stream.Timetable[date - 1].Lessons)
+                                {
+                                    student.StudentTimetable[date - 1].Lessons.Add(lesson);
+                                }
+                            }
+
+                            addedSchedule.Clear();
+                            break;
                         }
                     }
                 }
@@ -142,15 +125,12 @@ namespace IsuExtra.Management
             }
         }
 
-        public void RemovingRecord(UpdatedStudent student, OGNP ognp)
+        public void RemovingRecord(UpdatedStudent student, Ognp ognp)
         {
-            StudyStream desireStream = null;
-            foreach (StudyStream stream in ognp.StudyStreams)
+            StudyStream desireStream = ognp.StudyStreams.FirstOrDefault();
+            foreach (StudyStream stream in ognp.StudyStreams.Where(stream => stream.Students.Contains(student)))
             {
-                if (stream.Students.Contains(student))
-                {
-                    desireStream = stream;
-                }
+                desireStream = stream;
             }
 
             for (int date = 1; date <= 6; date++)
@@ -166,16 +146,7 @@ namespace IsuExtra.Management
 
         public List<UpdatedStudent> SearchUnregisteredStudents(UpdatedGroup group)
         {
-            List<UpdatedStudent> unregisteredStudents = new List<UpdatedStudent>();
-            foreach (UpdatedStudent student in group.Students)
-            {
-                if (student.Counter == 0)
-                {
-                    unregisteredStudents.Add(student);
-                }
-            }
-
-            return unregisteredStudents;
+            return group.Students.Where(student => student.Counter == 0).ToList();
         }
     }
 }

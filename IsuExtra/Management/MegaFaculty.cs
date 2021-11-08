@@ -9,12 +9,12 @@ namespace IsuExtra.Management
         public MegaFaculty(string name)
         {
             Name = name;
-            Courses = new List<OGNP>();
+            Courses = new List<Ognp>();
             Groups = new List<UpdatedGroup>();
         }
 
         public string Name { get; set; }
-        public List<OGNP> Courses { get; set; }
+        public List<Ognp> Courses { get; set; }
         public List<UpdatedGroup> Groups { get; set; }
 
         // public void AddGroup(Group group)

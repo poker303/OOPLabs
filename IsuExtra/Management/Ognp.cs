@@ -4,9 +4,9 @@ using IsuExtra.Tools;
 
 namespace IsuExtra.Management
 {
-    public class OGNP
+    public class Ognp
     {
-        public OGNP(string name)
+        public Ognp(string name)
         {
             if (name[0] - '0' < 1 || name[0] - '0' > 4)
             {
@@ -29,10 +29,7 @@ namespace IsuExtra.Management
 
         public void AddStudyStreams(List<StudyStream> studyStreams)
         {
-            foreach (StudyStream stream in studyStreams.Where(stream => !StudyStreams.Contains(stream)))
-            {
-                StudyStreams.Add(stream);
-            }
+            StudyStreams.AddRange(studyStreams.Where(stream => !StudyStreams.Contains(stream)));
         }
     }
 }

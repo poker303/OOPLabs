@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using IsuExtra.Management;
 using IsuExtra.Tools;
@@ -25,16 +26,16 @@ namespace IsuExtra.Tests
             
             
             _manager.AddCourse(robotics, "2R_CyberBez");
-            OGNP course1 = robotics.Courses[0];
+            Ognp course1 = robotics.Courses[0];
             Assert.Contains(course1, robotics.Courses);
             
             var date1 = new List<Lesson>() { };
             var date2 = new List<Lesson>() { };
             var date3 = new List<Lesson>()
             {
-                new Lesson("CyberBez", "10:00", 90, "Gavrichenko Alexander", 212),
-                new Lesson("CyberBez", "11:40", 90, "Gavrichenko Alexander", 212),
-                new Lesson("CyberBez", "13:30", 90, "Gavrichenko Alexander", 306)
+                new Lesson("CyberBez", new TimeSpan(10,0,0), "Gavrichenko Alexander", 212),
+                new Lesson("CyberBez", new TimeSpan(11,40,0), "Gavrichenko Alexander", 212),
+                new Lesson("CyberBez", new TimeSpan(13,30,0), "Gavrichenko Alexander", 306)
             };
             var date4 = new List<Lesson>() { };
             var date5 = new List<Lesson>() { };
@@ -57,9 +58,9 @@ namespace IsuExtra.Tests
             var dates5 = new List<Lesson>() { };
             var dates6 = new List<Lesson>()
             {
-                new Lesson("CyberBez", "10:00", 90, "Gavrichenko Alexander", 212),
-                new Lesson("CyberBez", "11:40", 90, "Gavrichenko Alexander", 212),
-                new Lesson("CyberBez", "13:30", 90, "Gavrichenko Alexander", 306)
+                new Lesson("CyberBez", new TimeSpan(10,0,0), "Gavrichenko Alexander", 212),
+                new Lesson("CyberBez", new TimeSpan(11,40,0), "Gavrichenko Alexander", 212),
+                new Lesson("CyberBez", new TimeSpan(13,30,0), "Gavrichenko Alexander", 306)
             };
             
             var streamTimetable2 = new List<StudyDay>()
@@ -82,14 +83,14 @@ namespace IsuExtra.Tests
 
             
             _manager.AddCourse(robotics, "2R_History");
-            OGNP course2 = robotics.Courses[1];
+            Ognp course2 = robotics.Courses[1];
             Assert.Contains(course2, robotics.Courses);
             
             var days1 = new List<Lesson>() { };
             var days2 = new List<Lesson>()
             {
-                new Lesson("History", "10:00", 90, "Iakovlev Alexey", 212),
-                new Lesson("History", "11:40", 90, "Iakovlev Alexey", 212)
+                new Lesson("History", new TimeSpan(10,0,0), "Iakovlev Alexey", 212),
+                new Lesson("History", new TimeSpan(11,40,0), "Iakovlev Alexey", 212)
             };
             var days3 = new List<Lesson>() { };
             var days4 = new List<Lesson>() { };
@@ -118,20 +119,20 @@ namespace IsuExtra.Tests
 
             var day1 = new List<Lesson>()
             {
-                new Lesson("Math", "10:00", 90, "Vozianova Anna", 403),
-                new Lesson("OOP", "11:40", 90, "Taylor Swift", 331)
+                new Lesson("Math", new TimeSpan(10,0,0), "Vozianova Anna", 403),
+                new Lesson("OOP", new TimeSpan(11,40,0),"Taylor Swift", 331)
             };
             var day2 = new List<Lesson>()
             {
-                new Lesson("English", "10:00", 90, "Hovancheva Stashia", 403),
-                new Lesson("Theory of probability", "11:40", 90, "Suslina", 427),
-                new Lesson("OS", "13:30", 90, "Kazah", 466)
+                new Lesson("English", new TimeSpan(10,0,0), "Hovancheva Stashia", 403),
+                new Lesson("Theory of probability", new TimeSpan(11,40,0), "Suslina", 427),
+                new Lesson("OS", new TimeSpan(13,30,0), "Kazah", 466)
             };
             var day3 = new List<Lesson>() { };
             var day4 = new List<Lesson>()
             {
-                new Lesson("Physics", "8:20", 90, "Egorov", 539),
-                new Lesson("OOP", "10:00", 90, "Zinchik", 550)
+                new Lesson("Physics", new TimeSpan(8,20,0), "Egorov", 539),
+                new Lesson("OOP", new TimeSpan(10,0,0), "Zinchik", 550)
             };
             var day5 = new List<Lesson>() { };
             var day6 = new List<Lesson>() { };
