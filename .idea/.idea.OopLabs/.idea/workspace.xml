@@ -17,10 +17,8 @@
   <component name="ChangeListManager">
     <list default="true" id="de07db7f-a8c2-4d0b-b777-c6194651ef32" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IsuExtra.Tests/IsuExtraTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra.Tests/IsuExtraTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IsuExtra/Management/Manager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/Manager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IsuExtra/Management/StudyDay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/StudyDay.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IsuExtra/Management/StudyStream.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/StudyStream.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backups.Tests/Backups.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Backups.Tests/Backups.Tests.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backups/Backups.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/Backups.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,8 +37,10 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Backups/BackupService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/Downloads/Telegram Desktop/Student.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Isu.Tests/IsuServiceTest.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Backups/File.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1xlN44DFfIERGanX5MLRK8jNKN2" />
   <component name="ProjectLevelVcsManager">
@@ -317,7 +317,17 @@
       <workItem from="1635602297779" duration="33000" />
       <workItem from="1636132258322" duration="580000" />
       <workItem from="1636365691494" duration="7905000" />
-      <workItem from="1636397266822" duration="6268000" />
+      <workItem from="1636397266822" duration="6500000" />
+      <workItem from="1636993162409" duration="10110000" />
+      <workItem from="1637076439745" duration="13728000" />
+      <workItem from="1637129674791" duration="12222000" />
+      <workItem from="1637166299354" duration="1509000" />
+      <workItem from="1637349413330" duration="21000" />
+      <workItem from="1637349454187" duration="1139000" />
+      <workItem from="1637391988747" duration="10503000" />
+      <workItem from="1637405163137" duration="11834000" />
+      <workItem from="1637424328328" duration="1763000" />
+      <workItem from="1637426432510" duration="261000" />
     </task>
     <task id="LOCAL-00001" summary="ThirdTry">
       <created>1631735061916</created>
