@@ -15,14 +15,12 @@
     <projectFile>Banks.Tests/Banks.Tests.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="90abec19-b1d0-448c-8661-f3bc54c11073" name="Changes" comment="">
+    <list default="true" id="de07db7f-a8c2-4d0b-b777-c6194651ef32" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shops.Tests/ShopTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops.Tests/ShopTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shops/Services/Person.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops/Services/Person.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shops/Services/ProductInTheShop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops/Services/ProductInTheShop.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shops/Services/ProductInTheSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops/Services/ProductInTheSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shops/Services/Shop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops/Services/Shop.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shops/Services/ShopManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Shops/Services/ShopManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IsuExtra.Tests/IsuExtraTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra.Tests/IsuExtraTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IsuExtra/Management/Manager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/Manager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IsuExtra/Management/StudyDay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/StudyDay.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IsuExtra/Management/StudyStream.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/StudyStream.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -282,7 +280,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="90abec19-b1d0-448c-8661-f3bc54c11073" name="Changes" comment="" />
+      <changelist id="de07db7f-a8c2-4d0b-b777-c6194651ef32" name="Changes" comment="" />
       <created>1630925524199</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -314,36 +312,12 @@
       <workItem from="1631898795622" duration="9265000" />
       <workItem from="1632116864102" duration="712000" />
       <workItem from="1632152684225" duration="1860000" />
-      <workItem from="1632240866599" duration="8404000" />
-      <workItem from="1632301542939" duration="7933000" />
-      <workItem from="1632401737833" duration="846000" />
-      <workItem from="1632403454513" duration="1857000" />
-      <workItem from="1632405829367" duration="6000" />
-      <workItem from="1632406078470" duration="23000" />
-      <workItem from="1632567893844" duration="989000" />
-      <workItem from="1632684126920" duration="609000" />
-      <workItem from="1632758797098" duration="595000" />
-      <workItem from="1632843942585" duration="1308000" />
-      <workItem from="1632892922219" duration="555000" />
-      <workItem from="1633019545446" duration="10689000" />
-      <workItem from="1633080108924" duration="160000" />
-      <workItem from="1633101067960" duration="188000" />
-      <workItem from="1633201068237" duration="159000" />
-      <workItem from="1633203881103" duration="4457000" />
-      <workItem from="1633240597039" duration="15591000" />
-      <workItem from="1633260862061" duration="49000" />
-      <workItem from="1633266189749" duration="2909000" />
-      <workItem from="1633276468786" duration="5533000" />
-      <workItem from="1633282232105" duration="2574000" />
-      <workItem from="1633285065799" duration="1173000" />
-      <workItem from="1633551042718" duration="17000" />
-      <workItem from="1633607575635" duration="13698000" />
-      <workItem from="1633867932514" duration="1028000" />
-      <workItem from="1633964823852" duration="1158000" />
-      <workItem from="1633966905000" duration="1227000" />
-      <workItem from="1634137704874" duration="9972000" />
-      <workItem from="1634189877553" duration="3426000" />
-      <workItem from="1634202437447" duration="2895000" />
+      <workItem from="1632240866599" duration="7844000" />
+      <workItem from="1635601775975" duration="483000" />
+      <workItem from="1635602297779" duration="33000" />
+      <workItem from="1636132258322" duration="580000" />
+      <workItem from="1636365691494" duration="7905000" />
+      <workItem from="1636397266822" duration="6268000" />
     </task>
     <task id="LOCAL-00001" summary="ThirdTry">
       <created>1631735061916</created>
