@@ -56,51 +56,53 @@ namespace Backups
             var restorePoint = new RestorePoint(restorePointName, _restorePointId, Path);
             Points.Add(restorePoint);
 
-            return SavingVirtualStorage(Storage, files);
+            return SavingStorage(Storage, files);
         }
 
-        public bool SavingStorage(Type storageType, string restorePointName, string pathToBackup, int id)
+        public void SavingStorage(Type storageType, string restorePointName, string pathToBackup, int id)
         {
             if (storageType == typeof(SingleStorage))
             {
-                return CreateSingleStorage(restorePointName, id, pathToBackup);
+                CreateSingleStorage(restorePointName, id, pathToBackup);
+                return;
             }
 
             if (storageType == typeof(SplitStorage))
             {
-                return CreateSplitStorage(restorePointName, id, pathToBackup);
+                CreateSplitStorage(restorePointName, id, pathToBackup);
+                return;
             }
 
             throw new InvalidStorageTypeException("Enter a different type of save.");
         }
 
-        public List<List<MyFile>> SavingVirtualStorage(Type storageType, List<MyFile> files)
+        public List<List<MyFile>> SavingStorage(Type storageType, List<MyFile> files)
         {
             if (storageType == typeof(SingleStorage))
             {
-                return CreateVirtualSingleStorage(files);
+                CreateVirtualSingleStorage(files);
             }
 
             if (storageType == typeof(SplitStorage))
             {
-                return CreateVirtualSplitStorage(files);
+                CreateVirtualSplitStorage(files);
             }
 
             throw new InvalidStorageTypeException("Enter a different type of save.");
         }
 
-        private bool CreateSingleStorage(string restorePointName, int id, string pathToBackup)
+        private void CreateSingleStorage(string restorePointName, int id, string pathToBackup)
         {
             var jobObjectsDirectory = new DirectoryInfo(@$"{pathToBackup}\JobObjects");
 
             if (jobObjectsDirectory.GetFiles().Length == 0)
             {
-                return true;
+                return;
+
+                // return true;
             }
 
-            var singleStorage = new SingleStorage(restorePointName, id, pathToBackup);
-
-            return true;
+            new SingleStorage(restorePointName, id, pathToBackup);
         }
 
         private List<List<MyFile>> CreateVirtualSingleStorage(List<MyFile> files)
@@ -109,11 +111,9 @@ namespace Backups
             return backupFiles;
         }
 
-        private bool CreateSplitStorage(string restorePointName, int id, string pathToBackup)
+        private void CreateSplitStorage(string restorePointName, int id, string pathToBackup)
         {
-            var splitStorage = new SplitStorage(restorePointName, id, pathToBackup);
-
-            return true;
+            new SplitStorage(restorePointName, id, pathToBackup);
         }
 
         private List<List<MyFile>> CreateVirtualSplitStorage(List<MyFile> files)
