@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 
 namespace Backups.Storages
 {
-    public class SingleStorage
+    public class SingleStorage : IStorage
     {
-        public SingleStorage(string restorePointName, int restorePointId, string pathToBackup)
+        public void SavingStorage(RestorePoint restorePoint, IBackup backupSaver, List<FileInfo> savedFiles, IFileSystem system)
         {
-            Name = "Files_" + restorePointId;
-
-            string restorePointDirectory = restorePointName + restorePointId;
-            string startPath = @$"{pathToBackup}\JobObjects";
-            string zipPath = @$"{pathToBackup}\{restorePointDirectory}\{Name}.zip";
-            ZipFile.CreateFromDirectory(startPath, zipPath);
+            var repositories = new List<Repository>();
+            var choosingRepository = new Repository();
+            choosingRepository.AddFiles(savedFiles);
+            repositories.Add(choosingRepository);
+            backupSaver.Saver(repositories, restorePoint, system);
         }
-
-        public string Name { get; set; }
     }
 }

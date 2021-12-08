@@ -1,30 +1,22 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.IO.Compression;
 
 namespace Backups.Storages
 {
-    public class SplitStorage
+    public class SplitStorage : IStorage
     {
-        public SplitStorage(string restorePointName, int restorePointId, string pathToBackup)
+        public void SavingStorage(RestorePoint restorePoint, IBackup backupSaver, List<FileInfo> savedFiles, IFileSystem system)
         {
-            var jobObjectsDirectory = new DirectoryInfo(@$"{pathToBackup}\JobObjects");
-            string restorePointDirectory = restorePointName + restorePointId;
-
-            foreach (FileInfo file in jobObjectsDirectory.GetFiles())
+            var repositories = new List<Repository>();
+            foreach (FileInfo file in savedFiles)
             {
-                Name = Path.GetFileNameWithoutExtension(
-                    @$"{pathToBackup}\JobObjects\{file.Name}") + "_" + restorePointId;
-
-                string pathFileToAdd =
-                    @$"{pathToBackup}\JobObjects\{file.Name}";
-                string archivePath =
-                    @$"{pathToBackup}\{restorePointDirectory}\{Name}.zip";
-
-                using ZipArchive zipArchive = ZipFile.Open(archivePath, ZipArchiveMode.Create);
-                zipArchive.CreateEntryFromFile(pathFileToAdd, file.Name);
+                var choosingRepository = new Repository();
+                choosingRepository.AddFile(file);
+                repositories.Add(choosingRepository);
             }
-        }
 
-        public string Name { get; set; }
+            backupSaver.Saver(repositories, restorePoint, system);
+        }
     }
 }
