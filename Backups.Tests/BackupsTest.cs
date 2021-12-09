@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Backups.Storages;
@@ -10,9 +9,9 @@ namespace Backups.Tests
     public class Tests
     {
         private const string _path = @"C:\Users\Алексей\OneDrive\Рабочий стол\Lab3_BackUpS\";
-        private IStorage _singleSaver = new SingleStorage();
-        private IStorage _splitSaver = new SplitStorage();
-        private IBackup _virtualSaver = new VirtualSaving();
+        private IStorageSaving _singleSaver = new SingleStorageSaving();
+        private IStorageSaving _splitSaver = new SplitStorageSaving();
+        private IBackupSaving _virtualSaver = new VirtualSaving();
         private IFileSystem _fileSystem = new VirtualFileSystem();
 
         [Test]

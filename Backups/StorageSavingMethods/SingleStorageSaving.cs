@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 
 namespace Backups.Storages
 {
-    public class SingleStorage : IStorage
+    public class SingleStorageSaving : IStorageSaving
     {
-        public void SavingStorage(RestorePoint restorePoint, IBackup backupSaver, List<FileInfo> savedFiles, IFileSystem system)
+        public void SavingStorage(RestorePoint restorePoint, IBackupSaving backupSaver, List<FileInfo> savedFiles, IFileSystem system)
         {
             var repositories = new List<Repository>();
             var choosingRepository = new Repository();

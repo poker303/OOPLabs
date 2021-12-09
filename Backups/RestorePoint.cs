@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using Backups.Storages;
 
 namespace Backups
 {
     public class RestorePoint
     {
-        // пересмотреть навсякий
         private List<Repository> _repositories;
 
         public RestorePoint(string name, int id, string restorePointLocation)

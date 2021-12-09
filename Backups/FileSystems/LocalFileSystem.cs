@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using Backups.Exceptions;
 
 namespace Backups
@@ -10,8 +9,7 @@ namespace Backups
     {
         private List<List<FileInfo>> _points;
         private List<Repository> _repositories;
-
-        // private List<FileInfo> _jobObjects;
+        private List<FileInfo> _jobObjects;
         public LocalFileSystem(string pathToObjects)
         {
             _repositories = new List<Repository>();
@@ -19,10 +17,10 @@ namespace Backups
             JobObjectsDirectory = new DirectoryInfo(pathToObjects);
             if (JobObjectsDirectory.Exists)
             {
-                throw new BackupsException("The directory has already exist");
+                throw new AddingDirectoryException("The directory already exists.");
             }
 
-            // _jobObjects = new List<FileInfo>();
+            _jobObjects = new List<FileInfo>();
         }
 
         public override ReadOnlyCollection<List<FileInfo>> GetRestorePoints()
@@ -37,7 +35,7 @@ namespace Backups
             var directory = new DirectoryInfo(path);
             if (directory.Exists)
             {
-                throw new BackupsException("The directory has already exist");
+                throw new AddingDirectoryException("The directory already exists.");
             }
 
             var files = new List<FileInfo>();
@@ -51,6 +49,7 @@ namespace Backups
             foreach (FileInfo file in files)
             {
                 file.CopyTo(JobObjectsDirectory.FullName);
+                _jobObjects.Add(file);
             }
         }
 
@@ -66,7 +65,7 @@ namespace Backups
 
         public override ReadOnlyCollection<FileInfo> GetJobObjects()
         {
-            return _points[0].AsReadOnly();
+            return _jobObjects.AsReadOnly();
         }
     }
 }

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 
 namespace Backups.Storages
 {
-    public class LocalSaving : IBackup
+    public class LocalSaving : IBackupSaving
     {
         public void Saver(List<Repository> repositories, RestorePoint restorePoint, IFileSystem fileSystem)
         {
