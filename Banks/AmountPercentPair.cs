@@ -5,17 +5,13 @@ namespace Banks
 {
     public class AmountPercentPair
     {
-        public AmountPercentPair(int percent, int amount)
+        public AmountPercentPair(List<int> boundarySums, List<int> percents)
         {
-            Percent = percent;
-            Amount = amount;
-
-            // Pair = new KeyValuePair<int, int>(amount, percent);
+            Percents = percents;
+            Amounts = boundarySums;
         }
 
-        public int Percent { get; set; }
-        public int Amount { get; set; }
-
-        // public KeyValuePair<int, int> Pair { get; set; }
+        public List<int> Percents { get; }
+        public List<int> Amounts { get; }
     }
 }

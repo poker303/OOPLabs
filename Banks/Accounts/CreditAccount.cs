@@ -1,23 +1,20 @@
 ﻿using System;
+using Banks.TransmittedParameters;
 
 namespace Banks.Accounts
 {
     public class CreditAccount : IAccount
     {
-        public CreditAccount(int number, int amount, int limit, int commission, bool possibilityOfWithdrawal)
-            : base(amount, possibilityOfWithdrawal)
+        public CreditAccount(AccountParameters parameters, int limit, int percent)
+            : base(parameters)
         {
-            Name = "Cre" + number;
+            SetPercents(percent);
             Limit = limit;
-            Commission = commission;
         }
 
-        public string Name { get; set; }
-
         public int Limit { get; set; }
-        public int Commission { get; set; }
 
-        public new int Withdrawal(int withdrawalAmount)
+        public new double Withdrawal(int withdrawalAmount)
         {
             if (withdrawalAmount < 0)
             {
@@ -29,17 +26,19 @@ namespace Banks.Accounts
                 throw new Exception("Operation is not possible, going over the limit.");
             }
 
-            return Amount - withdrawalAmount;
+            Amount -= withdrawalAmount;
+            return Amount;
         }
 
-        public new int Replenishment(int replenishmentAmount)
+        public new double Replenishment(int replenishmentAmount)
         {
             if (replenishmentAmount < 0)
             {
                 throw new Exception();
             }
 
-            return Amount + replenishmentAmount;
+            Amount += replenishmentAmount;
+            return Amount;
         }
     }
 }

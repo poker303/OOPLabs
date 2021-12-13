@@ -1,43 +1,42 @@
 ﻿using System;
+using Banks.Exceptions;
+using Banks.TransmittedParameters;
 
 namespace Banks.Accounts
 {
     public class DebitAccount : IAccount
     {
-        public DebitAccount(int number, int amount, int percent, bool possibilityOfWithdrawal)
-            : base(amount, possibilityOfWithdrawal)
+        public DebitAccount(AccountParameters parameters, int percent)
+            : base(parameters)
         {
-            Name = "Deb" + number;
-            Percent = percent;
+            SetPercents(percent);
         }
 
-        public string Name { get; set; }
-
-        public int Percent { get; set; }
-
-        public new int Withdrawal(int withdrawalAmount)
+        public new double Withdrawal(int withdrawalAmount)
         {
             if (withdrawalAmount < 0)
             {
-                throw new Exception();
+                throw new AmountException("The amount specified is incorrect, please change it.");
             }
 
             if (Amount < withdrawalAmount)
             {
-                throw new Exception("Operation is not possible, going over the limit.");
+                throw new LimitException("Operation is not possible, going over the limit.");
             }
 
-            return Amount - withdrawalAmount;
+            Amount -= withdrawalAmount;
+            return Amount;
         }
 
-        public new int Replenishment(int replenishmentAmount)
+        public new double Replenishment(int replenishmentAmount)
         {
             if (replenishmentAmount < 0)
             {
-                throw new Exception();
+                throw new AmountException("The amount specified is incorrect, please change it.");
             }
 
-            return Amount + replenishmentAmount;
+            Amount += replenishmentAmount;
+            return Amount;
         }
     }
 }

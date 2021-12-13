@@ -5,26 +5,85 @@ namespace Banks
 {
     public class Client
     {
-        public Client(string name, string surname, string address, string passportNumber, int money)
+        private List<string> _notifications;
+        public Client(string name, string surname, int money)
         {
             Name = name;
             Surname = surname;
-            Address = address;
-            PassportNumber = passportNumber;
             Money = money;
-            CreditAccounts = new List<CreditAccount>();
-            DepositAccounts = new List<DepositAccount>();
-            DebitAccounts = new List<DebitAccount>();
+            _notifications = new List<string>();
+            Address = "empty";
+            PassportNumber = "empty";
+            SubscriptionDesire = false;
+            CreditAccounts = new List<IAccount>();
+            DepositAccounts = new List<IAccount>();
+            DebitAccounts = new List<IAccount>();
         }
 
-        public string Name { get; set; }
-        public string Surname { get; set; }
         public string Address { get; set; }
         public string PassportNumber { get; set; }
         public int Money { get; set; }
 
-        public List<CreditAccount> CreditAccounts { get; set; }
-        public List<DepositAccount> DepositAccounts { get; set; }
-        public List<DebitAccount> DebitAccounts { get; set; }
+        public List<IAccount> CreditAccounts { get; }
+        public List<IAccount> DepositAccounts { get; }
+        public List<IAccount> DebitAccounts { get; }
+
+        private string Name { get; }
+        private string Surname { get; }
+        private bool SubscriptionDesire { get; set; }
+
+        public string GetName()
+        {
+            return Name;
+        }
+
+        public string GetSurName()
+        {
+            return Surname;
+        }
+
+        public string AddAddress(string address)
+        {
+            Address = address;
+            return Address;
+        }
+
+        public string AddPassportNumber(string passportNumber)
+        {
+            PassportNumber = passportNumber;
+            return PassportNumber;
+        }
+
+        public bool ChangeSubscriptionDesire(bool decision)
+        {
+            SubscriptionDesire = decision;
+            return SubscriptionDesire;
+        }
+
+        public bool GetSubscriptionDesire()
+        {
+            return SubscriptionDesire;
+        }
+
+        public void Update(IAccount account)
+        {
+            switch (account.GetType().Name)
+            {
+                case "CreditAccount":
+                    _notifications.Add("Credit account terms updated");
+                    break;
+                case "DepositAccount":
+                    _notifications.Add("Deposit account terms updated");
+                    break;
+                case "DebitAccount":
+                    _notifications.Add("Debit account terms updated");
+                    break;
+            }
+        }
+
+        public List<string> GetNotifications()
+        {
+            return _notifications;
+        }
     }
 }

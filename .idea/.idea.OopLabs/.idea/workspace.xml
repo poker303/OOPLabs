@@ -17,10 +17,13 @@
   <component name="ChangeListManager">
     <list default="true" id="de07db7f-a8c2-4d0b-b777-c6194651ef32" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/IsuExtra.Tests/IsuExtraTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra.Tests/IsuExtraTest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IsuExtra/Management/Manager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/Manager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IsuExtra/Management/StudyDay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/StudyDay.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IsuExtra/Management/StudyStream.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/StudyStream.cs" afterDir="false" />
+=======
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -318,6 +321,17 @@
       <workItem from="1636132258322" duration="580000" />
       <workItem from="1636365691494" duration="7905000" />
       <workItem from="1636397266822" duration="6268000" />
+<<<<<<< Updated upstream
+=======
+      <workItem from="1638515394811" duration="660000" />
+      <workItem from="1638778432102" duration="152000" />
+      <workItem from="1638778618152" duration="2311000" />
+      <workItem from="1638908792608" duration="11679000" />
+      <workItem from="1638922017495" duration="1000" />
+      <workItem from="1638940168758" duration="7578000" />
+      <workItem from="1638989449570" duration="5450000" />
+      <workItem from="1639049418916" duration="2905000" />
+>>>>>>> Stashed changes
     </task>
     <task id="LOCAL-00001" summary="ThirdTry">
       <created>1631735061916</created>

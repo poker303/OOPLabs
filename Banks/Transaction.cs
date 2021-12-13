@@ -1,49 +1,55 @@
 ﻿using System;
+using Banks.Accounts;
 
 namespace Banks
 {
     public class Transaction
     {
-        public Transaction(string type, int number, int amount, string accountName1, string accountName2)
+        public Transaction(string type, int number, int amount, IAccount account, DateTime creationDate)
         {
             TransactionType = type;
             Number = number;
             Amount = amount;
-            Sender = accountName1;
-            Recipient = accountName2;
+            Account = account;
+            CreationDate = creationDate;
         }
 
-        public Transaction(string type, int number, int amount, string accountName1, string accountName2, Bank bank)
+        public Transaction(string type, int number, int amount, IAccount account1, IAccount account2, Bank bank, DateTime creationDate)
         {
             TransactionType = type;
             Number = number;
             Amount = amount;
-            Sender = accountName1;
-            Recipient = accountName2;
+            Sender = account1;
+            Recipient = account2;
             TransactionBank = bank;
+            CreationDate = creationDate;
         }
 
-        public Transaction(string type, int number, int amount, string accountName1, string accountName2, Bank bank1, Bank bank2)
+        public Transaction(string type, int number, int amount, IAccount account1, IAccount account2, Bank bank1, Bank bank2, DateTime creationDate)
         {
             TransactionType = type;
             Number = number;
             Amount = amount;
-            Sender = accountName1;
-            Recipient = accountName2;
+            Sender = account1;
+            Recipient = account2;
             SenderBank = bank1;
             RecipientBank = bank2;
+            CreationDate = creationDate;
         }
 
-        public Bank TransactionBank { get; set; }
-        public Bank RecipientBank { get; set; }
+        public Bank RecipientBank { get; }
 
-        public Bank SenderBank { get; set; }
+        public Bank SenderBank { get; }
 
-        public string TransactionType { get; set; }
-        public int Number { get; set; }
-        public int Amount { get; set; }
-        public string Recipient { get; set; }
+        public string TransactionType { get; }
+        public int Number { get; }
+        public int Amount { get; }
+        public IAccount Sender { get; }
+        public IAccount Recipient { get; }
 
-        public string Sender { get; set; }
+        private DateTime CreationDate { get; }
+        private Bank TransactionBank { get; }
+
+        private IAccount Account { get; }
     }
 }

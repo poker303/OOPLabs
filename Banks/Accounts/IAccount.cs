@@ -1,51 +1,69 @@
 ﻿using System;
+using Banks.TransmittedParameters;
 
 namespace Banks.Accounts
 {
     public class IAccount
     {
-        // DateTime openingDate
-        public IAccount(int amount, bool possibilityOfWithdrawal)
+        protected IAccount(AccountParameters parameters)
         {
-            // if (number < 1)
-            // {
-            //     throw new Exception();
-            // }
-            //
-            // Number = number;
-            if (amount < 0)
+            Number = parameters.Numder;
+            if (parameters.Amount < 0)
             {
                 throw new Exception();
             }
 
-            Amount = amount;
-            OpeningDate = DateTime.Now;
-            PossibilityOfWithdrawal = possibilityOfWithdrawal;
+            Duration = parameters.Duration;
+            ReliabilityAmount = parameters.ReliabilityAmount;
+            CloseDate = parameters.OpeningDate.AddDays(parameters.Duration);
+            Reliability = parameters.Reliability;
+            Commission = parameters.Commission;
+            Amount = parameters.Amount;
+            OpeningDate = parameters.OpeningDate;
+            PossibilityOfWithdrawal = parameters.PossibilityOfWithdrawal;
         }
 
-        public int Number { get; set; }
-        public int Amount { get; set; }
-        public DateTime OpeningDate { get; set; }
+        public int ReliabilityAmount { get; set; }
+
+        public DateTime CloseDate { get; }
+
+        public float Percent { get; set; }
+        public int Commission { get; set; }
+
+        public string Reliability { get; set; }
+        public int Number { get; }
+        public double Amount { get; set; }
+        public DateTime OpeningDate { get; }
         public bool PossibilityOfWithdrawal { get; set; }
 
-        public int Withdrawal(int withdrawalAmount)
+        private int Duration { get; }
+
+        public double Withdrawal(int withdrawalAmount)
         {
             if (withdrawalAmount < 0)
             {
                 throw new Exception();
             }
 
+            Amount -= withdrawalAmount;
             return Amount;
         }
 
-        public int Replenishment(int replenishmentAmount)
+        public double Replenishment(int replenishmentAmount)
         {
             if (replenishmentAmount < 0)
             {
                 throw new Exception();
             }
 
+            Amount += replenishmentAmount;
             return Amount;
+        }
+
+        protected float SetPercents(float newPercent)
+        {
+            Percent = newPercent;
+            return Percent;
         }
     }
 }

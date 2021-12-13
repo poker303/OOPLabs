@@ -2,212 +2,288 @@
 using System.Collections.Generic;
 using System.Linq;
 using Banks.Accounts;
+using Banks.Exceptions;
+using Banks.TransmittedParameters;
 
 namespace Banks
 {
     public class Bank
     {
+        private readonly List<Client> _observers;
         private int _accountNumbers = 1;
 
-        // private int creditNumber = 1;
-        // private int depositNumber = 1;
-        // private int debitNumber = 1;
-        public Bank(string name, List<AmountPercentPair> table)
+        public Bank(BankParameters parameters)
         {
-            Name = name;
-            Table = table;
-            CreditAccounts = new List<CreditAccount>();
-            DepositAccounts = new List<DepositAccount>();
-            DebitAccounts = new List<DebitAccount>();
+            _observers = new List<Client>();
+            Name = parameters.Name;
+            ReliabilityAmount = parameters.ReliabilityAmount;
+
+            Table = parameters.Table;
+            DepositCommission = parameters.DepositCommission;
+
+            DebitPercent = parameters.DebitPercent;
+            DebitCommission = parameters.DebitCommission;
+
+            CreditPercent = parameters.CreditPercent;
+            CreditCommission = parameters.CreditCommission;
+            CreditLimit = parameters.CreditLimit;
+
+            Clients = new List<Client>();
+            CreditAccounts = new List<IAccount>();
+            DepositAccounts = new List<IAccount>();
+            DebitAccounts = new List<IAccount>();
             Transactions = new List<Transaction>();
         }
 
-        public List<AmountPercentPair> Table { get; set; }
+        public List<Client> Clients { get; }
+        public List<IAccount> CreditAccounts { get; }
+        public List<IAccount> DepositAccounts { get; }
+        public List<IAccount> DebitAccounts { get; }
 
-        public string Name { get; set; }
+        private List<Transaction> Transactions { get; }
+        private string Name { get; }
 
-        public List<Client> Clients { get; set; }
-        public List<Transaction> Transactions { get; set; }
+        private AmountPercentPair Table { get; }
 
-        public List<CreditAccount> CreditAccounts { get; set; }
-        public List<DepositAccount> DepositAccounts { get; set; }
-        public List<DebitAccount> DebitAccounts { get; set; }
+        private int ReliabilityAmount { get; set; }
 
-        public List<Client> AddClients(List<Client> clients)
+        private int DebitPercent { get; }
+
+        private int DebitCommission { get; }
+
+        private int CreditPercent { get; }
+
+        private int CreditCommission { get; }
+
+        private int DepositCommission { get; }
+
+        private int CreditLimit { get; }
+
+        public string GetName()
         {
-            foreach (Client client in Clients.Where(client => !Clients.Contains(client)))
+            return Name;
+        }
+
+        public void AddClients(List<Client> clients)
+        {
+            foreach (Client client in clients.Where(client => !Clients.Contains(client)))
             {
                 Clients.Add(client);
             }
-
-            // ??return clients
-            return Clients;
         }
 
-        public DebitAccount CreateDebitAccount(Client client, int percent, int initialAmount)
+        public DebitAccount CreateDebitAccount(Client client, int initialAmount, DateTime creationTime, int duration)
         {
-            var newDebitAccount = new DebitAccount(_accountNumbers, initialAmount, percent, true);
+            if (initialAmount > client.Money)
+            {
+                throw new AmountException("You don't have that much money");
+            }
+
+            client.Money -= initialAmount;
+
+            string reliability;
+            if (client.PassportNumber == "empty" || client.Address == "empty")
+            {
+                reliability = "bad";
+            }
+            else
+            {
+                reliability = "good";
+            }
+
+            var parameters = new AccountParameters(_accountNumbers, initialAmount, DebitCommission, true, creationTime, duration, reliability, ReliabilityAmount);
+            var newDebitAccount = new DebitAccount(parameters, DebitPercent);
+
             DebitAccounts.Add(newDebitAccount);
             client.DebitAccounts.Add(newDebitAccount);
             _accountNumbers++;
             return newDebitAccount;
         }
 
-        public CreditAccount CreateCreditAccount(Client client, int initialAmount, int limit, int commission)
+        public CreditAccount CreateCreditAccount(Client client, int initialAmount, DateTime creationTime, int duration)
         {
-            var newCreditAccount = new CreditAccount(_accountNumbers, initialAmount, limit, commission, true);
+            if (initialAmount > client.Money)
+            {
+                throw new AmountException("You don't have that much money");
+            }
+
+            client.Money -= initialAmount;
+
+            string reliability;
+            if (client.PassportNumber == "empty" || client.Address == "empty")
+            {
+                reliability = "bad";
+            }
+            else
+            {
+                reliability = "good";
+            }
+
+            var parameters = new AccountParameters(_accountNumbers, initialAmount, CreditCommission, true, creationTime, duration, reliability, ReliabilityAmount);
+            var newCreditAccount = new CreditAccount(parameters, CreditPercent, CreditLimit);
             CreditAccounts.Add(newCreditAccount);
             client.CreditAccounts.Add(newCreditAccount);
             _accountNumbers++;
             return newCreditAccount;
         }
 
-        public DepositAccount CreateDepositAccount(Client client, int initialAmount, int duration)
+        public DepositAccount CreateDepositAccount(Client client, int initialAmount, DateTime creationTime, int duration)
         {
-            var newDepositAccount = new DepositAccount(_accountNumbers, initialAmount, false, duration, Table);
+            if (initialAmount > client.Money)
+            {
+                throw new AmountException("You don't have that much money");
+            }
+
+            client.Money -= initialAmount;
+
+            string reliability;
+            if (client.PassportNumber == "empty" || client.Address == "empty")
+            {
+                reliability = "bad";
+            }
+            else
+            {
+                reliability = "good";
+            }
+
+            var parameters = new AccountParameters(_accountNumbers, initialAmount, DebitCommission, false, creationTime, duration, reliability, ReliabilityAmount);
+            var newDepositAccount = new DepositAccount(parameters, Table);
             DepositAccounts.Add(newDepositAccount);
             client.DepositAccounts.Add(newDepositAccount);
             _accountNumbers++;
             return newDepositAccount;
         }
 
-        public void Withdrawal(int withdrawalAmount, string accountName)
+        public void Withdrawal(int withdrawalAmount, IAccount account, DateTime operationDate)
         {
-            foreach (DebitAccount account in DebitAccounts.Where(account => account.Name == accountName))
+            if (account.Reliability == "bad")
             {
-                account.Withdrawal(withdrawalAmount);
-                var newTransaction =
-                    new Transaction("W", Transactions.Count, withdrawalAmount, accountName, accountName);
-                Transactions.Add(newTransaction);
-                break;
+                if (withdrawalAmount > account.ReliabilityAmount)
+                {
+                    throw new OperationException("To perform the operation, enter your passport number.");
+                }
             }
 
-            foreach (CreditAccount account in CreditAccounts.Where(account => account.Name == accountName))
+            if (account.GetType().Name == "DepositAccount")
             {
-                account.Withdrawal(withdrawalAmount);
-                var newTransaction =
-                    new Transaction("W", Transactions.Count, withdrawalAmount, accountName, accountName);
-                Transactions.Add(newTransaction);
-                break;
+                if (account.CloseDate > operationDate)
+                {
+                    throw new TimeException("The operation is impossible.");
+                }
             }
 
-            foreach (DepositAccount account in DepositAccounts.Where(account => account.Name == accountName))
-            {
-                account.Withdrawal(withdrawalAmount);
-                var newTransaction =
-                    new Transaction("W", Transactions.Count, withdrawalAmount, accountName, accountName);
-                Transactions.Add(newTransaction);
-                break;
-            }
+            account.Withdrawal(withdrawalAmount);
+            var newTransaction = new Transaction("W", Transactions.Count, withdrawalAmount, account, operationDate);
+            Transactions.Add(newTransaction);
         }
 
-        public void Replenishment(int replenishmentAmount, string accountName)
+        public void Replenishment(int replenishmentAmount, IAccount account, DateTime operationDate)
         {
-            foreach (DebitAccount account in DebitAccounts.Where(account => account.Name == accountName))
-            {
                 account.Replenishment(replenishmentAmount);
-                var newTransaction =
-                    new Transaction("R", Transactions.Count, replenishmentAmount, accountName, accountName);
+                var newTransaction = new Transaction("R", Transactions.Count, replenishmentAmount, account, operationDate);
                 Transactions.Add(newTransaction);
-                break;
-            }
-
-            foreach (CreditAccount account in CreditAccounts.Where(account => account.Name == accountName))
-            {
-                account.Replenishment(replenishmentAmount);
-                var newTransaction =
-                    new Transaction("R", Transactions.Count, replenishmentAmount, accountName, accountName);
-                Transactions.Add(newTransaction);
-                break;
-            }
-
-            foreach (DepositAccount account in DepositAccounts.Where(account => account.Name == accountName))
-            {
-                account.Replenishment(replenishmentAmount);
-                var newTransaction =
-                    new Transaction("R", Transactions.Count, replenishmentAmount, accountName, accountName);
-                Transactions.Add(newTransaction);
-                break;
-            }
         }
 
-        public void СancellationOfTheTransaction(int number)
+        public void СancellationOfTheTransaction(int number, DateTime operationDate)
         {
             foreach (Transaction transaction in Transactions.Where(transaction => transaction.Number == number))
             {
                 switch (transaction.TransactionType)
                 {
                     case "W":
-                        Replenishment(transaction.Amount, transaction.Sender);
+                        Replenishment(transaction.Amount, transaction.Sender, operationDate);
                         break;
                     case "R":
-                        Withdrawal(transaction.Amount, transaction.Recipient);
+                        Withdrawal(transaction.Amount, transaction.Recipient, operationDate);
                         break;
                 }
             }
         }
 
-        public int AccountAfterTime(DebitAccount account, DateTime date)
+        public void Accruals(IAccount account, DateTime date)
         {
-            var additionalAmounts = new List<int>();
-            int tempAmount = account.Amount;
-            int numberOfElapsedMonth =
-                ((date.Year - account.OpeningDate.Year) * 12) + date.Month - account.OpeningDate.Month;
+            int numberOfElapsedDays = (date - account.OpeningDate).Duration().Days;
 
-            // int numberOfElapsedDays = (date - account.OpeningDate).Duration().Days;
-            for (int elapsedMonth = 0; elapsedMonth < numberOfElapsedMonth; elapsedMonth++)
+            double tempPercent = account.Percent / 36500d;
+
+            for (int day = 0; day < numberOfElapsedDays; day++)
             {
-                for (int elapsedDay = 0; elapsedDay <= 30; elapsedDay++)
-                {
-                    additionalAmounts[elapsedDay] = tempAmount * (account.Percent / 100 / 365);
-                    tempAmount += additionalAmounts[elapsedDay];
-                }
-
-                account.Amount = tempAmount;
-                tempAmount = account.Amount;
-                additionalAmounts.Clear();
-            }
-
-            return account.Amount;
-        }
-
-        public int AccountAfterTime(DepositAccount account, DateTime date)
-        {
-            var additionalAmounts = new List<int>();
-            int tempAmount = account.Amount;
-            int numberOfElapsedMonth =
-                ((date.Year - account.OpeningDate.Year) * 12) + date.Month - account.OpeningDate.Month;
-
-            // int numberOfElapsedDays = (date - account.OpeningDate).Duration().Days;
-            for (int elapsedMonth = 0; elapsedMonth < numberOfElapsedMonth; elapsedMonth++)
-            {
-                for (int elapsedDay = 0; elapsedDay <= 30; elapsedDay++)
-                {
-                    additionalAmounts[elapsedDay] = tempAmount * (account.Percent / 100 / 365);
-                    tempAmount += additionalAmounts[elapsedDay];
-                }
-
-                account.Amount = tempAmount;
-                tempAmount = account.Amount;
-                additionalAmounts.Clear();
-            }
-
-            return account.Amount;
-        }
-
-        public int AccountAfterTime(CreditAccount account, DateTime date)
-        {
-            int numberOfElapsedMonth =
-                ((date.Year - account.OpeningDate.Year) * 12) + date.Month - account.OpeningDate.Month;
-            for (int elapsedMonth = 0; elapsedMonth < numberOfElapsedMonth; elapsedMonth++)
-            {
+                account.Amount += account.Amount * tempPercent;
                 if (account.Amount < 0)
                 {
                     account.Amount -= account.Commission;
                 }
             }
+        }
 
-            return account.Amount;
+        public void ClientAccountsUpdate(Client client, DateTime operationDate)
+        {
+            if (client.PassportNumber != "empty" && client.Address != "empty")
+            {
+                foreach (IAccount account in client.CreditAccounts.Concat(client.DebitAccounts).Concat(client.DepositAccounts))
+                {
+                    account.Reliability = "good";
+                }
+            }
+
+            foreach (IAccount account in client.DepositAccounts)
+            {
+                if (operationDate > account.CloseDate)
+                {
+                    account.PossibilityOfWithdrawal = true;
+                }
+            }
+        }
+
+        public void AttachObserver(Client client)
+        {
+            if (client.GetSubscriptionDesire() == false) throw new SubscriptionException("No subscription permission.");
+            if (!_observers.Contains(client))
+            {
+                _observers.Add(client);
+            }
+        }
+
+        public void DetachObserver(Client client)
+        {
+            _observers.Remove(client);
+        }
+
+        public void NotifyObservers(IAccount account)
+        {
+            foreach (Client observer in _observers)
+            {
+                if (observer.CreditAccounts.Concat(observer.DebitAccounts).Concat(observer.DepositAccounts).Contains(account))
+                {
+                    observer.Update(account);
+                }
+            }
+        }
+
+        public void ChangeDebitAccountOptions(IAccount account, int newDebitPercent, int newDebitCommission)
+        {
+            account.Commission = newDebitCommission;
+            account.Percent = newDebitPercent;
+            NotifyObservers(account);
+        }
+
+        public void ChangeDepositAccountOptions(DepositAccount account, int newDepositCommission)
+        {
+            account.Commission = newDepositCommission;
+            NotifyObservers(account);
+        }
+
+        public void ChangeCreditAccountOptions(CreditAccount account, int newCreditPercent, int newCreditCommission, int newCreditLimit)
+        {
+            account.Commission = newCreditCommission;
+            account.Percent = newCreditPercent;
+            account.Limit = newCreditLimit;
+            NotifyObservers(account);
+        }
+
+        public void ChangeReliabilityAmount(int newReliabilityAmount)
+        {
+            ReliabilityAmount = newReliabilityAmount;
         }
     }
 }

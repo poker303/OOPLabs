@@ -1,57 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Banks.Exceptions;
+using Banks.TransmittedParameters;
 
 namespace Banks.Accounts
 {
     public class DepositAccount : IAccount
     {
-        public DepositAccount(int number, int amount, bool possibilityOfWithdrawal, int duration, List<AmountPercentPair> table)
-            : base(amount, possibilityOfWithdrawal)
+        public DepositAccount(AccountParameters parameters, AmountPercentPair table)
+            : base(parameters)
         {
-            Duration = duration;
-            foreach (AmountPercentPair pair in table.Where(pair => pair.Amount == amount))
+            for (int i = 0; i < table.Percents.Count; i++)
             {
-                Name = "Dep" + number;
-                Percent = pair.Percent;
+                if (table.Amounts[i] <= parameters.Amount && parameters.Amount < table.Amounts[i + 1])
+                {
+                    SetPercents(table.Percents[i]);
+                }
             }
         }
 
-        public string Name { get; set; }
-
-        public int Percent { get; set; }
-        public int Duration { get; set; }
-
-        public new int Withdrawal(int withdrawalAmount)
+        public new double Withdrawal(int withdrawalAmount)
         {
             if (withdrawalAmount < 0)
             {
-                throw new Exception();
+                throw new AmountException("The amount specified is incorrect, please change it.");
             }
-
-            if (DateTime.Now < OpeningDate.AddMonths(Duration))
-            {
-                throw new Exception("Can't do this operation.");
-            }
-
-            PossibilityOfWithdrawal = true;
 
             if (Amount < withdrawalAmount)
             {
-                throw new Exception("Operation is not possible, going over the limit.");
+                throw new LimitException("Operation is not possible, going over the limit.");
             }
 
-            return Amount - withdrawalAmount;
+            PossibilityOfWithdrawal = true;
+            Amount -= withdrawalAmount;
+            return Amount;
         }
 
-        public new int Replenishment(int replenishmentAmount)
+        public new double Replenishment(int replenishmentAmount)
         {
             if (replenishmentAmount < 0)
             {
-                throw new Exception();
+                throw new AmountException("The amount specified is incorrect, please change it.");
             }
 
-            return Amount + replenishmentAmount;
+            Amount += replenishmentAmount;
+            return Amount;
         }
     }
 }
