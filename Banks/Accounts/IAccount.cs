@@ -30,7 +30,7 @@ namespace Banks.Accounts
         public float Percent { get; set; }
         public int Commission { get; set; }
 
-        public string Reliability { get; set; }
+        public bool Reliability { get; set; }
         public int Number { get; }
         public double Amount { get; set; }
         public DateTime OpeningDate { get; }

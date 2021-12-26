@@ -12,8 +12,8 @@ namespace Banks
             Surname = surname;
             Money = money;
             _notifications = new List<string>();
-            Address = "empty";
-            PassportNumber = "empty";
+            Address = null;
+            PassportNumber = null;
             SubscriptionDesire = false;
             CreditAccounts = new List<IAccount>();
             DepositAccounts = new List<IAccount>();
@@ -67,15 +67,15 @@ namespace Banks
 
         public void Update(IAccount account)
         {
-            switch (account.GetType().Name)
+            switch (account)
             {
-                case "CreditAccount":
+                case CreditAccount _:
                     _notifications.Add("Credit account terms updated");
                     break;
-                case "DepositAccount":
+                case DepositAccount _:
                     _notifications.Add("Deposit account terms updated");
                     break;
-                case "DebitAccount":
+                case DebitAccount _:
                     _notifications.Add("Debit account terms updated");
                     break;
             }

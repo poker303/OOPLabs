@@ -8,10 +8,12 @@ namespace Banks
 {
     public class ConsoleApp
     {
+        private ConsoleAppRecordingMethods _console = new ConsoleAppRecordingMethods();
         private List<string> _commands;
         private List<CentralBank> _centralBank;
         private List<BankParameters> _templateParametersForCreatingBank;
         private List<Client> _clients;
+
         public ConsoleApp()
         {
             _clients = new List<Client>();
@@ -28,8 +30,6 @@ namespace Banks
 
                 new string("CreateClient"),
                 new string("AddClientToTheBank"),
-
-                // new string("SettingParametersToAccount"),
                 new string("CreateAccount"),
 
                 new string("ShowBanks"),
@@ -59,24 +59,17 @@ namespace Banks
                 switch (command)
                 {
                     case "CreateCentralBank":
-
-                        Console.WriteLine("Введите имя центрального банка");
-                        string centralBankName = Convert.ToString(Console.ReadLine());
-                        Console.WriteLine("Введите страну центрального банка");
-                        string centralBankCountry = Convert.ToString(Console.ReadLine());
+                        string centralBankName = _console.ConsoleToString("Введите имя центрального банка");
+                        string centralBankCountry = _console.ConsoleToString("Введите страну центрального банка");
                         CreateCentralBank(centralBankName, centralBankCountry);
                         Console.WriteLine($"Центральный Банк: {centralBankName} в стране {centralBankCountry} создан.");
                         break;
 
                     case "SettingParametersToBank":
-                        Console.WriteLine("Введите номер шаблона");
-                        int number = Convert.ToInt32(Console.ReadLine());
+                        int number = _console.ConsoleToInt("Введите номер шаблона");
+                        string nameBank = _console.ConsoleToString("Введите имя банка");
+                        int numbers = _console.ConsoleToInt("Введите количество критических сумм");
 
-                        Console.WriteLine("Введите имя банка");
-                        string nameBank = Convert.ToString(Console.ReadLine());
-
-                        Console.WriteLine("Введите количество критических сумм");
-                        int numbers = Convert.ToInt32(Console.ReadLine());
                         var boundarySums = new List<int>();
                         for (int i = 0; i < numbers; i++)
                         {
@@ -93,89 +86,53 @@ namespace Banks
                         }
 
                         var table = new AmountPercentPair(boundarySums, percents);
-
-                        Console.WriteLine("Введите ограничительную сумму если счёт ненадёжный");
-                        int reliabilityAmount = Convert.ToInt32(Console.ReadLine());
-
-                        Console.WriteLine("Введите процент дебетового счёта");
-                        int debitPercent = Convert.ToInt32(Console.ReadLine());
-
-                        Console.WriteLine("Введите комиссию дебетового счёта");
-                        int debitCommission = Convert.ToInt32(Console.ReadLine());
-
-                        Console.WriteLine("Введите процент кредитного счёта");
-                        int creditPercent = Convert.ToInt32(Console.ReadLine());
-
-                        Console.WriteLine("Введите комиссию кредитного счёта");
-                        int creditCommission = Convert.ToInt32(Console.ReadLine());
-
-                        Console.WriteLine("Введите комиссию депозитного счёта");
-                        int depositCommission = Convert.ToInt32(Console.ReadLine());
-
-                        Console.WriteLine("Введите лимит по кредитным счетам счёта");
-                        int creditLimit = Convert.ToInt32(Console.ReadLine());
+                        int reliabilityAmount =
+                            _console.ConsoleToInt("Введите ограничительную сумму если счёт ненадёжный");
+                        int debitPercent = _console.ConsoleToInt("Введите процент дебетового счёта");
+                        int debitCommission = _console.ConsoleToInt("Введите комиссию дебетового счёта");
+                        int creditPercent = _console.ConsoleToInt("Введите процент кредитного счёта");
+                        int creditCommission = _console.ConsoleToInt("Введите комиссию кредитного счёта");
+                        int depositCommission = _console.ConsoleToInt("Введите комиссию депозитного счёта");
+                        int creditLimit = _console.ConsoleToInt("Введите лимит по кредитным счетам счёта");
 
                         var parameters = new BankParameters(nameBank, table, reliabilityAmount, debitPercent, debitCommission, creditPercent, creditCommission, depositCommission, creditLimit);
                         _templateParametersForCreatingBank[number] = parameters;
                         break;
 
                     case "CreateBank":
-                        Console.WriteLine("Введите имя центрального банка");
-                        string centralBank = Convert.ToString(Console.ReadLine());
-
-                        Console.WriteLine("Введите номер шаблона банка");
-                        int number1 = Convert.ToInt32(Console.ReadLine());
+                        string centralBank = _console.ConsoleToString("Введите имя центрального банка");
+                        int number1 = _console.ConsoleToInt("Введите номер шаблона банка");
                         CreateBank(centralBank, number1);
                         break;
 
                     case "CreateClient":
-                        Console.WriteLine("Введите имя клиента");
-                        string clientName = Convert.ToString(Console.ReadLine());
-
-                        Console.WriteLine("Введите фамилию банка");
-                        string clientSurname = Convert.ToString(Console.ReadLine());
-
-                        Console.WriteLine("Введите деньги клиента");
-                        int clientMoney = Convert.ToInt32(Console.ReadLine());
+                        string clientName = _console.ConsoleToString("Введите имя клиента");
+                        string clientSurname = _console.ConsoleToString("Введите фамилию клиента");
+                        int clientMoney = _console.ConsoleToInt("Введите деньги клиента");
 
                         var client = new Client(clientName, clientSurname, clientMoney);
                         _clients.Add(client);
                         break;
 
                     case "AddClientToTheBank":
-
-                        Console.WriteLine("Введите имя клиента");
-                        string clientName1 = Convert.ToString(Console.ReadLine());
-
-                        Console.WriteLine("Введите фамилию клиента");
-                        string clientSurName1 = Convert.ToString(Console.ReadLine());
-
-                        Console.WriteLine("Введите имя банка");
-                        string nameBank1 = Convert.ToString(Console.ReadLine());
+                        string clientName1 = _console.ConsoleToString("Введите имя клиента");
+                        string clientSurName1 = _console.ConsoleToString("Введите фамилию клиента");
+                        string nameBank1 = _console.ConsoleToString("Введите имя банка");
 
                         AddClient(clientName1, clientSurName1, nameBank1);
                         break;
 
                     case "CreateAccount":
-                        Console.WriteLine("Введите имя банка, в котором хотите создать счёт");
-                        string bankName = Convert.ToString(Console.ReadLine());
-
-                        Console.WriteLine("Введите имя клиента");
-                        string clientName2 = Convert.ToString(Console.ReadLine());
-
-                        Console.WriteLine("Введите фамилию клиента");
-                        string clientSurName2 = Convert.ToString(Console.ReadLine());
+                        string bankName = _console.ConsoleToString("Введите имя банка, в котором хотите создать счёт");
+                        string clientName2 = _console.ConsoleToString("Введите имя клиента");
+                        string clientSurName2 = _console.ConsoleToString("Введите фамилию клиента");
 
                         FindClientByNameSurname(clientName2, clientSurName2);
-
-                        Console.WriteLine("Введите сумму счёта");
-                        int amount = Convert.ToInt32(Console.ReadLine());
+                        int amount = _console.ConsoleToInt("Введите сумму счёта");
 
                         Console.WriteLine("Введите дату открытия счёта.");
                         var openingDate = Convert.ToDateTime(Console.ReadLine());
-
-                        Console.WriteLine("Введите период длительности счёта.");
-                        int duration = Convert.ToInt32(Console.ReadLine());
+                        int duration = _console.ConsoleToInt("Введите период длительности счёта.");
 
                         List<Client> accountOwner = FindClientByNameSurname(clientName2, clientSurName2);
                         FindBankByName(bankName).CreateDebitAccount(accountOwner[0], amount, openingDate, duration);
@@ -188,35 +145,36 @@ namespace Banks
                         break;
 
                     case "ShowClientAccountsInfo":
-                        Console.WriteLine("Введите имя клиента");
-                        string clientName3 = Convert.ToString(Console.ReadLine());
-                        Console.WriteLine("Введите фамилию клиента");
-                        string clientSurName3 = Convert.ToString(Console.ReadLine());
+                        string clientName3 = _console.ConsoleToString("Введите имя клиента");
+                        string clientSurName3 = _console.ConsoleToString("Введите фамилию клиента");
                         Client tempClient = FindClientByNameSurname(clientName3, clientSurName3)[0];
 
                         Console.WriteLine("Дебитовые счета: ");
                         foreach (DebitAccount debitAccount in tempClient.DebitAccounts)
                         {
-                            Console.WriteLine($"Номер счёта: {debitAccount.Number}, Сумма на счёте: {debitAccount.Amount}");
+                            Console.WriteLine(
+                                $"Номер счёта: {debitAccount.Number}, Сумма на счёте: {debitAccount.Amount}");
                         }
 
                         Console.WriteLine("Кредитные счета: ");
                         foreach (CreditAccount creditAccount in tempClient.CreditAccounts)
                         {
-                            Console.WriteLine($"Номер счёта: {creditAccount.Number}, Сумма на счёте: {creditAccount.Amount}");
+                            Console.WriteLine(
+                                $"Номер счёта: {creditAccount.Number}, Сумма на счёте: {creditAccount.Amount}");
                         }
 
                         Console.WriteLine("Дебитовые счета: ");
                         foreach (DebitAccount debitAccount in tempClient.DebitAccounts)
                         {
-                            Console.WriteLine($"Номер счёта: {debitAccount.Number}, Сумма на счёте: {debitAccount.Amount}");
+                            Console.WriteLine(
+                                $"Номер счёта: {debitAccount.Number}, Сумма на счёте: {debitAccount.Amount}");
                         }
 
                         break;
 
                     case "ShowBankClients":
-                        Console.WriteLine("Введите имя банка, клиентов которого хотите посмотреть");
-                        string bankName1 = Convert.ToString(Console.ReadLine());
+                        string bankName1 =
+                            _console.ConsoleToString("Введите имя банка, клиентов которого хотите посмотреть");
                         Bank tempBank = FindBankByName(bankName1);
 
                         List<Client> tempBankClients = ShowBankClients(tempBank);
@@ -225,11 +183,9 @@ namespace Banks
                         break;
 
                     case "ShowAccountAmountAfterTime":
-                        Console.WriteLine("Введите номер счёта");
-                        int accountNumber = Convert.ToInt32(Console.ReadLine());
+                        int accountNumber = _console.ConsoleToInt("Введите номер счёта");
 
-                        Console.WriteLine("Введите имя банка, которому принадлежит счёт");
-                        string bankName2 = Convert.ToString(Console.ReadLine());
+                        string bankName2 = _console.ConsoleToString("Введите имя банка, которому принадлежит счёт");
                         Bank tempBank1 = FindBankByName(bankName2);
 
                         Console.WriteLine("Введите дату, в которую хотите посмотреть сумму на счёте");
@@ -242,16 +198,10 @@ namespace Banks
                     case "AccountWithdrawal":
                         Console.WriteLine("Введите сегодняшнюю дату");
                         var tempDate1 = Convert.ToDateTime(Console.ReadLine());
-
-                        Console.WriteLine("Введите номер счёта");
-                        int accountNumber1 = Convert.ToInt32(Console.ReadLine());
-
-                        Console.WriteLine("Введите имя банка, которому принадлежит счёт");
-                        string bankName3 = Convert.ToString(Console.ReadLine());
+                        int accountNumber1 = _console.ConsoleToInt("Введите номер счёта");
+                        string bankName3 = _console.ConsoleToString("Введите имя банка, которому принадлежит счёт");
                         Bank tempBank2 = FindBankByName(bankName3);
-
-                        Console.WriteLine("Введите сумму, которую хотите снять со счёта: ");
-                        int withdrawalAmount = Convert.ToInt32(Console.ReadLine());
+                        int withdrawalAmount = _console.ConsoleToInt("Введите сумму, которую хотите снять со счёта: ");
 
                         IAccount tempAccount1 = FindAccountByNumber(accountNumber1, tempBank2);
                         tempBank2.Withdrawal(withdrawalAmount, tempAccount1, tempDate1);
@@ -261,16 +211,11 @@ namespace Banks
                     case "AccountReplenishment":
                         Console.WriteLine("Введите сегодняшнюю дату");
                         var tempDate2 = Convert.ToDateTime(Console.ReadLine());
-
-                        Console.WriteLine("Введите номер счёта");
-                        int accountNumber2 = Convert.ToInt32(Console.ReadLine());
-
-                        Console.WriteLine("Введите имя банка, которому принадлежит счёт");
-                        string bankName4 = Convert.ToString(Console.ReadLine());
+                        int accountNumber2 = _console.ConsoleToInt("Введите номер счёта");
+                        string bankName4 = _console.ConsoleToString("Введите имя банка, которому принадлежит счёт");
                         Bank tempBank3 = FindBankByName(bankName4);
-
-                        Console.WriteLine("Введите сумму, которую хотите внести на счёт: ");
-                        int replenishmentAmount = Convert.ToInt32(Console.ReadLine());
+                        int replenishmentAmount =
+                            _console.ConsoleToInt("Введите сумму, которую хотите внести на счёт: ");
 
                         IAccount tempAccount2 = FindAccountByNumber(accountNumber2, tempBank3);
                         tempBank3.Replenishment(replenishmentAmount, tempAccount2, tempDate2);
@@ -278,147 +223,130 @@ namespace Banks
                         break;
 
                     case "Transfer":
-                        Console.WriteLine("Скажите, вы хотите сделать перевод со счёта на счёт в одном банке ?");
-                        string answer = Convert.ToString(Console.ReadLine());
+                        string answer =
+                            _console.ConsoleToString(
+                                "Скажите, вы хотите сделать перевод со счёта на счёт в одном банке ?");
 
                         if (answer == "Yes")
                         {
                             Console.WriteLine("Введите сегодняшнюю дату");
                             var tempDate3 = Convert.ToDateTime(Console.ReadLine());
-
-                            Console.WriteLine("Введите имя банка, которому принадлежат счёта");
-                            string bankName5 = Convert.ToString(Console.ReadLine());
+                            string bankName5 =
+                                _console.ConsoleToString("Введите имя банка, которому принадлежат счёта");
                             Bank tempBank4 = FindBankByName(bankName5);
-
-                            Console.WriteLine("Введите номер счёта, с которого хотите перевести деньги: ");
-                            int accountNumber3 = Convert.ToInt32(Console.ReadLine());
+                            int accountNumber3 =
+                                _console.ConsoleToInt("Введите номер счёта, с которого хотите перевести деньги: ");
                             IAccount tempAccount3 = FindAccountByNumber(accountNumber3, tempBank4);
-
-                            Console.WriteLine("Введите номер счёта, на который хотите перевести деньги:");
-                            int accountNumber4 = Convert.ToInt32(Console.ReadLine());
+                            int accountNumber4 =
+                                _console.ConsoleToInt("Введите номер счёта, на который хотите перевести деньги:");
                             IAccount tempAccount4 = FindAccountByNumber(accountNumber4, tempBank4);
-
-                            Console.WriteLine("Введите сумму, которую хотите перевести: ");
-                            int transferAmount1 = Convert.ToInt32(Console.ReadLine());
+                            int transferAmount1 = _console.ConsoleToInt("Введите сумму, которую хотите перевести: ");
 
                             _centralBank[0].Transfer(transferAmount1, tempAccount3, tempAccount4, tempBank4, tempDate3);
-                            Console.WriteLine($"Операция прошла успешно, текущяя сумма на первом счёте: {tempAccount3.Amount}, на втором: {tempAccount4.Amount}");
+                            Console.WriteLine(
+                                $"Операция прошла успешно, текущяя сумма на первом счёте: {tempAccount3.Amount}, на втором: {tempAccount4.Amount}");
                         }
                         else
                         {
                             Console.WriteLine("Введите сегодняшнюю дату");
                             var tempDate3 = Convert.ToDateTime(Console.ReadLine());
-
-                            Console.WriteLine("Введите имя банка, с аккаунта которого хотите перевести деньги");
-                            string bankName5 = Convert.ToString(Console.ReadLine());
+                            string bankName5 =
+                                _console.ConsoleToString(
+                                    "Введите имя банка, с аккаунта которого хотите перевести деньги");
                             Bank tempBank4 = FindBankByName(bankName5);
-
-                            Console.WriteLine("Введите имя банка, на аккаунт которого хотите получить деньги");
-                            string bankName6 = Convert.ToString(Console.ReadLine());
+                            string bankName6 =
+                                _console.ConsoleToString(
+                                    "Введите имя банка, на аккаунт которого хотите получить деньги");
                             Bank tempBank5 = FindBankByName(bankName6);
-
-                            Console.WriteLine("Введите номер счёта, с которого хотите перевести деньги: ");
-                            int accountNumber3 = Convert.ToInt32(Console.ReadLine());
+                            int accountNumber3 =
+                                _console.ConsoleToInt("Введите номер счёта, с которого хотите перевести деньги: ");
                             IAccount tempAccount3 = FindAccountByNumber(accountNumber3, tempBank4);
-
-                            Console.WriteLine("Введите номер счёта, на который хотите перевести деньги:");
-                            int accountNumber4 = Convert.ToInt32(Console.ReadLine());
+                            int accountNumber4 =
+                                _console.ConsoleToInt("Введите номер счёта, на который хотите перевести деньги:");
                             IAccount tempAccount4 = FindAccountByNumber(accountNumber4, tempBank4);
-
-                            Console.WriteLine("Введите сумму, которую хотите перевести: ");
-                            int transferAmount1 = Convert.ToInt32(Console.ReadLine());
+                            int transferAmount1 = _console.ConsoleToInt("Введите сумму, которую хотите перевести: ");
 
                             _centralBank[0].Transfer(transferAmount1, tempAccount3, tempAccount4, tempBank4, tempBank5, tempDate3);
-                            Console.WriteLine($"Операция прошла успешно, текущяя сумма на первом счёте: {tempAccount3.Amount}, на втором: {tempAccount4.Amount}");
+                            Console.WriteLine(
+                                $"Операция прошла успешно, текущяя сумма на первом счёте: {tempAccount3.Amount}, на втором: {tempAccount4.Amount}");
                         }
 
                         break;
 
                     case "СancellationOfTheTransaction":
-                        Console.WriteLine("Скажите, операция происходила с одним и тем же счётом ?");
-                        string answer1 = Convert.ToString(Console.ReadLine());
+                        string answer1 =
+                            _console.ConsoleToString("Скажите, операция происходила с одним и тем же счётом ?");
 
                         if (answer1 == "Yes")
                         {
                             Console.WriteLine("Введите сегодняшнюю дату");
                             var tempDate4 = Convert.ToDateTime(Console.ReadLine());
 
-                            Console.WriteLine("Введите номер операции, которую хотите отменить: ");
-                            int transactionNumber = Convert.ToInt32(Console.ReadLine());
+                            int transactionNumber =
+                                _console.ConsoleToInt("Введите номер операции, которую хотите отменить: ");
 
-                            Console.WriteLine("Введите имя банка, в котором происходила операция: ");
-                            string bankName7 = Convert.ToString(Console.ReadLine());
+                            string bankName7 =
+                                _console.ConsoleToString("Введите имя банка, в котором происходила операция: ");
                             Bank tempBank6 = FindBankByName(bankName7);
 
-                            tempBank6.СancellationOfTheTransaction(transactionNumber, tempDate4);
+                            tempBank6.СancellationOfTheTransaction(transactionNumber);
                             Console.WriteLine("Перевод успешно отменён, деньги были вернуты на счета.");
                         }
                         else
                         {
                             Console.WriteLine("Введите сегодняшнюю дату");
                             var tempDate4 = Convert.ToDateTime(Console.ReadLine());
-
-                            Console.WriteLine("Введите номер операции, которую хотите отменить: ");
-                            int transactionNumber = Convert.ToInt32(Console.ReadLine());
-
-                            _centralBank[0].СancellationOfTheTransaction(transactionNumber, tempDate4);
+                            int transactionNumber =
+                                _console.ConsoleToInt("Введите номер операции, которую хотите отменить: ");
+                            _centralBank[0].СancellationOfTheTransaction(transactionNumber);
                             Console.WriteLine("Перевод успешно отменён, деньги были вернуты на счета.");
                         }
 
                         break;
 
                     case "GiveClientPermissionToSubscribe":
-                        Console.WriteLine("Введите имя клиента");
-                        string clientName4 = Convert.ToString(Console.ReadLine());
-                        Console.WriteLine("Введите фамилию клиента");
-                        string clientSurName4 = Convert.ToString(Console.ReadLine());
+                        string clientName4 = _console.ConsoleToString("Введите имя клиента");
+                        string clientSurName4 = _console.ConsoleToString("Введите фамилию клиента");
                         Client tempClient1 = FindClientByNameSurname(clientName4, clientSurName4)[0];
                         tempClient1.ChangeSubscriptionDesire(true);
                         break;
 
                     case "SignTheClientForUpdates":
-                        Console.WriteLine("Введите имя клиента");
-                        string clientName5 = Convert.ToString(Console.ReadLine());
-                        Console.WriteLine("Введите фамилию клиента");
-                        string clientSurName5 = Convert.ToString(Console.ReadLine());
+                        string clientName5 = _console.ConsoleToString("Введите имя клиента");
+                        string clientSurName5 = _console.ConsoleToString("Введите фамилию клиента");
                         Client tempClient2 = FindClientByNameSurname(clientName5, clientSurName5)[0];
 
-                        Console.WriteLine("Введите имя банка, на счета которого будет подписываться клиент: ");
-                        string bankName8 = Convert.ToString(Console.ReadLine());
+                        string bankName8 =
+                            _console.ConsoleToString(
+                                "Введите имя банка, на счета которого будет подписываться клиент: ");
                         Bank tempBank7 = FindBankByName(bankName8);
 
                         tempBank7.AttachObserver(tempClient2);
                         break;
 
                     case "Unsubscribe TheClientForUpdates":
-                        Console.WriteLine("Введите имя клиента");
-                        string clientName6 = Convert.ToString(Console.ReadLine());
-                        Console.WriteLine("Введите фамилию клиента");
-                        string clientSurName6 = Convert.ToString(Console.ReadLine());
+                        string clientName6 = _console.ConsoleToString("Введите имя клиента");
+                        string clientSurName6 = _console.ConsoleToString("Введите фамилию клиента");
                         Client tempClient3 = FindClientByNameSurname(clientName6, clientSurName6)[0];
-
-                        Console.WriteLine("Введите имя банка, от счетов которого будет отписываться клиент: ");
-                        string bankName9 = Convert.ToString(Console.ReadLine());
+                        string bankName9 =
+                            _console.ConsoleToString(
+                                "Введите имя банка, от счетов которого будет отписываться клиент: ");
                         Bank tempBank8 = FindBankByName(bankName9);
 
                         tempBank8.DetachObserver(tempClient3);
                         break;
 
                     case "ChangeDebitAccountOptions":
-
-                        Console.WriteLine("Введите имя банка, в котором будет счёт условия которого мы хотим поменять: ");
-                        string bankName10 = Convert.ToString(Console.ReadLine());
+                        string bankName10 =
+                            _console.ConsoleToString(
+                                "Введите имя банка, в котором будет счёт условия которого мы хотим поменять: ");
                         Bank tempBank9 = FindBankByName(bankName10);
 
-                        Console.WriteLine("Введите номер дебитового счёта, условия которого хотите поменять:");
-                        int accountNumber5 = Convert.ToInt32(Console.ReadLine());
+                        int accountNumber5 =
+                            _console.ConsoleToInt("Введите номер дебитового счёта, условия которого хотите поменять:");
                         IAccount tempAccount5 = FindAccountByNumber(accountNumber5, tempBank9);
-
-                        Console.WriteLine("Введите новый процент дебетового счёта");
-                        int newDebitPercent = Convert.ToInt32(Console.ReadLine());
-
-                        Console.WriteLine("Введите новую комиссию дебетового счёта");
-                        int newDebitCommission = Convert.ToInt32(Console.ReadLine());
+                        int newDebitPercent = _console.ConsoleToInt("Введите новый процент дебетового счёта");
+                        int newDebitCommission = _console.ConsoleToInt("Введите новую комиссию дебетового счёта");
 
                         tempBank9.ChangeDebitAccountOptions(tempAccount5, newDebitPercent, newDebitCommission);
                         break;
@@ -456,7 +384,8 @@ namespace Banks
 
         public List<Client> FindClientByNameSurname(string clientName, string clientSurName)
         {
-            var foundClients = _clients.Where(client => client.GetName() == clientName && client.GetSurName() == clientSurName).ToList();
+            var foundClients = _clients
+                .Where(client => client.GetName() == clientName && client.GetSurName() == clientSurName).ToList();
 
             return foundClients;
         }

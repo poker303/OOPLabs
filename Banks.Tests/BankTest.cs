@@ -103,7 +103,7 @@ namespace Banks.Tests
             Assert.AreEqual(70000,account1.Amount);
             Assert.AreEqual(220000,account2.Amount);
             
-            _centralBank.СancellationOfTheTransaction(0, new DateTime(2021, 2, 3));
+            _centralBank.СancellationOfTheTransaction(0);
             
             Assert.AreEqual(90000,account1.Amount);
             Assert.AreEqual(200000,account2.Amount);

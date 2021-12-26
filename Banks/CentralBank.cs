@@ -38,9 +38,9 @@ namespace Banks
             }
 
             var newTransaction =
-                new Transaction("T", Transactions.Count, transferAmount, sender, recipient, bank, operationDate);
-            bank.Withdrawal(transferAmount, newTransaction.Sender, operationDate);
-            bank.Replenishment(transferAmount, newTransaction.Recipient, operationDate);
+                new Transaction(Transactions.Count, transferAmount, sender, recipient);
+            bank.Withdrawal(transferAmount, newTransaction.WithdrawnAccount, operationDate);
+            bank.Replenishment(transferAmount, newTransaction.RecipientAccount, operationDate);
 
             Transactions.Add(newTransaction);
         }
@@ -52,19 +52,17 @@ namespace Banks
                 throw new AmountException("The amount specified is incorrect, please change it.");
             }
 
-            var newTransaction =
-                new Transaction("T", Transactions.Count, transferAmount, sender, recipient, bank1, bank2, operationDate);
-            bank1.Withdrawal(transferAmount, newTransaction.Sender, operationDate);
-            bank2.Replenishment(transferAmount, newTransaction.Recipient, operationDate);
+            var newTransaction = new TransferBetweenAccounts(Transactions.Count, transferAmount, sender, recipient);
+            bank1.Withdrawal(transferAmount, newTransaction.WithdrawnAccount, operationDate);
+            bank2.Replenishment(transferAmount, newTransaction.RecipientAccount, operationDate);
             Transactions.Add(newTransaction);
         }
 
-        public void СancellationOfTheTransaction(int number, DateTime operationDate)
+        public void СancellationOfTheTransaction(int number)
         {
             foreach (Transaction transaction in Transactions.Where(transaction => transaction.Number == number))
             {
-                transaction.SenderBank.Replenishment(transaction.Amount, transaction.Sender, operationDate);
-                transaction.RecipientBank.Withdrawal(transaction.Amount, transaction.Recipient, operationDate);
+                transaction.СancellationOfTheTransaction();
             }
         }
 

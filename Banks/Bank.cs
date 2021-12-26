@@ -81,14 +81,14 @@ namespace Banks
 
             client.Money -= initialAmount;
 
-            string reliability;
-            if (client.PassportNumber == "empty" || client.Address == "empty")
+            bool reliability;
+            if (client.PassportNumber == null || client.Address == null)
             {
-                reliability = "bad";
+                reliability = false;
             }
             else
             {
-                reliability = "good";
+                reliability = true;
             }
 
             var parameters = new AccountParameters(_accountNumbers, initialAmount, DebitCommission, true, creationTime, duration, reliability, ReliabilityAmount);
@@ -109,14 +109,14 @@ namespace Banks
 
             client.Money -= initialAmount;
 
-            string reliability;
-            if (client.PassportNumber == "empty" || client.Address == "empty")
+            bool reliability;
+            if (client.PassportNumber == null || client.Address == null)
             {
-                reliability = "bad";
+                reliability = false;
             }
             else
             {
-                reliability = "good";
+                reliability = true;
             }
 
             var parameters = new AccountParameters(_accountNumbers, initialAmount, CreditCommission, true, creationTime, duration, reliability, ReliabilityAmount);
@@ -136,14 +136,14 @@ namespace Banks
 
             client.Money -= initialAmount;
 
-            string reliability;
-            if (client.PassportNumber == "empty" || client.Address == "empty")
+            bool reliability;
+            if (client.PassportNumber == null || client.Address == null)
             {
-                reliability = "bad";
+                reliability = false;
             }
             else
             {
-                reliability = "good";
+                reliability = true;
             }
 
             var parameters = new AccountParameters(_accountNumbers, initialAmount, DebitCommission, false, creationTime, duration, reliability, ReliabilityAmount);
@@ -156,7 +156,7 @@ namespace Banks
 
         public void Withdrawal(int withdrawalAmount, IAccount account, DateTime operationDate)
         {
-            if (account.Reliability == "bad")
+            if (account.Reliability == false)
             {
                 if (withdrawalAmount > account.ReliabilityAmount)
                 {
@@ -164,7 +164,7 @@ namespace Banks
                 }
             }
 
-            if (account.GetType().Name == "DepositAccount")
+            if (account is DepositAccount)
             {
                 if (account.CloseDate > operationDate)
                 {
@@ -173,30 +173,22 @@ namespace Banks
             }
 
             account.Withdrawal(withdrawalAmount);
-            var newTransaction = new Transaction("W", Transactions.Count, withdrawalAmount, account, operationDate);
+            var newTransaction = new WithdrawalTransaction(Transactions.Count, withdrawalAmount, account, account);
             Transactions.Add(newTransaction);
         }
 
         public void Replenishment(int replenishmentAmount, IAccount account, DateTime operationDate)
         {
                 account.Replenishment(replenishmentAmount);
-                var newTransaction = new Transaction("R", Transactions.Count, replenishmentAmount, account, operationDate);
+                var newTransaction = new ReplenishmentTransaction(Transactions.Count, replenishmentAmount, account, account);
                 Transactions.Add(newTransaction);
         }
 
-        public void СancellationOfTheTransaction(int number, DateTime operationDate)
+        public void СancellationOfTheTransaction(int number)
         {
             foreach (Transaction transaction in Transactions.Where(transaction => transaction.Number == number))
             {
-                switch (transaction.TransactionType)
-                {
-                    case "W":
-                        Replenishment(transaction.Amount, transaction.Sender, operationDate);
-                        break;
-                    case "R":
-                        Withdrawal(transaction.Amount, transaction.Recipient, operationDate);
-                        break;
-                }
+                transaction.СancellationOfTheTransaction();
             }
         }
 
@@ -218,11 +210,11 @@ namespace Banks
 
         public void ClientAccountsUpdate(Client client, DateTime operationDate)
         {
-            if (client.PassportNumber != "empty" && client.Address != "empty")
+            if (client.PassportNumber != null && client.Address != null)
             {
                 foreach (IAccount account in client.CreditAccounts.Concat(client.DebitAccounts).Concat(client.DepositAccounts))
                 {
-                    account.Reliability = "good";
+                    account.Reliability = true;
                 }
             }
 

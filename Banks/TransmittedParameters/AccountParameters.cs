@@ -4,7 +4,7 @@ namespace Banks.TransmittedParameters
 {
     public class AccountParameters
     {
-        public AccountParameters(int number, double amount, int commission, bool possibilityOfWithdrawal, DateTime openingDate, int duration, string reliability, int reliabilityAmount)
+        public AccountParameters(int number, double amount, int commission, bool possibilityOfWithdrawal, DateTime openingDate, int duration, bool reliability, int reliabilityAmount)
         {
             Numder = number;
             Amount = amount;
@@ -30,6 +30,6 @@ namespace Banks.TransmittedParameters
 
         public int Duration { get; set; }
 
-        public string Reliability { get; set; }
+        public bool Reliability { get; set; }
     }
 }
