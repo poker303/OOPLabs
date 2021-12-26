@@ -22,4 +22,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Backup.cs" />
+    <Compile Remove="BackupService.cs" />
+    <Compile Remove="File.cs" />
+  </ItemGroup>
+
 </Project>
