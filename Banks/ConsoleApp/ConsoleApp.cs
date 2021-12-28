@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Banks.Accounts;
+using Banks.ConsoleSweeps;
 using Banks.TransmittedParameters;
 
 namespace Banks
@@ -10,15 +11,20 @@ namespace Banks
     {
         private ConsoleAppRecordingMethods _console = new ConsoleAppRecordingMethods();
         private List<string> _commands;
-        private List<CentralBank> _centralBank;
+        private List<CentralBank> _centralBanks;
         private List<BankParameters> _templateParametersForCreatingBank;
         private List<Client> _clients;
+
+        private CreateSubtypes _createSubtypes = new CreateSubtypes();
+        private FindSubtypes _findSubtypes = new FindSubtypes();
+        private OutputSubtypes _outputSubtypes = new OutputSubtypes();
+        private ShowSubtypes _showSubtypes = new ShowSubtypes();
 
         public ConsoleApp()
         {
             _clients = new List<Client>();
             _templateParametersForCreatingBank = new List<BankParameters>();
-            _centralBank = new List<CentralBank>();
+            _centralBanks = new List<CentralBank>();
             _commands = new List<string>()
             {
                 new string("CreateCentralBank"),
@@ -61,7 +67,7 @@ namespace Banks
                     case "CreateCentralBank":
                         string centralBankName = _console.ConsoleToString("Введите имя центрального банка");
                         string centralBankCountry = _console.ConsoleToString("Введите страну центрального банка");
-                        CreateCentralBank(centralBankName, centralBankCountry);
+                        _createSubtypes.CreateCentralBank(_centralBanks, centralBankName, centralBankCountry);
                         Console.WriteLine($"Центральный Банк: {centralBankName} в стране {centralBankCountry} создан.");
                         break;
 
@@ -102,7 +108,7 @@ namespace Banks
                     case "CreateBank":
                         string centralBank = _console.ConsoleToString("Введите имя центрального банка");
                         int number1 = _console.ConsoleToInt("Введите номер шаблона банка");
-                        CreateBank(centralBank, number1);
+                        _createSubtypes.CreateBank(_templateParametersForCreatingBank, _centralBanks, centralBank, number1);
                         break;
 
                     case "CreateClient":
@@ -127,27 +133,27 @@ namespace Banks
                         string clientName2 = _console.ConsoleToString("Введите имя клиента");
                         string clientSurName2 = _console.ConsoleToString("Введите фамилию клиента");
 
-                        FindClientByNameSurname(clientName2, clientSurName2);
+                        _findSubtypes.FindClientByNameSurname(_clients, clientName2, clientSurName2);
                         int amount = _console.ConsoleToInt("Введите сумму счёта");
 
                         Console.WriteLine("Введите дату открытия счёта.");
                         var openingDate = Convert.ToDateTime(Console.ReadLine());
                         int duration = _console.ConsoleToInt("Введите период длительности счёта.");
 
-                        List<Client> accountOwner = FindClientByNameSurname(clientName2, clientSurName2);
-                        FindBankByName(bankName).CreateDebitAccount(accountOwner[0], amount, openingDate, duration);
+                        List<Client> accountOwner = _findSubtypes.FindClientByNameSurname(_clients, clientName2, clientSurName2);
+                        _findSubtypes.FindBankByName(_centralBanks, bankName).CreateDebitAccount(accountOwner[0], amount, openingDate, duration);
                         break;
 
                     case "ShowBanks":
-                        List<string> tempBanks = ShowBanks();
+                        List<string> tempBanks = _showSubtypes.ShowBanks(_centralBanks);
                         Console.WriteLine("Текущие банки: ");
-                        Output(tempBanks);
+                        _outputSubtypes.Output(tempBanks);
                         break;
 
                     case "ShowClientAccountsInfo":
                         string clientName3 = _console.ConsoleToString("Введите имя клиента");
                         string clientSurName3 = _console.ConsoleToString("Введите фамилию клиента");
-                        Client tempClient = FindClientByNameSurname(clientName3, clientSurName3)[0];
+                        Client tempClient = _findSubtypes.FindClientByNameSurname(_clients, clientName3, clientSurName3)[0];
 
                         Console.WriteLine("Дебитовые счета: ");
                         foreach (DebitAccount debitAccount in tempClient.DebitAccounts)
@@ -175,24 +181,24 @@ namespace Banks
                     case "ShowBankClients":
                         string bankName1 =
                             _console.ConsoleToString("Введите имя банка, клиентов которого хотите посмотреть");
-                        Bank tempBank = FindBankByName(bankName1);
+                        Bank tempBank = _findSubtypes.FindBankByName(_centralBanks, bankName1);
 
-                        List<Client> tempBankClients = ShowBankClients(tempBank);
+                        List<Client> tempBankClients = _showSubtypes.ShowBankClients(tempBank);
                         Console.WriteLine("Клиенты текущего банка: ");
-                        Output(tempBankClients);
+                        _outputSubtypes.Output(tempBankClients);
                         break;
 
                     case "ShowAccountAmountAfterTime":
                         int accountNumber = _console.ConsoleToInt("Введите номер счёта");
 
                         string bankName2 = _console.ConsoleToString("Введите имя банка, которому принадлежит счёт");
-                        Bank tempBank1 = FindBankByName(bankName2);
+                        Bank tempBank1 = _findSubtypes.FindBankByName(_centralBanks, bankName2);
 
                         Console.WriteLine("Введите дату, в которую хотите посмотреть сумму на счёте");
                         var date = Convert.ToDateTime(Console.ReadLine());
 
                         Console.WriteLine("Сумма на счёте к введённой дате: ");
-                        Console.WriteLine(ShowAccountAfterTime(FindAccountByNumber(accountNumber, tempBank1), date));
+                        Console.WriteLine(_showSubtypes.ShowAccountAfterTime(_findSubtypes.FindAccountByNumber(accountNumber, tempBank1), date));
                         break;
 
                     case "AccountWithdrawal":
@@ -200,10 +206,10 @@ namespace Banks
                         var tempDate1 = Convert.ToDateTime(Console.ReadLine());
                         int accountNumber1 = _console.ConsoleToInt("Введите номер счёта");
                         string bankName3 = _console.ConsoleToString("Введите имя банка, которому принадлежит счёт");
-                        Bank tempBank2 = FindBankByName(bankName3);
+                        Bank tempBank2 = _findSubtypes.FindBankByName(_centralBanks, bankName3);
                         int withdrawalAmount = _console.ConsoleToInt("Введите сумму, которую хотите снять со счёта: ");
 
-                        IAccount tempAccount1 = FindAccountByNumber(accountNumber1, tempBank2);
+                        IAccount tempAccount1 = _findSubtypes.FindAccountByNumber(accountNumber1, tempBank2);
                         tempBank2.Withdrawal(withdrawalAmount, tempAccount1, tempDate1);
                         Console.WriteLine($"Операция прошла успешно, текущяя сумма на счёте: {tempAccount1.Amount}");
                         break;
@@ -213,11 +219,11 @@ namespace Banks
                         var tempDate2 = Convert.ToDateTime(Console.ReadLine());
                         int accountNumber2 = _console.ConsoleToInt("Введите номер счёта");
                         string bankName4 = _console.ConsoleToString("Введите имя банка, которому принадлежит счёт");
-                        Bank tempBank3 = FindBankByName(bankName4);
+                        Bank tempBank3 = _findSubtypes.FindBankByName(_centralBanks, bankName4);
                         int replenishmentAmount =
                             _console.ConsoleToInt("Введите сумму, которую хотите внести на счёт: ");
 
-                        IAccount tempAccount2 = FindAccountByNumber(accountNumber2, tempBank3);
+                        IAccount tempAccount2 = _findSubtypes.FindAccountByNumber(accountNumber2, tempBank3);
                         tempBank3.Replenishment(replenishmentAmount, tempAccount2, tempDate2);
                         Console.WriteLine($"Операция прошла успешно, текущяя сумма на счёте: {tempAccount2.Amount}");
                         break;
@@ -233,16 +239,16 @@ namespace Banks
                             var tempDate3 = Convert.ToDateTime(Console.ReadLine());
                             string bankName5 =
                                 _console.ConsoleToString("Введите имя банка, которому принадлежат счёта");
-                            Bank tempBank4 = FindBankByName(bankName5);
+                            Bank tempBank4 = _findSubtypes.FindBankByName(_centralBanks, bankName5);
                             int accountNumber3 =
                                 _console.ConsoleToInt("Введите номер счёта, с которого хотите перевести деньги: ");
-                            IAccount tempAccount3 = FindAccountByNumber(accountNumber3, tempBank4);
+                            IAccount tempAccount3 = _findSubtypes.FindAccountByNumber(accountNumber3, tempBank4);
                             int accountNumber4 =
                                 _console.ConsoleToInt("Введите номер счёта, на который хотите перевести деньги:");
-                            IAccount tempAccount4 = FindAccountByNumber(accountNumber4, tempBank4);
+                            IAccount tempAccount4 = _findSubtypes.FindAccountByNumber(accountNumber4, tempBank4);
                             int transferAmount1 = _console.ConsoleToInt("Введите сумму, которую хотите перевести: ");
 
-                            _centralBank[0].Transfer(transferAmount1, tempAccount3, tempAccount4, tempBank4, tempDate3);
+                            _centralBanks[0].Transfer(transferAmount1, tempAccount3, tempAccount4, tempBank4, tempDate3);
                             Console.WriteLine(
                                 $"Операция прошла успешно, текущяя сумма на первом счёте: {tempAccount3.Amount}, на втором: {tempAccount4.Amount}");
                         }
@@ -253,20 +259,20 @@ namespace Banks
                             string bankName5 =
                                 _console.ConsoleToString(
                                     "Введите имя банка, с аккаунта которого хотите перевести деньги");
-                            Bank tempBank4 = FindBankByName(bankName5);
+                            Bank tempBank4 = _findSubtypes.FindBankByName(_centralBanks, bankName5);
                             string bankName6 =
                                 _console.ConsoleToString(
                                     "Введите имя банка, на аккаунт которого хотите получить деньги");
-                            Bank tempBank5 = FindBankByName(bankName6);
+                            Bank tempBank5 = _findSubtypes.FindBankByName(_centralBanks, bankName6);
                             int accountNumber3 =
                                 _console.ConsoleToInt("Введите номер счёта, с которого хотите перевести деньги: ");
-                            IAccount tempAccount3 = FindAccountByNumber(accountNumber3, tempBank4);
+                            IAccount tempAccount3 = _findSubtypes.FindAccountByNumber(accountNumber3, tempBank4);
                             int accountNumber4 =
                                 _console.ConsoleToInt("Введите номер счёта, на который хотите перевести деньги:");
-                            IAccount tempAccount4 = FindAccountByNumber(accountNumber4, tempBank4);
+                            IAccount tempAccount4 = _findSubtypes.FindAccountByNumber(accountNumber4, tempBank4);
                             int transferAmount1 = _console.ConsoleToInt("Введите сумму, которую хотите перевести: ");
 
-                            _centralBank[0].Transfer(transferAmount1, tempAccount3, tempAccount4, tempBank4, tempBank5, tempDate3);
+                            _centralBanks[0].Transfer(transferAmount1, tempAccount3, tempAccount4, tempBank4, tempBank5, tempDate3);
                             Console.WriteLine(
                                 $"Операция прошла успешно, текущяя сумма на первом счёте: {tempAccount3.Amount}, на втором: {tempAccount4.Amount}");
                         }
@@ -287,7 +293,7 @@ namespace Banks
 
                             string bankName7 =
                                 _console.ConsoleToString("Введите имя банка, в котором происходила операция: ");
-                            Bank tempBank6 = FindBankByName(bankName7);
+                            Bank tempBank6 = _findSubtypes.FindBankByName(_centralBanks, bankName7);
 
                             tempBank6.СancellationOfTheTransaction(transactionNumber);
                             Console.WriteLine("Перевод успешно отменён, деньги были вернуты на счета.");
@@ -298,7 +304,7 @@ namespace Banks
                             var tempDate4 = Convert.ToDateTime(Console.ReadLine());
                             int transactionNumber =
                                 _console.ConsoleToInt("Введите номер операции, которую хотите отменить: ");
-                            _centralBank[0].СancellationOfTheTransaction(transactionNumber);
+                            _centralBanks[0].СancellationOfTheTransaction(transactionNumber);
                             Console.WriteLine("Перевод успешно отменён, деньги были вернуты на счета.");
                         }
 
@@ -307,19 +313,19 @@ namespace Banks
                     case "GiveClientPermissionToSubscribe":
                         string clientName4 = _console.ConsoleToString("Введите имя клиента");
                         string clientSurName4 = _console.ConsoleToString("Введите фамилию клиента");
-                        Client tempClient1 = FindClientByNameSurname(clientName4, clientSurName4)[0];
+                        Client tempClient1 = _findSubtypes.FindClientByNameSurname(_clients, clientName4, clientSurName4)[0];
                         tempClient1.ChangeSubscriptionDesire(true);
                         break;
 
                     case "SignTheClientForUpdates":
                         string clientName5 = _console.ConsoleToString("Введите имя клиента");
                         string clientSurName5 = _console.ConsoleToString("Введите фамилию клиента");
-                        Client tempClient2 = FindClientByNameSurname(clientName5, clientSurName5)[0];
+                        Client tempClient2 = _findSubtypes.FindClientByNameSurname(_clients, clientName5, clientSurName5)[0];
 
                         string bankName8 =
                             _console.ConsoleToString(
                                 "Введите имя банка, на счета которого будет подписываться клиент: ");
-                        Bank tempBank7 = FindBankByName(bankName8);
+                        Bank tempBank7 = _findSubtypes.FindBankByName(_centralBanks, bankName8);
 
                         tempBank7.AttachObserver(tempClient2);
                         break;
@@ -327,11 +333,11 @@ namespace Banks
                     case "Unsubscribe TheClientForUpdates":
                         string clientName6 = _console.ConsoleToString("Введите имя клиента");
                         string clientSurName6 = _console.ConsoleToString("Введите фамилию клиента");
-                        Client tempClient3 = FindClientByNameSurname(clientName6, clientSurName6)[0];
+                        Client tempClient3 = _findSubtypes.FindClientByNameSurname(_clients, clientName6, clientSurName6)[0];
                         string bankName9 =
                             _console.ConsoleToString(
                                 "Введите имя банка, от счетов которого будет отписываться клиент: ");
-                        Bank tempBank8 = FindBankByName(bankName9);
+                        Bank tempBank8 = _findSubtypes.FindBankByName(_centralBanks, bankName9);
 
                         tempBank8.DetachObserver(tempClient3);
                         break;
@@ -340,11 +346,11 @@ namespace Banks
                         string bankName10 =
                             _console.ConsoleToString(
                                 "Введите имя банка, в котором будет счёт условия которого мы хотим поменять: ");
-                        Bank tempBank9 = FindBankByName(bankName10);
+                        Bank tempBank9 = _findSubtypes.FindBankByName(_centralBanks, bankName10);
 
                         int accountNumber5 =
                             _console.ConsoleToInt("Введите номер дебитового счёта, условия которого хотите поменять:");
-                        IAccount tempAccount5 = FindAccountByNumber(accountNumber5, tempBank9);
+                        IAccount tempAccount5 = _findSubtypes.FindAccountByNumber(accountNumber5, tempBank9);
                         int newDebitPercent = _console.ConsoleToInt("Введите новый процент дебетового счёта");
                         int newDebitCommission = _console.ConsoleToInt("Введите новую комиссию дебетового счёта");
 
@@ -354,101 +360,17 @@ namespace Banks
                     case "ChargeInterestAndCommissions":
                         Console.WriteLine("Введите сегодняшнюю дату");
                         var tempDate5 = Convert.ToDateTime(Console.ReadLine());
-                        _centralBank[0].Notification(tempDate5);
+                        _centralBanks[0].Notification(tempDate5);
                         break;
                 }
             }
         }
 
-        public CentralBank CreateCentralBank(string centralBankName, string centralBankCountry)
-        {
-            var centralBank = new CentralBank(centralBankName, centralBankCountry);
-            _centralBank.Add(centralBank);
-            return centralBank;
-        }
-
-        public void CreateBank(string centralBankName, int bankTemplateNumber)
-        {
-            foreach (CentralBank cB in _centralBank.Where(cB => cB.Name == centralBankName))
-            {
-                cB.CreateBank(_templateParametersForCreatingBank[bankTemplateNumber]);
-            }
-        }
-
         public void AddClient(string clientName, string clientSurName, string nameBank)
         {
-            List<Client> addedClients = FindClientByNameSurname(clientName, clientSurName);
+            List<Client> addedClients = _findSubtypes.FindClientByNameSurname(_clients, clientName, clientSurName);
 
-            FindBankByName(nameBank).AddClients(addedClients);
-        }
-
-        public List<Client> FindClientByNameSurname(string clientName, string clientSurName)
-        {
-            var foundClients = _clients
-                .Where(client => client.GetName() == clientName && client.GetSurName() == clientSurName).ToList();
-
-            return foundClients;
-        }
-
-        public Bank FindBankByName(string nameBank)
-        {
-            var foundBanks = _centralBank[0].Banks.Where(bank => bank.GetName() == nameBank).ToList();
-
-            return foundBanks[0];
-        }
-
-        public IAccount FindAccountByNumber(int number, Bank bank)
-        {
-            IAccount foundAccount = null;
-            foreach (IAccount account in bank.CreditAccounts.Concat(bank.DebitAccounts).Concat(bank.DepositAccounts))
-            {
-                if (number == account.Number)
-                {
-                    foundAccount = account;
-                }
-            }
-
-            return foundAccount;
-        }
-
-        public List<string> ShowBanks()
-        {
-            return _centralBank[0].Banks.Select(bank => bank.GetName()).ToList();
-        }
-
-        public void Output(List<string> outputsElements)
-        {
-            foreach (string element in outputsElements)
-            {
-                Console.WriteLine(element);
-            }
-        }
-
-        public void Output(List<int> outputsElements)
-        {
-            foreach (int element in outputsElements)
-            {
-                Console.WriteLine(element);
-            }
-        }
-
-        public void Output(List<Client> outputsElements)
-        {
-            foreach (Client element in outputsElements)
-            {
-                Console.WriteLine($"Имя клиента: {element.GetName()}, Фамилия клиента: {element.GetSurName()}");
-            }
-        }
-
-        public List<Client> ShowBankClients(Bank bank)
-        {
-            return bank.Clients;
-        }
-
-        public double ShowAccountAfterTime(IAccount account, DateTime date)
-        {
-            var timeRewinder = new TimeRewinder("first");
-            return timeRewinder.AccountAfterTime(account, date);
+            _findSubtypes.FindBankByName(_centralBanks, nameBank).AddClients(addedClients);
         }
     }
 }

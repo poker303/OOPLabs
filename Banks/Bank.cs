@@ -74,22 +74,7 @@ namespace Banks
 
         public DebitAccount CreateDebitAccount(Client client, int initialAmount, DateTime creationTime, int duration)
         {
-            if (initialAmount > client.Money)
-            {
-                throw new AmountException("You don't have that much money");
-            }
-
-            client.Money -= initialAmount;
-
-            bool reliability;
-            if (client.PassportNumber == null || client.Address == null)
-            {
-                reliability = false;
-            }
-            else
-            {
-                reliability = true;
-            }
+            bool reliability = CheckingAccount(client, initialAmount);
 
             var parameters = new AccountParameters(_accountNumbers, initialAmount, DebitCommission, true, creationTime, duration, reliability, ReliabilityAmount);
             var newDebitAccount = new DebitAccount(parameters, DebitPercent);
@@ -102,22 +87,7 @@ namespace Banks
 
         public CreditAccount CreateCreditAccount(Client client, int initialAmount, DateTime creationTime, int duration)
         {
-            if (initialAmount > client.Money)
-            {
-                throw new AmountException("You don't have that much money");
-            }
-
-            client.Money -= initialAmount;
-
-            bool reliability;
-            if (client.PassportNumber == null || client.Address == null)
-            {
-                reliability = false;
-            }
-            else
-            {
-                reliability = true;
-            }
+            bool reliability = CheckingAccount(client, initialAmount);
 
             var parameters = new AccountParameters(_accountNumbers, initialAmount, CreditCommission, true, creationTime, duration, reliability, ReliabilityAmount);
             var newCreditAccount = new CreditAccount(parameters, CreditPercent, CreditLimit);
@@ -129,22 +99,7 @@ namespace Banks
 
         public DepositAccount CreateDepositAccount(Client client, int initialAmount, DateTime creationTime, int duration)
         {
-            if (initialAmount > client.Money)
-            {
-                throw new AmountException("You don't have that much money");
-            }
-
-            client.Money -= initialAmount;
-
-            bool reliability;
-            if (client.PassportNumber == null || client.Address == null)
-            {
-                reliability = false;
-            }
-            else
-            {
-                reliability = true;
-            }
+            bool reliability = CheckingAccount(client, initialAmount);
 
             var parameters = new AccountParameters(_accountNumbers, initialAmount, DebitCommission, false, creationTime, duration, reliability, ReliabilityAmount);
             var newDepositAccount = new DepositAccount(parameters, Table);
@@ -276,6 +231,18 @@ namespace Banks
         public void ChangeReliabilityAmount(int newReliabilityAmount)
         {
             ReliabilityAmount = newReliabilityAmount;
+        }
+
+        public bool CheckingAccount(Client client, int initialAmount)
+        {
+            if (initialAmount > client.Money)
+            {
+                throw new AmountException("You don't have that much money");
+            }
+
+            client.Money -= initialAmount;
+
+            return client.PassportNumber != null && client.Address != null;
         }
     }
 }

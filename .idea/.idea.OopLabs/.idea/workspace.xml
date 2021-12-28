@@ -17,25 +17,8 @@
   <component name="ChangeListManager">
     <list default="true" id="de07db7f-a8c2-4d0b-b777-c6194651ef32" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" afterDir="false" />
-
-      <change beforePath="$PROJECT_DIR$/IsuExtra.Tests/IsuExtraTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra.Tests/IsuExtraTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IsuExtra/Management/Manager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/Manager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IsuExtra/Management/StudyDay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/StudyDay.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IsuExtra/Management/StudyStream.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IsuExtra/Management/StudyStream.cs" afterDir="false" />
-
-      <change beforePath="$PROJECT_DIR$/Backups.Tests/BackupsTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups.Tests/BackupsTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backups/BackupJob.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/BackupJob.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backups/Exceptions/InvalidStorageTypeException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/Exceptions/AddingDirectoryException.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backups/FileSystems/LocalFileSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/FileSystems/LocalFileSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backups/FileSystems/VirtualFileSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/FileSystems/VirtualFileSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backups/RestorePoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/RestorePoint.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backups/Storages/IBackup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/StorageSavingMethods/IBackupSaving.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backups/Storages/IStorage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/StorageSavingMethods/IStorageSaving.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backups/Storages/LocalSaving.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/StorageSavingMethods/LocalSaving.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backups/Storages/SingleStorage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/StorageSavingMethods/SingleStorageSaving.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backups/Storages/SplitStorage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/StorageSavingMethods/SplitStorageSaving.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backups/Storages/VirtualSaving.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/StorageSavingMethods/VirtualSaving.cs" afterDir="false" />
-
+      <change beforePath="$PROJECT_DIR$/Banks/Bank.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Banks/Bank.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Banks/ConsoleApp/ConsoleApp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Banks/ConsoleApp/ConsoleApp.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -334,7 +317,6 @@
       <workItem from="1636132258322" duration="580000" />
       <workItem from="1636365691494" duration="7905000" />
       <workItem from="1636397266822" duration="6268000" />
-
       <workItem from="1638515394811" duration="660000" />
       <workItem from="1638778432102" duration="152000" />
       <workItem from="1638778618152" duration="2311000" />
@@ -342,11 +324,10 @@
       <workItem from="1638922017495" duration="1000" />
       <workItem from="1638940168758" duration="7578000" />
       <workItem from="1638989449570" duration="5450000" />
-
       <workItem from="1639049418916" duration="2905000" />
-
       <workItem from="1639049418916" duration="2308000" />
-
+      <workItem from="1640676500881" duration="1370000" />
+      <workItem from="1640684546393" duration="2824000" />
     </task>
     <task id="LOCAL-00001" summary="ThirdTry">
       <created>1631735061916</created>
