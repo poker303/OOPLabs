@@ -17,7 +17,6 @@
   <component name="ChangeListManager">
     <list default="true" id="de07db7f-a8c2-4d0b-b777-c6194651ef32" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Banks/Bank.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Banks/Bank.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Banks/ConsoleApp/ConsoleApp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Banks/ConsoleApp/ConsoleApp.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +57,7 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager" selected=".NET Project.Isu">
+  <component name="RunManager" selected=".NET Project.Banks">
     <configuration name="Backups" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -328,6 +327,7 @@
       <workItem from="1639049418916" duration="2308000" />
       <workItem from="1640676500881" duration="1370000" />
       <workItem from="1640684546393" duration="2824000" />
+      <workItem from="1640890373252" duration="7647000" />
     </task>
     <task id="LOCAL-00001" summary="ThirdTry">
       <created>1631735061916</created>
