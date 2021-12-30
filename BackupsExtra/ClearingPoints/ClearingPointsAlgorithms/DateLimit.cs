@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Backups;
 using BackupsExtra.ClearingPointsAlgorithms;
+using BackupsExtra.Exceptions;
 
 namespace BackupsExtra.ClearingPoints.ClearingPointsAlgorithms
 {
@@ -20,7 +21,7 @@ namespace BackupsExtra.ClearingPoints.ClearingPointsAlgorithms
 
             if (deletedRestorePoints.Count == backupJob.Points.Count)
             {
-                throw new Exception("Will have to delete all the point, it's impossible.");
+                throw new DeletingAllPointsException("Will have to delete all the point, it's impossible.");
             }
 
             restorePointRemoval.Delete(deletedRestorePoints, backupJob);
