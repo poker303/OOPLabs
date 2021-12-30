@@ -32,10 +32,7 @@ namespace BackupsExtra.Merging
             }
 
             var oldRestorePointFiles = new List<FileInfo>();
-            foreach (Repository repository in oldRestorePoint.GetRepositories())
-            {
-                oldRestorePointFiles.AddRange(repository.GetFiles());
-            }
+            oldRestorePointFiles.AddRange(oldRestorePoint.GetRepositories().SelectMany(repository => repository.GetFiles()));
 
             var newRestorePointFiles = new List<FileInfo>();
             var repositories = new List<Repository>();
@@ -56,10 +53,9 @@ namespace BackupsExtra.Merging
 
             foreach (FileInfo file in oldRestorePointFiles.Where(file => !newRestorePointFiles.Contains(file)))
             {
-                var directory = new DirectoryInfo(Path.Combine(pathToNewRestorePoint, "tempDirectory"));
-                directory.Create();
-                file.CopyTo(Path.Combine(directory.FullName, file.Name));
                 var repository = new Repository();
+                DirectoryInfo directory = repository.CreateDirectory(Path.Combine(pathToNewRestorePoint, "tempDirectory"));
+                file.CopyTo(Path.Combine(directory.FullName, file.Name));
                 repository.AddFile(file);
                 repositories.Add(repository);
                 ZipFile.CreateFromDirectory(directory.FullName, Path.Combine(pathToNewRestorePoint, $"File_{counter++}.zip"));
