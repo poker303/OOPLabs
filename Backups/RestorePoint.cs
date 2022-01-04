@@ -20,7 +20,7 @@ namespace Backups
         public string Location { get; }
         public string Name { get; }
         public int Id { get; }
-        public DateTime CreationTime { get; }
+        public DateTime CreationTime { get; set; }
 
         public ReadOnlyCollection<Repository> GetRepositories()
         {
@@ -43,6 +43,11 @@ namespace Backups
             {
                 _repositories.Remove(repository);
             }
+        }
+
+        public void ChangeCreationTime(DateTime newDate)
+        {
+            CreationTime = newDate;
         }
     }
 }

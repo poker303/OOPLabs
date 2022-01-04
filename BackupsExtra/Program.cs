@@ -54,7 +54,7 @@ namespace BackupsExtra
             RestorePoint restorePoint2 = splitBackupJob.CreateRestorePoint("SplitRestorePoint", localSaver, fileSystem.GetJobObjects().ToList(), fileSystem);
 
             splitBackupJob.DeleteJobObjects(fileSystem, file1);
-            Thread.Sleep(100000);
+
             RestorePoint restorePoint3 = singleBackupJob.CreateRestorePoint("SingleRestorePoint", localSaver, fileSystem.GetJobObjects().ToList(), fileSystem);
             RestorePoint restorePoint4 = splitBackupJob.CreateRestorePoint("SplitRestorePoint", localSaver, fileSystem.GetJobObjects().ToList(), fileSystem);
 
