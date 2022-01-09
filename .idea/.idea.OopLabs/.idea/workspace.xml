@@ -15,10 +15,10 @@
     <projectFile>Banks.Tests/Banks.Tests.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-<<<<<<< Updated upstream
+
     <list default="true" id="de07db7f-a8c2-4d0b-b777-c6194651ef32" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OopLabs/.idea/workspace.xml" afterDir="false" />
-<<<<<<< Updated upstream
+
       <change beforePath="$PROJECT_DIR$/Backups.Tests/BackupsTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups.Tests/BackupsTest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backups/BackupJob.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/BackupJob.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backups/Exceptions/InvalidStorageTypeException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/Exceptions/AddingDirectoryException.cs" afterDir="false" />
@@ -31,7 +31,7 @@
       <change beforePath="$PROJECT_DIR$/Backups/Storages/SingleStorage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/StorageSavingMethods/SingleStorageSaving.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backups/Storages/SplitStorage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/StorageSavingMethods/SplitStorageSaving.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backups/Storages/VirtualSaving.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/StorageSavingMethods/VirtualSaving.cs" afterDir="false" />
-=======
+
       <change beforePath="$PROJECT_DIR$/Backups/BackupJob.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/BackupJob.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backups/FileSystems/LocalFileSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/FileSystems/LocalFileSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backups/RestorePoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Backups/RestorePoint.cs" afterDir="false" />
@@ -39,11 +39,9 @@
       <change beforePath="$PROJECT_DIR$/BackupsExtra.Tests/BackupsExtra.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BackupsExtra.Tests/BackupsExtra.Tests.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackupsExtra/BackupsExtra.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BackupsExtra/BackupsExtra.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackupsExtra/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BackupsExtra/Program.cs" afterDir="false" />
->>>>>>> Stashed changes
-    </list>
-=======
+
     <list default="true" id="de07db7f-a8c2-4d0b-b777-c6194651ef32" name="Changes" comment="" />
->>>>>>> Stashed changes
+
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -83,7 +81,11 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+
   <component name="RunManager" selected=".NET Project.BackupsExtra">
+
+  <component name="RunManager" selected=".NET Project.Banks">
+
     <configuration name="Backups" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -349,21 +351,9 @@
       <workItem from="1638922017495" duration="1000" />
       <workItem from="1638940168758" duration="7578000" />
       <workItem from="1638989449570" duration="5450000" />
+      <workItem from="1639049418916" duration="2905000" />
       <workItem from="1639049418916" duration="2308000" />
-<<<<<<< Updated upstream
-=======
-      <workItem from="1640676500881" duration="1370000" />
-<<<<<<< Updated upstream
-      <workItem from="1640684546393" duration="3313000" />
-      <workItem from="1640786255780" duration="16803000" />
-      <workItem from="1640816188257" duration="320000" />
-      <workItem from="1640816707365" duration="68000" />
-      <workItem from="1640853697361" duration="15932000" />
->>>>>>> Stashed changes
-=======
-      <workItem from="1640684546393" duration="2824000" />
-      <workItem from="1640890373252" duration="7914000" />
->>>>>>> Stashed changes
+
     </task>
     <task id="LOCAL-00001" summary="ThirdTry">
       <created>1631735061916</created>
