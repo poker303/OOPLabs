@@ -1,9 +1,11 @@
-﻿using BackupsExtra.ClearingPointsAlgorithms;
+﻿using System.Collections.Generic;
+using Backups;
+using BackupsExtra.ClearingPointsAlgorithms;
 
 namespace BackupsExtra.ClearingPoints.ClearingPointsAlgorithms
 {
     public interface ILimit
     {
-        void DeleteExcessRestorePoints(IRestorePointRemoval restorePointRemoval, ImprovedBackupJob backupJob);
+        List<RestorePoint> DeleteExcessRestorePoints(IRestorePointRemoval restorePointRemoval, ImprovedBackupJob backupJob, List<ILimit> limits = null);
     }
 }

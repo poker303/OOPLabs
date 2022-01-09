@@ -28,10 +28,10 @@ namespace BackupsExtra
             IStorageSaving splitSaver = new SplitStorageSaving();
             IBackupSaving localSaver = new LocalSaving();
             IFileSystem fileSystem = new LocalFileSystem(_pathToJobObjects);
-            ILoggerService loggerService = new FileLogger();
+            ILoggerService loggerService = new FileLogger(true);
 
-            var splitBackupJob = new ImprovedBackupJob("split", _path, splitSaver, loggerService, true, 1, DateTime.Now, true, merging, restoration, limit, restorePointRemoval);
-            var singleBackupJob = new ImprovedBackupJob("single", _path, singleSaver, loggerService, true, 1, DateTime.Now, true, merging, restoration, limit, restorePointRemoval);
+            var splitBackupJob = new ImprovedBackupJob("split", _path, splitSaver, loggerService, 1, DateTime.Now, true, merging, restoration, limit, restorePointRemoval);
+            var singleBackupJob = new ImprovedBackupJob("single", _path, singleSaver, loggerService, 1, DateTime.Now, true, merging, restoration, limit, restorePointRemoval);
 
             const string filePath1 = @"C:\Users\Алексей\OneDrive\Рабочий стол\fileA.txt";
             const string filePath2 = @"C:\Users\Алексей\OneDrive\Рабочий стол\fileB.txt";

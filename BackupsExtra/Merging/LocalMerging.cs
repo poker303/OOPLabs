@@ -8,7 +8,7 @@ namespace BackupsExtra.Merging
 {
     public class LocalMerging : IMerging
     {
-        public void Merge(RestorePoint oldRestorePoint, RestorePoint newRestorePoint, ImprovedBackupJob improvedBackupJob1, ImprovedBackupJob improvedBackupJob2)
+        public void Merge(RestorePoint oldRestorePoint, RestorePoint newRestorePoint, ImprovedBackupJob improvedBackupJobFirst, ImprovedBackupJob improvedBackupJobSecond)
         {
             string pathToOldRestorePoint =
                 Path.Combine(oldRestorePoint.Location, $"{oldRestorePoint.Name}{oldRestorePoint.Id}");
@@ -16,17 +16,17 @@ namespace BackupsExtra.Merging
                 Path.Combine(newRestorePoint.Location, $"{newRestorePoint.Name}{newRestorePoint.Id}");
             if (oldRestorePoint.GetRepositories().Count == 1 || newRestorePoint.GetRepositories().Count == 1)
             {
-                if (improvedBackupJob1.Points.Contains(oldRestorePoint))
+                if (improvedBackupJobFirst.Points.Contains(oldRestorePoint))
                 {
-                    improvedBackupJob1.Points.Remove(oldRestorePoint);
-                    var directory1 = new DirectoryInfo(pathToOldRestorePoint);
-                    directory1.Delete(true);
+                    improvedBackupJobFirst.Points.Remove(oldRestorePoint);
+                    var directoryFirst = new DirectoryInfo(pathToOldRestorePoint);
+                    directoryFirst.Delete(true);
                     return;
                 }
 
-                improvedBackupJob2.Points.Remove(oldRestorePoint);
-                var directory2 = new DirectoryInfo(pathToOldRestorePoint);
-                directory2.Delete(true);
+                improvedBackupJobSecond.Points.Remove(oldRestorePoint);
+                var directorySecond = new DirectoryInfo(pathToOldRestorePoint);
+                directorySecond.Delete(true);
 
                 return;
             }
@@ -69,9 +69,9 @@ namespace BackupsExtra.Merging
                 newRestorePoint.AddRepository(repository);
             }
 
-            improvedBackupJob1.Points.Remove(oldRestorePoint);
-            var directory3 = new DirectoryInfo(pathToOldRestorePoint);
-            directory3.Delete(true);
+            improvedBackupJobFirst.Points.Remove(oldRestorePoint);
+            var directoryThird = new DirectoryInfo(pathToOldRestorePoint);
+            directoryThird.Delete(true);
         }
     }
 }

@@ -5,19 +5,22 @@ namespace BackupsExtra
 {
     public class ConsoleLogger : ILoggerService
     {
-        public void LoggerOutput(bool logTimeCodeOn, string outPutMessage)
+        private Logger _logger;
+        public ConsoleLogger(bool logTimeCodeOn)
         {
             if (logTimeCodeOn)
             {
-                using Logger logger = new LoggerConfiguration().WriteTo.Console(outputTemplate: "{Timestamp:dd.MM.yy HH:mm:ss} {Message}{NewLine}{Exception}").CreateLogger();
-                logger.Information(outPutMessage);
+                _logger = new LoggerConfiguration().WriteTo.Console(outputTemplate: "{Timestamp:dd.MM.yy HH:mm:ss} {Message}{NewLine}{Exception}").CreateLogger();
             }
             else
             {
-                using Logger logger = new LoggerConfiguration().WriteTo.Console(outputTemplate: "{Message}{NewLine}")
-                    .CreateLogger();
-                logger.Information(outPutMessage);
+                _logger = new LoggerConfiguration().WriteTo.Console(outputTemplate: "{Message}{NewLine}").CreateLogger();
             }
+        }
+
+        public void LoggerOutput(string outPutMessage)
+        {
+            _logger.Information(outPutMessage);
         }
     }
 }

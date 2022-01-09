@@ -2,6 +2,6 @@
 {
     public interface ILoggerService
     {
-        void LoggerOutput(bool logTimeCodeOn, string outPutMessage);
+        void LoggerOutput(string outPutMessage);
     }
 }

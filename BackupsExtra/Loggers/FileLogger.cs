@@ -5,21 +5,24 @@ namespace BackupsExtra
 {
     public class FileLogger : ILoggerService
     {
-        public void LoggerOutput(bool logTimeCodeOn, string outPutMessage)
+        private Logger _logger;
+        public FileLogger(bool logTimeCodeOn)
         {
             if (logTimeCodeOn)
             {
                 const string path = "C:/Users/Алексей/OneDrive/Документы/GitHub/poker303/BackupsExtra/Loggs.txt";
-                using Logger logger = new LoggerConfiguration().WriteTo.File(path, outputTemplate: "{Timestamp:dd.MM.yy HH:mm:ss} {Message}{NewLine}{Exception}").CreateLogger();
-                logger.Information(outPutMessage);
+                _logger = new LoggerConfiguration().WriteTo.File(path, outputTemplate: "{Timestamp:dd.MM.yy HH:mm:ss} {Message}{NewLine}{Exception}").CreateLogger();
             }
             else
             {
                 const string path = "C:/Users/Алексей/OneDrive/Документы/GitHub/poker303/BackupsExtra/Loggs.txt";
-                using Logger logger = new LoggerConfiguration().WriteTo.File(path, outputTemplate: "{Message}{NewLine}")
-                    .CreateLogger();
-                logger.Information(outPutMessage);
+                _logger = new LoggerConfiguration().WriteTo.File(path, outputTemplate: "{Message}{NewLine}").CreateLogger();
             }
+        }
+
+        public void LoggerOutput(string outPutMessage)
+        {
+            _logger.Information(outPutMessage);
         }
     }
 }

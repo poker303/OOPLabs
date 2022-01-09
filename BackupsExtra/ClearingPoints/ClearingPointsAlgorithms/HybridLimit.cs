@@ -1,44 +1,56 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Backups;
+using Backups.Exceptions;
 using BackupsExtra.ClearingPointsAlgorithms;
+using BackupsExtra.Exceptions;
 
 namespace BackupsExtra.ClearingPoints.ClearingPointsAlgorithms
 {
     public class HybridLimit : ILimit
     {
-        public void DeleteExcessRestorePoints(IRestorePointRemoval restorePointRemoval, ImprovedBackupJob backupJob)
+        public List<RestorePoint> DeleteExcessRestorePoints(IRestorePointRemoval restorePointRemoval, ImprovedBackupJob backupJob, List<ILimit> limits)
         {
             var deletedRestorePoints = new List<RestorePoint>();
             if (backupJob.CheckingAllLimitsOn)
             {
-                int index1 = 0;
-                foreach (RestorePoint restorePoint in backupJob.Points)
+                deletedRestorePoints = limits[0].DeleteExcessRestorePoints(restorePointRemoval, backupJob);
+                foreach (ILimit limit in limits)
                 {
-                    if (restorePoint.CreationTime >= backupJob.LimitRestorePointCreationDate || index1 >= backupJob.Points.Count - backupJob.LimitRestorePointNumber)
+                    List<RestorePoint> tempDeletedRestorePoints = deletedRestorePoints;
+                    if (limit is HybridLimit)
                     {
-                        break;
+                        throw new WrongLimitException("You can't use hybrid limit in hybrid.");
                     }
 
-                    deletedRestorePoints.Add(restorePoint);
-                    index1++;
-                }
+                    List<RestorePoint> tempRestorePoints = limit.DeleteExcessRestorePoints(restorePointRemoval, backupJob);
+                    foreach (RestorePoint tempRestorePoint in tempRestorePoints.Where(tempRestorePoint => tempDeletedRestorePoints.Contains(tempRestorePoint)))
+                    {
+                        tempDeletedRestorePoints.Remove(tempRestorePoint);
+                    }
 
-                restorePointRemoval.Delete(deletedRestorePoints, backupJob);
-                return;
+                    foreach (RestorePoint tempDeletedRestorePoint in tempDeletedRestorePoints)
+                    {
+                        deletedRestorePoints.Remove(tempDeletedRestorePoint);
+                    }
+                }
             }
 
-            int index2 = 0;
-            foreach (RestorePoint restorePoint in backupJob.Points)
+            foreach (ILimit limit in limits)
             {
-                if (restorePoint.CreationTime < backupJob.LimitRestorePointCreationDate || index2 < backupJob.Points.Count - backupJob.LimitRestorePointNumber)
+                if (limit is HybridLimit)
                 {
-                    deletedRestorePoints.Add(restorePoint);
+                    throw new WrongLimitException("You can't use hybrid limit in hybrid.");
                 }
 
-                index2++;
+                List<RestorePoint> tempRestorePoints = limit.DeleteExcessRestorePoints(restorePointRemoval, backupJob);
+                foreach (RestorePoint tempRestorePoint in tempRestorePoints.Where(tempRestorePoint => !deletedRestorePoints.Contains(tempRestorePoint)))
+                {
+                    deletedRestorePoints.Add(tempRestorePoint);
+                }
             }
 
-            restorePointRemoval.Delete(deletedRestorePoints, backupJob);
+            return deletedRestorePoints;
         }
     }
 }

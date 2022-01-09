@@ -7,17 +7,17 @@ namespace BackupsExtra.Merging
 {
     public class VirtualMerging : IMerging
     {
-        public void Merge(RestorePoint oldRestorePoint, RestorePoint newRestorePoint, ImprovedBackupJob improvedBackupJob1, ImprovedBackupJob improvedBackupJob2)
+        public void Merge(RestorePoint oldRestorePoint, RestorePoint newRestorePoint, ImprovedBackupJob improvedBackupJobFirst, ImprovedBackupJob improvedBackupJobSecond)
         {
             if (oldRestorePoint.GetRepositories().Count == 1 || newRestorePoint.GetRepositories().Count == 1)
             {
-                if (improvedBackupJob1.Points.Contains(oldRestorePoint))
+                if (improvedBackupJobFirst.Points.Contains(oldRestorePoint))
                 {
-                    improvedBackupJob1.Points.Remove(oldRestorePoint);
+                    improvedBackupJobFirst.Points.Remove(oldRestorePoint);
                     return;
                 }
 
-                improvedBackupJob2.Points.Remove(oldRestorePoint);
+                improvedBackupJobSecond.Points.Remove(oldRestorePoint);
 
                 return;
             }
@@ -51,7 +51,7 @@ namespace BackupsExtra.Merging
                 newRestorePoint.AddRepository(repository);
             }
 
-            improvedBackupJob1.Points.Remove(oldRestorePoint);
+            improvedBackupJobFirst.Points.Remove(oldRestorePoint);
         }
     }
 }
