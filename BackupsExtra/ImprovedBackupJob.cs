@@ -59,7 +59,7 @@ namespace BackupsExtra
             var restorePoint = new RestorePoint(restorePointName, _restorePointId, Location);
             _storage.SavingStorage(restorePoint, backupSaver, savedFiles, system);
             Points.Add(restorePoint);
-            _restorePointRemoval.Delete(_limit.DeleteExcessRestorePoints(_restorePointRemoval, this, _limits), this);
+            _restorePointRemoval.Delete(_limit.DeleteExcessRestorePoints(_restorePointRemoval, this), this);
             _loggerService.LoggerOutput("Restore point has been created successfully.");
             return restorePoint;
         }

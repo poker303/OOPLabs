@@ -8,7 +8,7 @@ namespace BackupsExtra.ClearingPoints.ClearingPointsAlgorithms
 {
     public class DateLimit : ILimit
     {
-        public List<RestorePoint> DeleteExcessRestorePoints(IRestorePointRemoval restorePointRemoval, ImprovedBackupJob backupJob, List<ILimit> limits)
+        public List<RestorePoint> DeleteExcessRestorePoints(IRestorePointRemoval restorePointRemoval, ImprovedBackupJob backupJob)
         {
             var deletedRestorePoints = new List<RestorePoint>();
             foreach (RestorePoint restorePoint in backupJob.Points)

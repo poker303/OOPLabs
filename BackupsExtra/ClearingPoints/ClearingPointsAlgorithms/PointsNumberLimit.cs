@@ -6,7 +6,7 @@ namespace BackupsExtra.ClearingPoints.ClearingPointsAlgorithms
 {
     public class PointsNumberLimit : ILimit
     {
-        public List<RestorePoint> DeleteExcessRestorePoints(IRestorePointRemoval restorePointRemoval, ImprovedBackupJob backupJob, List<ILimit> limits)
+        public List<RestorePoint> DeleteExcessRestorePoints(IRestorePointRemoval restorePointRemoval, ImprovedBackupJob backupJob)
         {
             if (backupJob.Points.Count <= backupJob.LimitRestorePointNumber)
             {

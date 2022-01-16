@@ -6,6 +6,6 @@ namespace BackupsExtra.ClearingPoints.ClearingPointsAlgorithms
 {
     public interface ILimit
     {
-        List<RestorePoint> DeleteExcessRestorePoints(IRestorePointRemoval restorePointRemoval, ImprovedBackupJob backupJob, List<ILimit> limits = null);
+        List<RestorePoint> DeleteExcessRestorePoints(IRestorePointRemoval restorePointRemoval, ImprovedBackupJob backupJob);
     }
 }

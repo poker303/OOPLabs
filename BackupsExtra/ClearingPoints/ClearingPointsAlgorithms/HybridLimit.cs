@@ -9,13 +9,32 @@ namespace BackupsExtra.ClearingPoints.ClearingPointsAlgorithms
 {
     public class HybridLimit : ILimit
     {
-        public List<RestorePoint> DeleteExcessRestorePoints(IRestorePointRemoval restorePointRemoval, ImprovedBackupJob backupJob, List<ILimit> limits)
+        private List<ILimit> _limits;
+        public HybridLimit()
+        {
+            _limits = new List<ILimit>();
+        }
+
+        public void AddLimits(List<ILimit> limits)
+        {
+            _limits.AddRange(limits);
+        }
+
+        public void RemoveLimits(List<ILimit> limits)
+        {
+            foreach (ILimit limit in limits)
+            {
+                _limits.Remove(limit);
+            }
+        }
+
+        public List<RestorePoint> DeleteExcessRestorePoints(IRestorePointRemoval restorePointRemoval, ImprovedBackupJob backupJob)
         {
             var deletedRestorePoints = new List<RestorePoint>();
             if (backupJob.CheckingAllLimitsOn)
             {
-                deletedRestorePoints = limits[0].DeleteExcessRestorePoints(restorePointRemoval, backupJob);
-                foreach (ILimit limit in limits)
+                deletedRestorePoints = _limits[0].DeleteExcessRestorePoints(restorePointRemoval, backupJob);
+                foreach (ILimit limit in _limits)
                 {
                     List<RestorePoint> tempDeletedRestorePoints = deletedRestorePoints;
                     if (limit is HybridLimit)
@@ -36,7 +55,7 @@ namespace BackupsExtra.ClearingPoints.ClearingPointsAlgorithms
                 }
             }
 
-            foreach (ILimit limit in limits)
+            foreach (ILimit limit in _limits)
             {
                 if (limit is HybridLimit)
                 {
