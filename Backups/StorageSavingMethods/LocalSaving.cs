@@ -9,18 +9,24 @@ namespace Backups.Storages
     {
         public void Saver(List<Repository> repositories, RestorePoint restorePoint, IFileSystem fileSystem)
         {
-            string name = Path.Combine("Files_", restorePoint.Id.ToString());
+            int id = 1;
+            string name = $"Files_{id.ToString()}";
             string restorePointDirectory = restorePoint.Name + restorePoint.Id;
-            fileSystem.AddRestorePoint(Path.Combine(restorePoint.Path, restorePointDirectory));
-            string zipPath = Path.Combine(restorePoint.Path, restorePointDirectory, $"{name}.zip");
+            fileSystem.AddRestorePoint(Path.Combine(restorePoint.Location, restorePointDirectory));
             foreach (Repository repository in repositories)
             {
-                fileSystem.AddJobObjects(repository.GetFiles().ToList());
-                ZipFile.CreateFromDirectory(fileSystem.JobObjectsDirectory.FullName, zipPath);
+                var directory = new DirectoryInfo(Path.Combine(fileSystem.JobObjectsDirectory.FullName, "temp"));
                 foreach (FileInfo file in repository.GetFiles())
                 {
-                    fileSystem.DeleteJobObject(file);
+                    directory.Create();
+                    file.CopyTo(Path.Combine(directory.FullName, file.Name));
                 }
+
+                string zipPath = Path.Combine(restorePoint.Location, restorePointDirectory, $"Files_{id.ToString()}.zip");
+                ZipFile.CreateFromDirectory(directory.FullName, zipPath);
+                id++;
+                directory.Delete(true);
+                restorePoint.AddRepository(repository);
             }
         }
     }

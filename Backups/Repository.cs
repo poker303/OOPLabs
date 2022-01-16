@@ -27,5 +27,12 @@ namespace Backups
         {
             _files.Add(file);
         }
+
+        public DirectoryInfo CreateDirectory(string path)
+        {
+            var directory = new DirectoryInfo(path);
+            directory.Create();
+            return directory;
+        }
     }
 }

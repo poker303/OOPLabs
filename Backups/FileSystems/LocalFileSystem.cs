@@ -20,6 +20,8 @@ namespace Backups
                 throw new AddingDirectoryException("The directory already exists.");
             }
 
+            JobObjectsDirectory.Create();
+
             _jobObjects = new List<FileInfo>();
         }
 
@@ -48,14 +50,22 @@ namespace Backups
         {
             foreach (FileInfo file in files)
             {
-                file.CopyTo(JobObjectsDirectory.FullName);
+                file.CopyTo(Path.Combine(JobObjectsDirectory.FullName, file.Name));
                 _jobObjects.Add(file);
             }
         }
 
         public override void DeleteJobObject(FileInfo file)
         {
-            file.Delete();
+            foreach (FileInfo fill in JobObjectsDirectory.GetFiles())
+            {
+                if (fill.Name == file.Name)
+                {
+                    fill.Delete();
+                }
+            }
+
+            _jobObjects.Remove(file);
         }
 
         public override void AddRepository(Repository repository, RestorePoint restorePoint)

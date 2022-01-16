@@ -13,14 +13,14 @@ namespace Backups
             Id = id;
             Name = name;
             CreationTime = DateTime.Now;
-            Path = restorePointLocation;
+            Location = restorePointLocation;
             _repositories = new List<Repository>();
         }
 
-        public string Path { get; set; }
-        public string Name { get; set; }
-        public int Id { get; set; }
-        private DateTime CreationTime { get; set; }
+        public string Location { get; }
+        public string Name { get; }
+        public int Id { get; }
+        public DateTime CreationTime { get; set; }
 
         public ReadOnlyCollection<Repository> GetRepositories()
         {
@@ -30,6 +30,24 @@ namespace Backups
         public void AddRepository(Repository repository)
         {
             _repositories.Add(repository);
+        }
+
+        public void Delete(Repository repository)
+        {
+            _repositories.Remove(repository);
+        }
+
+        public void DeleteRepositories(List<Repository> repositories)
+        {
+            foreach (Repository repository in repositories)
+            {
+                _repositories.Remove(repository);
+            }
+        }
+
+        public void ChangeCreationTime(DateTime newDate)
+        {
+            CreationTime = newDate;
         }
     }
 }
